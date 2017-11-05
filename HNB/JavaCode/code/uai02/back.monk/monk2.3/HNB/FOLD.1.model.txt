@@ -1,0 +1,108 @@
+// HNB model in the BIF format
+// Produced by the HNB package
+
+network "HLCM1442354" {}
+
+variable "class" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+variable "v229" { 
+      type discrete[5] { "s0" "s1" "s2" "s3" "s4" }
+}
+
+variable "a1" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v270" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+variable "a2" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "a5" { 
+      type discrete[4] { "s0" "s1" "s2" "s3" }
+}
+
+variable "a4" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v281" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "a3" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+variable "a6" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+probability( "class" ) {
+      table  0.6636 0.3364;
+}
+
+probability( "v229" | "class" ) {
+        ("s0") 0.0000 0.7673 0.2308 0.0006 0.0013;
+        ("s1") 0.1576 0.0000 0.0000 0.5380 0.3043;
+}
+
+probability( "a1" | "v229" ) {
+        ("s0") 0.0000 0.5517 0.4483;
+        ("s1") 0.4572 0.2693 0.2735;
+        ("s2") 0.0019 0.5001 0.4980;
+        ("s3") 0.0000 0.4647 0.5353;
+        ("s4") 1.0000 0.0000 0.0000;
+}
+
+probability( "v270" | "v229" ) {
+        ("s0") 0.0000 1.0000;
+        ("s1") 1.0000 0.0000;
+        ("s2") 0.0034 0.9966;
+        ("s3") 1.0000 0.0000;
+        ("s4") 0.0000 1.0000;
+}
+
+probability( "a2" | "v270" ) {
+        ("s0") 0.4466 0.2870 0.2664;
+        ("s1") 0.0779 0.4824 0.4397;
+}
+
+probability( "a5" | "v270" ) {
+        ("s0") 0.3410 0.2158 0.2308 0.2124;
+        ("s1") 0.0538 0.3161 0.3418 0.2883;
+}
+
+probability( "a4" | "v270" ) {
+        ("s0") 0.4449 0.2526 0.3024;
+        ("s1") 0.0758 0.4527 0.4715;
+}
+
+probability( "v281" | "v229" ) {
+        ("s0") 0.0000 0.0000 1.0000;
+        ("s1") 0.3958 0.2200 0.3842;
+        ("s2") 0.7007 0.2993 0.0000;
+        ("s3") 0.5972 0.4028 0.0000;
+        ("s4") 0.7048 0.2952 0.0000;
+}
+
+probability( "a3" | "v281" ) {
+        ("s0") 0.5000 0.5000;
+        ("s1") 0.0000 1.0000;
+        ("s2") 1.0000 0.0000;
+}
+
+probability( "a6" | "v281" ) {
+        ("s0") 0.0000 1.0000;
+        ("s1") 0.9651 0.0349;
+        ("s2") 1.0000 0.0000;
+}
+
+//Loglikelihood:  0.0
+//Score        :  0.6481481481481481
+//LoglikelihoodOfPreviousModel:  -10720.23983638872

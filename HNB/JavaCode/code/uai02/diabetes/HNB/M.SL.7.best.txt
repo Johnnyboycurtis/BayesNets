@@ -1,0 +1,106 @@
+// HNB model in the BIF format
+// Produced by the HNB package
+
+network "HLCM1849080" {}
+
+variable "class" { 
+      type discrete[2] { "tested_negative" "tested_positive" }
+}
+
+variable "pedi" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+variable "v999" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+variable "plas" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+variable "age" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+variable "preg" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+variable "insu" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+variable "v961" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+variable "skin" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+variable "mass" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+variable "pres" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+probability( "class" ) {
+      table  0.6432 0.3568;
+}
+
+probability( "pedi" | "class" ) {
+        ("tested_negative") 0.9795 0.0205;
+        ("tested_positive") 0.9506 0.0494;
+}
+
+probability( "v999" | "class" ) {
+        ("tested_negative") 0.6336 0.3664;
+        ("tested_positive") 0.0039 0.9961;
+}
+
+probability( "plas" | "v999" ) {
+        ("s0") 0.5518 0.4482;
+        ("s1") 0.0530 0.9470;
+}
+
+probability( "age" | "v999" ) {
+        ("s0") 0.9854 0.0146;
+        ("s1") 0.8511 0.1489;
+}
+
+probability( "preg" | "v999" ) {
+        ("s0") 0.9632 0.0368;
+        ("s1") 0.8466 0.1534;
+}
+
+probability( "insu" | "v999" ) {
+        ("s0") 1.0000 0.0000;
+        ("s1") 0.9603 0.0397;
+}
+
+probability( "v961" | "v999" ) {
+        ("s0") 0.0914 0.9086;
+        ("s1") 0.4509 0.5491;
+}
+
+probability( "skin" | "v961" ) {
+        ("s0") 0.9517 0.0483;
+        ("s1") 1.0000 0.0000;
+}
+
+probability( "mass" | "v961" ) {
+        ("s0") 0.0148 0.9852;
+        ("s1") 0.8310 0.1690;
+}
+
+probability( "pres" | "v999" ) {
+        ("s0") 0.3069 0.6931;
+        ("s1") 0.1280 0.8720;
+}
+
+//Loglikelihood:  -2191.1759407404393
+//Score        :  -2259.6733449550093
+//LoglikelihoodOfPreviousModel:  -535.3885201436824

@@ -1,0 +1,97 @@
+// HNB model in the BIF format
+// Produced by the HNB package
+
+network "HLCM411416" {}
+
+variable "class" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+variable "a1" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "a3" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+variable "a6" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+variable "v198" { 
+      type discrete[5] { "s0" "s1" "s2" "s3" "s4" }
+}
+
+variable "a4" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v182" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+variable "a2" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "a5" { 
+      type discrete[4] { "s0" "s1" "s2" "s3" }
+}
+
+probability( "class" ) {
+      table  0.4778 0.5222;
+}
+
+probability( "a1" | "class" ) {
+        ("s0") 0.3552 0.3224 0.3224;
+        ("s1") 0.3400 0.3250 0.3350;
+}
+
+probability( "a3" | "class" ) {
+        ("s0") 0.5027 0.4973;
+        ("s1") 0.5050 0.4950;
+}
+
+probability( "a6" | "class" ) {
+        ("s0") 0.4754 0.5246;
+        ("s1") 0.5050 0.4950;
+}
+
+probability( "v198" | "class" ) {
+        ("s0") 0.5433 0.4567 0.0000 0.0000 0.0000;
+        ("s1") 0.0000 0.0000 0.5219 0.4154 0.0627;
+}
+
+probability( "a4" | "v198" ) {
+        ("s0") 0.2586 0.3618 0.3796;
+        ("s1") 0.3505 0.3233 0.3262;
+        ("s2") 0.1627 0.4712 0.3661;
+        ("s3") 0.4752 0.1904 0.3345;
+        ("s4") 1.0000 0.0000 0.0000;
+}
+
+probability( "v182" | "v198" ) {
+        ("s0") 1.0000 0.0000;
+        ("s1") 0.2820 0.7180;
+        ("s2") 0.0000 1.0000;
+        ("s3") 0.0000 1.0000;
+        ("s4") 0.7972 0.2028;
+}
+
+probability( "a2" | "v182" ) {
+        ("s0") 0.0000 0.0000 1.0000;
+        ("s1") 0.4920 0.5080 0.0000;
+}
+
+probability( "a5" | "v198" ) {
+        ("s0") 0.3419 0.3319 0.2213 0.1049;
+        ("s1") 0.0000 0.0000 0.0000 1.0000;
+        ("s2") 0.2933 0.2810 0.4257 0.0000;
+        ("s3") 0.4018 0.4655 0.1326 0.0000;
+        ("s4") 0.0000 0.0000 1.0000 0.0000;
+}
+
+//Loglikelihood:  0.0
+//Score        :  1.0
+//LoglikelihoodOfPreviousModel:  -18512.19111431816

@@ -1,0 +1,96 @@
+// HNB model in the BIF format
+// Produced by the HNB package
+
+network "HLCM86745" {}
+
+variable "v0" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v4" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v9" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v212" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v6" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v7" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v226" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v2" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v8" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+probability( "v0" ) {
+      table  0.3240 0.4044 0.2716;
+}
+
+probability( "v4" | "v0" ) {
+        ("s0") 0.3971 0.3676 0.2352;
+        ("s1") 0.4015 0.3408 0.2578;
+        ("s2") 0.4441 0.0995 0.4564;
+}
+
+probability( "v9" | "v0" ) {
+        ("s0") 0.3439 0.5075 0.1486;
+        ("s1") 0.4503 0.4285 0.1212;
+        ("s2") 0.4033 0.4644 0.1323;
+}
+
+probability( "v212" | "v0" ) {
+        ("s0") 0.3153 0.2434 0.4413;
+        ("s1") 0.3229 0.2401 0.4370;
+        ("s2") 0.4566 0.2365 0.3069;
+}
+
+probability( "v6" | "v212" ) {
+        ("s0") 0.0032 0.5720 0.4248;
+        ("s1") 0.5825 0.0624 0.3551;
+        ("s2") 0.2741 0.3424 0.3835;
+}
+
+probability( "v7" | "v212" ) {
+        ("s0") 0.1576 0.5843 0.2580;
+        ("s1") 0.5131 0.0220 0.4650;
+        ("s2") 0.0536 0.0697 0.8766;
+}
+
+probability( "v226" | "v0" ) {
+        ("s0") 0.9742 0.0013 0.0245;
+        ("s1") 0.1726 0.6327 0.1946;
+        ("s2") 0.0720 0.0768 0.8512;
+}
+
+probability( "v2" | "v226" ) {
+        ("s0") 0.5942 0.3654 0.0404;
+        ("s1") 0.3273 0.3696 0.3031;
+        ("s2") 0.0213 0.1678 0.8109;
+}
+
+probability( "v8" | "v226" ) {
+        ("s0") 0.3236 0.3107 0.3658;
+        ("s1") 0.1053 0.2357 0.6590;
+        ("s2") 0.2470 0.2876 0.4654;
+}
+
+//Loglikelihood:  -709500.3386946721
+//Score        :  -709788.1618312964
+//LoglikelihoodOfPreviousModel:  -212893.7973434664

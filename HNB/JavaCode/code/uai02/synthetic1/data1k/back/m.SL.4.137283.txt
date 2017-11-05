@@ -1,0 +1,101 @@
+// HNB model in the BIF format
+// Produced by the HNB package
+
+network "HLCM137283" {}
+
+variable "v0" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v2" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v29" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+variable "v8" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v9" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v34" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+variable "v12" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+variable "v6" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v7" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v4" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+probability( "v0" ) {
+      table  0.3160 0.4340 0.2500;
+}
+
+probability( "v2" | "v0" ) {
+        ("s0") 0.5601 0.3797 0.0601;
+        ("s1") 0.3249 0.2949 0.3802;
+        ("s2") 0.1040 0.1840 0.7120;
+}
+
+probability( "v29" | "v0" ) {
+        ("s0") 0.3847 0.6153;
+        ("s1") 0.1714 0.8286;
+        ("s2") 0.4168 0.5832;
+}
+
+probability( "v8" | "v29" ) {
+        ("s0") 0.4695 0.4572 0.0733;
+        ("s1") 0.1158 0.2340 0.6502;
+}
+
+probability( "v9" | "v29" ) {
+        ("s0") 0.1617 0.6326 0.2057;
+        ("s1") 0.4979 0.3931 0.1090;
+}
+
+probability( "v34" | "v0" ) {
+        ("s0") 0.3545 0.6455;
+        ("s1") 0.5393 0.4607;
+        ("s2") 0.2673 0.7327;
+}
+
+probability( "v12" | "v34" ) {
+        ("s0") 0.1406 0.8594;
+        ("s1") 0.5881 0.4119;
+}
+
+probability( "v6" | "v12" ) {
+        ("s0") 0.0042 0.5380 0.4579;
+        ("s1") 0.4145 0.2196 0.3659;
+}
+
+probability( "v7" | "v12" ) {
+        ("s0") 0.0501 0.5788 0.3711;
+        ("s1") 0.2997 0.0244 0.6759;
+}
+
+probability( "v4" | "v0" ) {
+        ("s0") 0.4209 0.3354 0.2437;
+        ("s1") 0.3825 0.3618 0.2558;
+        ("s2") 0.4240 0.1160 0.4600;
+}
+
+//Loglikelihood:  -7096.28472318629
+//Score        :  -7227.53207348695
+//LoglikelihoodOfPreviousModel:  -2016.631918880885

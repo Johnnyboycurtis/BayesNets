@@ -1,0 +1,101 @@
+// HNB model in the BIF format
+// Produced by the HNB package
+
+network "HLCM111678" {}
+
+variable "v0" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v4" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v2" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v12" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+variable "v39" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+variable "v6" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v7" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v29" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+variable "v8" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v9" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+probability( "v0" ) {
+      table  0.3160 0.4340 0.2500;
+}
+
+probability( "v4" | "v0" ) {
+        ("s0") 0.4209 0.3354 0.2437;
+        ("s1") 0.3825 0.3618 0.2558;
+        ("s2") 0.4240 0.1160 0.4600;
+}
+
+probability( "v2" | "v0" ) {
+        ("s0") 0.5601 0.3797 0.0601;
+        ("s1") 0.3249 0.2949 0.3802;
+        ("s2") 0.1040 0.1840 0.7120;
+}
+
+probability( "v12" | "v0" ) {
+        ("s0") 0.5115 0.4885;
+        ("s1") 0.0926 0.9074;
+        ("s2") 0.6890 0.3110;
+}
+
+probability( "v39" | "v12" ) {
+        ("s0") 0.4835 0.5165;
+        ("s1") 0.6707 0.3293;
+}
+
+probability( "v6" | "v39" ) {
+        ("s0") 0.4066 0.2257 0.3678;
+        ("s1") 0.0120 0.5320 0.4560;
+}
+
+probability( "v7" | "v39" ) {
+        ("s0") 0.3046 0.0168 0.6786;
+        ("s1") 0.0402 0.5958 0.3640;
+}
+
+probability( "v29" | "v0" ) {
+        ("s0") 0.3925 0.6075;
+        ("s1") 0.1780 0.8220;
+        ("s2") 0.4254 0.5746;
+}
+
+probability( "v8" | "v29" ) {
+        ("s0") 0.4656 0.4554 0.0790;
+        ("s1") 0.1138 0.2324 0.6538;
+}
+
+probability( "v9" | "v29" ) {
+        ("s0") 0.1659 0.6293 0.2048;
+        ("s1") 0.4997 0.3920 0.1083;
+}
+
+//Loglikelihood:  -7096.479279865141
+//Score        :  -7227.726630165801
+//LoglikelihoodOfPreviousModel:  -2125.719549010231

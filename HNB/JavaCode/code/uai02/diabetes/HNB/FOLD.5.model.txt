@@ -1,0 +1,106 @@
+// HNB model in the BIF format
+// Produced by the HNB package
+
+network "HLCM1943087" {}
+
+variable "class" { 
+      type discrete[2] { "tested_negative" "tested_positive" }
+}
+
+variable "pedi" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+variable "v999" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+variable "plas" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+variable "age" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+variable "preg" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+variable "insu" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+variable "v961" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+variable "skin" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+variable "mass" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+variable "pres" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+probability( "class" ) {
+      table  0.6432 0.3568;
+}
+
+probability( "pedi" | "class" ) {
+        ("tested_negative") 0.9795 0.0205;
+        ("tested_positive") 0.9506 0.0494;
+}
+
+probability( "v999" | "class" ) {
+        ("tested_negative") 0.6273 0.3727;
+        ("tested_positive") 0.0010 0.9990;
+}
+
+probability( "plas" | "v999" ) {
+        ("s0") 0.5557 0.4443;
+        ("s1") 0.0546 0.9454;
+}
+
+probability( "age" | "v999" ) {
+        ("s0") 0.9872 0.0128;
+        ("s1") 0.8510 0.1490;
+}
+
+probability( "preg" | "v999" ) {
+        ("s0") 0.9636 0.0364;
+        ("s1") 0.8473 0.1527;
+}
+
+probability( "insu" | "v999" ) {
+        ("s0") 1.0000 0.0000;
+        ("s1") 0.9606 0.0394;
+}
+
+probability( "v961" | "v999" ) {
+        ("s0") 0.1167 0.8833;
+        ("s1") 0.4586 0.5414;
+}
+
+probability( "skin" | "v961" ) {
+        ("s0") 0.9542 0.0458;
+        ("s1") 1.0000 0.0000;
+}
+
+probability( "mass" | "v961" ) {
+        ("s0") 0.0000 1.0000;
+        ("s1") 0.8579 0.1421;
+}
+
+probability( "pres" | "v999" ) {
+        ("s0") 0.3076 0.6924;
+        ("s1") 0.1291 0.8709;
+}
+
+//Loglikelihood:  0.0
+//Score        :  0.7241379310344828
+//LoglikelihoodOfPreviousModel:  -535.3885201436824

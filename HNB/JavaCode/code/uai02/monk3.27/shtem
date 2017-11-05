@@ -1,0 +1,15 @@
+java IncreaseRecordWeights monk3.data.0 3 monk3.data.0
+java IncreaseRecordWeights monk3.data.1 3 monk3.data.1  
+java IncreaseRecordWeights monk3.data.2 3 monk3.data.2
+java IncreaseRecordWeights monk3.data.3 3 monk3.data.3
+java IncreaseRecordWeights monk3.data.4 3 monk3.data.4
+java IncreaseRecordWeights monk3.data.5 3 monk3.data.5 
+java IncreaseRecordWeights monk3.data.6 3 monk3.data.6 
+java IncreaseRecordWeights monk3.data.7 3 monk3.data.7
+java IncreaseRecordWeights monk3.data.8 3 monk3.data.8
+java IncreaseRecordWeights monk3.data.9 3 monk3.data.9
+
+java IncreaseRecordWeights monk3.data 3 monk3.data
+rm NaiveBayes/*
+java Main evaluateCV NaiveBayes monk3.data . > NaiveBayes/progressInfo
+

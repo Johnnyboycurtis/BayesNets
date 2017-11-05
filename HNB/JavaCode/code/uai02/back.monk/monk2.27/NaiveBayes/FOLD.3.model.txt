@@ -1,0 +1,70 @@
+// HNB model in the BIF format
+// Produced by the HNB package
+
+network "HLCM160" {}
+
+variable "class" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+variable "a1" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "a2" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "a3" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+variable "a4" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "a5" { 
+      type discrete[4] { "s0" "s1" "s2" "s3" }
+}
+
+variable "a6" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+probability( "class" ) {
+      table  0.6581 0.3419;
+}
+
+probability( "a1" | "class" ) {
+        ("s0") 0.3611 0.3306 0.3083;
+        ("s1") 0.2834 0.3422 0.3743;
+}
+
+probability( "a2" | "class" ) {
+        ("s0") 0.3472 0.3389 0.3139;
+        ("s1") 0.2888 0.3636 0.3476;
+}
+
+probability( "a3" | "class" ) {
+        ("s0") 0.5028 0.4972;
+        ("s1") 0.4866 0.5134;
+}
+
+probability( "a4" | "class" ) {
+        ("s0") 0.3472 0.3250 0.3278;
+        ("s1") 0.2834 0.3262 0.3904;
+}
+
+probability( "a5" | "class" ) {
+        ("s0") 0.2722 0.2278 0.2556 0.2444;
+        ("s1") 0.2193 0.2781 0.2834 0.2193;
+}
+
+probability( "a6" | "class" ) {
+        ("s0") 0.5111 0.4889;
+        ("s1") 0.4385 0.5615;
+}
+
+//Loglikelihood:  -98874.82723032907
+//Score        :  0.6481481481481481
+//LoglikelihoodOfPreviousModel:  -25657.878941358846

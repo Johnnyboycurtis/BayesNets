@@ -1,0 +1,106 @@
+// HNB model in the BIF format
+// Produced by the HNB package
+
+network "HLCM742395" {}
+
+variable "class" { 
+      type discrete[2] { "tested_negative" "tested_positive" }
+}
+
+variable "pedi" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+variable "v337" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+variable "plas" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+variable "age" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+variable "preg" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+variable "v279" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+variable "pres" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+variable "mass" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+variable "insu" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+variable "skin" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+probability( "class" ) {
+      table  0.6633 0.3367;
+}
+
+probability( "pedi" | "class" ) {
+        ("tested_negative") 0.9759 0.0241;
+        ("tested_positive") 0.9483 0.0517;
+}
+
+probability( "v337" | "class" ) {
+        ("tested_negative") 0.3913 0.6087;
+        ("tested_positive") 1.0000 0.0000;
+}
+
+probability( "plas" | "v337" ) {
+        ("s0") 0.0656 0.9344;
+        ("s1") 0.5466 0.4534;
+}
+
+probability( "age" | "v337" ) {
+        ("s0") 0.8644 0.1356;
+        ("s1") 0.9845 0.0155;
+}
+
+probability( "preg" | "v337" ) {
+        ("s0") 0.8476 0.1524;
+        ("s1") 0.9699 0.0301;
+}
+
+probability( "v279" | "v337" ) {
+        ("s0") 0.2382 0.7618;
+        ("s1") 0.8186 0.1814;
+}
+
+probability( "pres" | "v279" ) {
+        ("s0") 0.3652 0.6348;
+        ("s1") 0.0745 0.9255;
+}
+
+probability( "mass" | "v279" ) {
+        ("s0") 0.8493 0.1507;
+        ("s1") 0.3673 0.6327;
+}
+
+probability( "insu" | "v279" ) {
+        ("s0") 1.0000 0.0000;
+        ("s1") 0.9642 0.0358;
+}
+
+probability( "skin" | "v279" ) {
+        ("s0") 1.0000 0.0000;
+        ("s1") 0.9697 0.0303;
+}
+
+//Loglikelihood:  0.0
+//Score        :  0.7088607594936709
+//LoglikelihoodOfPreviousModel:  -539.2451951317045

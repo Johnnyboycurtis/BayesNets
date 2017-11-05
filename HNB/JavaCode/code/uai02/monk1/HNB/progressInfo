@@ -1,0 +1,53 @@
+Evaluating HNB
+Settings of structure Learner:
+   Structure learning method:IncrementalModelLearning
+  Of structure learner** Settings of cardinality Learner:
+  Of cardinality Learner:Settings of parameter Learner:
+   Method for escaping local maxima: ChickeringHeckerman
+   Number of starting points for hilling climbing: 32
+   Stopping threshold: 0.01
+   Max EM Steps: 200
+  Of Cardinality Learner: Settings of ScoreCalculator:
+   Scoring Metric: BIC
+  Of structure learner**Settings of ScoreCalculator:
+   Scoring Metric: BIC
+SL: Done constructing Naive Bayes model. Score: -2573.298068184261
+SL: starting hill climb
+   SL: Score of model 423 = -2525.8328590136007
+   SL: Score of model 4004 = -2579.227085098302
+   SL: Score of model 6139 = -2579.136632640738
+   SL: Score of model 8274 = -2579.1932069757286
+   SL: Score of model 10409 = -2579.2672145873803
+   SL: Score of model 12544 = -2579.2578985175783
+   SL: Score of model 14679 = -2579.0250929668036
+   SL: Score of model 16814 = -2579.169175528088
+   SL: Score of model 18949 = -2579.1770550515457
+   SL: Score of model 21084 = -2579.1921056916667
+   SL: Score of model 23219 = -2579.2452946703174
+   SL: Score of model 25354 = -2579.226339942572
+   SL: Score of model 27489 = -2579.175472489931
+   SL: Score of model 29624 = -2579.1044536842373
+   SL: Score of model 31759 = -2579.2537152972377
+SL: Step 1 done.  bestScore: -2525.8328590136007 bestModel: 423
+   SL: Score of model 33911 = -2537.133075966939
+   SL: Score of model 36777 = -2547.1514812899854
+   SL: Score of model 39669 = -2530.4149224985836
+   SL: Score of model 43223 = -2536.8384560114473
+   SL: Score of model 46079 = -2579.2461031734438
+   SL: Score of model 48570 = -2579.2461031734415
+   SL: Score of model 51059 = -2531.724441342161
+   SL: Score of model 54681 = -2531.7784586086073
+   SL: Score of model 58283 = -2531.781698958903
+   SL: Score of model 61863 = -2531.778560224857
+   SL: Score of model 67357 = -2531.7028671898247
+   SL: Score of model 70941 = -2531.637298775978
+   SL: Score of model 74497 = -2548.5301305118664
+   SL: Score of model 78495 = -2531.784215625197
+   SL: Score of model 82077 = -2503.876033365251
+   SL: Score of model 88153 = -2531.7804304956035
+   SL: Score of model 93388 = -2531.7798625860855
+   SL: Score of model 99175 = -2573.298068184261
+SL: Step 2 done.  bestScore: -2503.876033365251 bestModel: 82077
+   SL: Score of model 101325 = -2574.6908779100527
+   SL: Score of model 103237 = -2548.4655254869253
+   SL: Score of model 107519 = -2506.8349396407198

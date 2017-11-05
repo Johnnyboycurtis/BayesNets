@@ -1,0 +1,539 @@
+Evaluating HNB
+Settings of structure Learner:
+   Structure learning method:IncrementalModelLearning
+  Of structure learner** Settings of cardinality Learner:
+  Of cardinality Learner:Settings of parameter Learner:
+   Method for escaping local maxima: ChickeringHeckerman
+   Number of starting points for hilling climbing: 32
+   Stopping threshold: 0.01
+   Max EM Steps: 200
+  Of Cardinality Learner: Settings of ScoreCalculator:
+   Scoring Metric: BIC
+  Of structure learner**Settings of ScoreCalculator:
+   Scoring Metric: BIC
+SL: Done constructing Naive Bayes model. Score: -3227.9403836747374
+SL: starting hill climb
+   SL: Score of model 423 = -3234.2365858494136
+   SL: Score of model 2558 = -3234.080340820042
+   SL: Score of model 4693 = -3234.14986842103
+   SL: Score of model 6828 = -3234.245940179721
+   SL: Score of model 8963 = -3234.139116587402
+   SL: Score of model 11098 = -3234.127512025467
+   SL: Score of model 13233 = -3233.6425454713976
+   SL: Score of model 15388 = -3191.869470535301
+   SL: Score of model 17882 = -3233.924306011184
+   SL: Score of model 20017 = -3234.1538658232666
+   SL: Score of model 22152 = -3234.1337236817926
+   SL: Score of model 24287 = -3233.9300503802338
+   SL: Score of model 26422 = -3234.3878744679077
+   SL: Score of model 28575 = -3234.1246435181574
+   SL: Score of model 30710 = -3234.171700260627
+SL: Step 1 done.  bestScore: -3191.869470535301 bestModel: 15388
+   SL: Score of model 32900 = -3198.3769369473166
+   SL: Score of model 35034 = -3194.470678225072
+   SL: Score of model 37168 = -3195.3325259089543
+   SL: Score of model 39717 = -3194.7910548253794
+   SL: Score of model 41853 = -3234.152989770488
+   SL: Score of model 44344 = -3234.1529897704886
+   SL: Score of model 46833 = -3198.349043498257
+   SL: Score of model 49362 = -3198.0991449485955
+   SL: Score of model 51851 = -3198.393241631498
+   SL: Score of model 54370 = -3198.8098371359374
+   SL: Score of model 57356 = -3198.2425880201167
+   SL: Score of model 59845 = -3197.886491268668
+   SL: Score of model 62334 = -3198.2676152425925
+   SL: Score of model 65178 = -3198.12799593533
+   SL: Score of model 67685 = -3198.3014189722126
+   SL: Score of model 70601 = -3198.422431109891
+   SL: Score of model 73506 = -3198.0682557240993
+   SL: Score of model 76753 = -3227.9403836747374
+SL: Step 2 done.  bestScore: -3194.470678225072 bestModel: 35034
+SL: hill climb done. BestScore = -3191.869470535301
+Structure learning completed
+New refine parameters
+Settings of structure Learner:
+   Structure learning method:IncrementalModelLearning
+  Of structure learner** Settings of cardinality Learner:
+  Of cardinality Learner:Settings of parameter Learner:
+   Method for escaping local maxima: ChickeringHeckerman
+   Number of starting points for hilling climbing: 32
+   Stopping threshold: 0.01
+   Max EM Steps: 200
+  Of Cardinality Learner: Settings of ScoreCalculator:
+   Scoring Metric: BIC
+  Of structure learner**Settings of ScoreCalculator:
+   Scoring Metric: BIC
+SL: Done constructing Naive Bayes model. Score: -3180.2625257064155
+SL: starting hill climb
+   SL: Score of model 81059 = -3186.2192598305
+   SL: Score of model 83216 = -3186.459358566009
+   SL: Score of model 85351 = -3185.687928089362
+   SL: Score of model 87502 = -3186.4183193054923
+   SL: Score of model 89671 = -3186.341292223438
+   SL: Score of model 91806 = -3186.3750990120043
+   SL: Score of model 93941 = -3186.42630377174
+   SL: Score of model 96078 = -3148.7068215797567
+   SL: Score of model 98578 = -3186.4619756379993
+   SL: Score of model 100713 = -3186.450525814087
+   SL: Score of model 102848 = -3186.413124478543
+   SL: Score of model 105011 = -3186.4638081308367
+   SL: Score of model 107146 = -3187.000085819382
+   SL: Score of model 109311 = -3186.448515631706
+   SL: Score of model 111446 = -3186.451428456123
+SL: Step 1 done.  bestScore: -3148.7068215797567 bestModel: 96078
+   SL: Score of model 113598 = -3154.588358482102
+   SL: Score of model 115740 = -3151.959017376454
+   SL: Score of model 117902 = -3154.9858430910517
+   SL: Score of model 120036 = -3151.7311118152925
+   SL: Score of model 122204 = -3186.463034880457
+   SL: Score of model 124695 = -3186.4630348804603
+   SL: Score of model 127184 = -3154.878526947536
+   SL: Score of model 129705 = -3154.5491596090123
+   SL: Score of model 132194 = -3154.674685861878
+   SL: Score of model 134683 = -3154.961409278128
+   SL: Score of model 137527 = -3155.044472890606
+   SL: Score of model 140016 = -3155.178457350056
+   SL: Score of model 142553 = -3154.8066226342094
+   SL: Score of model 145413 = -3154.7786649910277
+   SL: Score of model 147902 = -3154.8520953713746
+   SL: Score of model 150784 = -3154.996865344749
+   SL: Score of model 153725 = -3154.9769164207955
+   SL: Score of model 156926 = -3180.2625257064155
+SL: Step 2 done.  bestScore: -3151.7311118152925 bestModel: 120036
+SL: hill climb done. BestScore = -3148.7068215797567
+Structure learning completed
+New refine parameters
+Settings of structure Learner:
+   Structure learning method:IncrementalModelLearning
+  Of structure learner** Settings of cardinality Learner:
+  Of cardinality Learner:Settings of parameter Learner:
+   Method for escaping local maxima: ChickeringHeckerman
+   Number of starting points for hilling climbing: 32
+   Stopping threshold: 0.01
+   Max EM Steps: 200
+  Of Cardinality Learner: Settings of ScoreCalculator:
+   Scoring Metric: BIC
+  Of structure learner**Settings of ScoreCalculator:
+   Scoring Metric: BIC
+SL: Done constructing Naive Bayes model. Score: -3226.1894959804235
+SL: starting hill climb
+   SL: Score of model 161236 = -3231.9662699802866
+   SL: Score of model 163371 = -3232.3637390093436
+   SL: Score of model 165506 = -3232.3891678122795
+   SL: Score of model 167641 = -3232.3868858248316
+   SL: Score of model 169776 = -3232.4421026425007
+   SL: Score of model 171911 = -3232.329061979252
+   SL: Score of model 174046 = -3232.0848803472345
+   SL: Score of model 176211 = -3185.5416265219915
+   SL: Score of model 178701 = -3232.2427337554745
+   SL: Score of model 180836 = -3232.385773410144
+   SL: Score of model 182971 = -3232.3964128182247
+   SL: Score of model 185106 = -3231.8260879073337
+   SL: Score of model 187241 = -3232.765527289858
+   SL: Score of model 189376 = -3232.4275901825936
+   SL: Score of model 191511 = -3232.404607630828
+SL: Step 1 done.  bestScore: -3185.5416265219915 bestModel: 176211
+   SL: Score of model 193663 = -3191.625644415575
+   SL: Score of model 195797 = -3188.5114187127415
+   SL: Score of model 197931 = -3191.8519336350296
+   SL: Score of model 200065 = -3188.867865108551
+   SL: Score of model 202201 = -3232.4041040788443
+   SL: Score of model 204692 = -3232.4041040788456
+   SL: Score of model 207181 = -3192.626176359883
+   SL: Score of model 209690 = -3191.6846487218713
+   SL: Score of model 212179 = -3192.0405608453766
+   SL: Score of model 214670 = -3191.9509603108645
+   SL: Score of model 217548 = -3191.908850208754
+   SL: Score of model 220037 = -3191.9829624668346
+   SL: Score of model 222526 = -3191.841366769854
+   SL: Score of model 225400 = -3191.7727771795458
+   SL: Score of model 227889 = -3191.700938121436
+   SL: Score of model 230785 = -3191.7708117218926
+   SL: Score of model 233660 = -3191.7752935315157
+   SL: Score of model 236861 = -3226.1894959804235
+SL: Step 2 done.  bestScore: -3188.5114187127415 bestModel: 195797
+SL: hill climb done. BestScore = -3185.5416265219915
+Structure learning completed
+New refine parameters
+Settings of structure Learner:
+   Structure learning method:IncrementalModelLearning
+  Of structure learner** Settings of cardinality Learner:
+  Of cardinality Learner:Settings of parameter Learner:
+   Method for escaping local maxima: ChickeringHeckerman
+   Number of starting points for hilling climbing: 32
+   Stopping threshold: 0.01
+   Max EM Steps: 200
+  Of Cardinality Learner: Settings of ScoreCalculator:
+   Scoring Metric: BIC
+  Of structure learner**Settings of ScoreCalculator:
+   Scoring Metric: BIC
+SL: Done constructing Naive Bayes model. Score: -3275.5859418776176
+SL: starting hill climb
+   SL: Score of model 241171 = -3281.7855994840666
+   SL: Score of model 243306 = -3281.8020523907317
+   SL: Score of model 245441 = -3281.7938511352154
+   SL: Score of model 247576 = -3281.7117456875553
+   SL: Score of model 249711 = -3281.7057892328453
+   SL: Score of model 251846 = -3281.6040677309943
+   SL: Score of model 253981 = -3281.4376522102025
+   SL: Score of model 256170 = -3238.1498329264796
+   SL: Score of model 258774 = -3281.8147752291297
+   SL: Score of model 260909 = -3281.8062906887644
+   SL: Score of model 263044 = -3281.7875440326675
+   SL: Score of model 265179 = -3281.7153838927215
+   SL: Score of model 267314 = -3282.4139096864287
+   SL: Score of model 269453 = -3281.81718016411
+   SL: Score of model 271588 = -3281.772244108292
+SL: Step 1 done.  bestScore: -3238.1498329264796 bestModel: 256170
+   SL: Score of model 273740 = -3243.991710858094
+   SL: Score of model 275878 = -3240.7706649886222
+   SL: Score of model 278028 = -3237.9784286555973
+   SL: Score of model 280521 = -3241.0888620805094
+   SL: Score of model 282657 = -3281.812478546908
+   SL: Score of model 285148 = -3281.812478546905
+   SL: Score of model 287637 = -3244.343273934878
+   SL: Score of model 290126 = -3243.8706671377763
+   SL: Score of model 292615 = -3244.241069497042
+   SL: Score of model 295104 = -3244.3032718900854
+   SL: Score of model 297996 = -3244.31958694311
+   SL: Score of model 300485 = -3244.283697214508
+   SL: Score of model 303002 = -3244.253484782143
+   SL: Score of model 305870 = -3244.391511956033
+   SL: Score of model 308359 = -3244.5463850921606
+   SL: Score of model 311215 = -3244.359803217212
+   SL: Score of model 314104 = -3244.3538743566814
+   SL: Score of model 317309 = -3275.5859418776176
+SL: Step 2 done.  bestScore: -3237.9784286555973 bestModel: 278028
+   SL: Score of model 319457 = -3249.8186137430034
+   SL: Score of model 321243 = -3243.6551825153183
+   SL: Score of model 323426 = -3244.169272776654
+   SL: Score of model 325577 = -3282.1492992778085
+   SL: Score of model 327714 = -3281.29400590861
+   SL: Score of model 329851 = -3238.051508194513
+   SL: Score of model 332339 = -3244.2646968768654
+   SL: Score of model 334845 = -3244.166600455891
+   SL: Score of model 337341 = -3244.2151810878568
+   SL: Score of model 340581 = -3244.1818321278747
+   SL: Score of model 343085 = -3244.718018563442
+   SL: Score of model 346471 = -3244.2625322827844
+   SL: Score of model 349752 = -3244.232519180839
+   SL: Score of model 352630 = -3241.4553150754405
+   SL: Score of model 355516 = -3239.510891850496
+SL: Step 3 done.  bestScore: -3238.051508194513 bestModel: 329851
+SL: hill climb done. BestScore = -3237.9784286555973
+Structure learning completed
+New refine parameters
+Settings of structure Learner:
+   Structure learning method:IncrementalModelLearning
+  Of structure learner** Settings of cardinality Learner:
+  Of cardinality Learner:Settings of parameter Learner:
+   Method for escaping local maxima: ChickeringHeckerman
+   Number of starting points for hilling climbing: 32
+   Stopping threshold: 0.01
+   Max EM Steps: 200
+  Of Cardinality Learner: Settings of ScoreCalculator:
+   Scoring Metric: BIC
+  Of structure learner**Settings of ScoreCalculator:
+   Scoring Metric: BIC
+SL: Done constructing Naive Bayes model. Score: -3237.5485909229633
+SL: starting hill climb
+   SL: Score of model 360435 = -3243.813922074076
+   SL: Score of model 362570 = -3243.7641332255407
+   SL: Score of model 364705 = -3243.753578451515
+   SL: Score of model 366840 = -3243.7530004930095
+   SL: Score of model 368975 = -3243.762214963446
+   SL: Score of model 371110 = -3243.4947789057255
+   SL: Score of model 373245 = -3242.952940655738
+   SL: Score of model 375392 = -3199.638461165334
+   SL: Score of model 377882 = -3243.719218754781
+   SL: Score of model 380017 = -3243.524203482617
+   SL: Score of model 382152 = -3243.656907321189
+   SL: Score of model 384287 = -3243.5984723443758
+   SL: Score of model 386422 = -3244.07727217869
+   SL: Score of model 388565 = -3243.7913518599025
+   SL: Score of model 390700 = -3243.752742851984
+SL: Step 1 done.  bestScore: -3199.638461165334 bestModel: 375392
+   SL: Score of model 392852 = -3205.6305147808052
+   SL: Score of model 394986 = -3202.3806977212516
+   SL: Score of model 397120 = -3201.8349008731857
+   SL: Score of model 399637 = -3202.7508854671996
+   SL: Score of model 401773 = -3243.7631990213836
+   SL: Score of model 404264 = -3243.7631990213854
+   SL: Score of model 406753 = -3205.902658474449
+   SL: Score of model 409242 = -3205.858662192878
+   SL: Score of model 411731 = -3206.132219500348
+   SL: Score of model 414220 = -3206.12185758922
+   SL: Score of model 417106 = -3205.7721216616505
+   SL: Score of model 419595 = -3205.6443622070137
+   SL: Score of model 422084 = -3206.057772600179
+   SL: Score of model 425032 = -3205.7961694457854
+   SL: Score of model 427521 = -3205.782370995225
+   SL: Score of model 430427 = -3206.0177009182994
+   SL: Score of model 433272 = -3247.6517053981747
+   SL: Score of model 435763 = -3237.5485909229633
+SL: Step 2 done.  bestScore: -3201.8349008731857 bestModel: 397120
+SL: hill climb done. BestScore = -3199.638461165334
+Structure learning completed
+New refine parameters
+Settings of structure Learner:
+   Structure learning method:IncrementalModelLearning
+  Of structure learner** Settings of cardinality Learner:
+  Of cardinality Learner:Settings of parameter Learner:
+   Method for escaping local maxima: ChickeringHeckerman
+   Number of starting points for hilling climbing: 32
+   Stopping threshold: 0.01
+   Max EM Steps: 200
+  Of Cardinality Learner: Settings of ScoreCalculator:
+   Scoring Metric: BIC
+  Of structure learner**Settings of ScoreCalculator:
+   Scoring Metric: BIC
+SL: Done constructing Naive Bayes model. Score: -3260.998007736666
+SL: starting hill climb
+   SL: Score of model 440073 = -3267.1417039242583
+   SL: Score of model 442208 = -3267.2273106674324
+   SL: Score of model 444343 = -3267.223472289191
+   SL: Score of model 446478 = -3267.392955915279
+   SL: Score of model 448613 = -3267.227896419874
+   SL: Score of model 450748 = -3266.8181910907315
+   SL: Score of model 452883 = -3266.9626266179375
+   SL: Score of model 455018 = -3223.6071113501544
+   SL: Score of model 457508 = -3267.219050276483
+   SL: Score of model 459643 = -3267.2001200179857
+   SL: Score of model 461778 = -3267.2187842125595
+   SL: Score of model 463913 = -3266.9612175518587
+   SL: Score of model 466048 = -3267.697526686493
+   SL: Score of model 468291 = -3267.2396211448054
+   SL: Score of model 470426 = -3267.2163457453776
+SL: Step 1 done.  bestScore: -3223.6071113501544 bestModel: 455018
+   SL: Score of model 472578 = -3229.5834340076476
+   SL: Score of model 474712 = -3226.4029767940583
+   SL: Score of model 476854 = -3231.396069501314
+   SL: Score of model 479491 = -3227.433531828168
+   SL: Score of model 481627 = -3267.2225661659368
+   SL: Score of model 484118 = -3267.22256616594
+   SL: Score of model 486607 = -3229.936248665414
+   SL: Score of model 489096 = -3229.937560320213
+   SL: Score of model 491585 = -3229.8904977472703
+   SL: Score of model 494074 = -3229.933952778624
+   SL: Score of model 496980 = -3229.8122915291196
+   SL: Score of model 499469 = -3229.562957332114
+   SL: Score of model 501962 = -3230.0149452725004
+   SL: Score of model 504810 = -3230.0021192682384
+   SL: Score of model 507301 = -3229.873557742529
+   SL: Score of model 510213 = -3229.857067145464
+   SL: Score of model 513088 = -3229.9989534507245
+   SL: Score of model 516305 = -3260.998007736666
+SL: Step 2 done.  bestScore: -3226.4029767940583 bestModel: 474712
+SL: hill climb done. BestScore = -3223.6071113501544
+Structure learning completed
+New refine parameters
+Settings of structure Learner:
+   Structure learning method:IncrementalModelLearning
+  Of structure learner** Settings of cardinality Learner:
+  Of cardinality Learner:Settings of parameter Learner:
+   Method for escaping local maxima: ChickeringHeckerman
+   Number of starting points for hilling climbing: 32
+   Stopping threshold: 0.01
+   Max EM Steps: 200
+  Of Cardinality Learner: Settings of ScoreCalculator:
+   Scoring Metric: BIC
+  Of structure learner**Settings of ScoreCalculator:
+   Scoring Metric: BIC
+SL: Done constructing Naive Bayes model. Score: -3147.2657594652437
+SL: starting hill climb
+   SL: Score of model 520537 = -3153.203651216712
+   SL: Score of model 522680 = -3152.6300388939553
+   SL: Score of model 524815 = -3153.4615080104813
+   SL: Score of model 526950 = -3153.3265989796423
+   SL: Score of model 529085 = -3152.719640388159
+   SL: Score of model 531220 = -3153.2439909302816
+   SL: Score of model 533355 = -3153.3155031679116
+   SL: Score of model 535500 = -3111.068104466235
+   SL: Score of model 537990 = -3153.460897879749
+   SL: Score of model 540125 = -3153.2841215551916
+   SL: Score of model 542260 = -3153.428193809192
+   SL: Score of model 544395 = -3152.9570108976486
+   SL: Score of model 546530 = -3153.70681259437
+   SL: Score of model 548693 = -3153.4635249949642
+   SL: Score of model 550828 = -3153.430963876104
+SL: Step 1 done.  bestScore: -3111.068104466235 bestModel: 535500
+   SL: Score of model 552980 = -3116.752403280033
+   SL: Score of model 555114 = -3114.202961701537
+   SL: Score of model 557314 = -3117.4635320898888
+   SL: Score of model 559458 = -3114.282313094264
+   SL: Score of model 561594 = -3153.456074871094
+   SL: Score of model 564085 = -3153.456074871097
+   SL: Score of model 566574 = -3116.4066580047875
+   SL: Score of model 569063 = -3116.827460555967
+   SL: Score of model 571552 = -3116.4858955657674
+   SL: Score of model 574041 = -3117.3117210987275
+   SL: Score of model 576917 = -3117.4026103645606
+   SL: Score of model 579406 = -3116.78874049332
+   SL: Score of model 581895 = -3117.206280892743
+   SL: Score of model 584747 = -3117.237042410848
+   SL: Score of model 587236 = -3117.538773164512
+   SL: Score of model 590084 = -3117.180047236986
+   SL: Score of model 592965 = -3117.187182317449
+   SL: Score of model 596196 = -3147.2657594652437
+SL: Step 2 done.  bestScore: -3114.202961701537 bestModel: 555114
+SL: hill climb done. BestScore = -3111.068104466235
+Structure learning completed
+New refine parameters
+Settings of structure Learner:
+   Structure learning method:IncrementalModelLearning
+  Of structure learner** Settings of cardinality Learner:
+  Of cardinality Learner:Settings of parameter Learner:
+   Method for escaping local maxima: ChickeringHeckerman
+   Number of starting points for hilling climbing: 32
+   Stopping threshold: 0.01
+   Max EM Steps: 200
+  Of Cardinality Learner: Settings of ScoreCalculator:
+   Scoring Metric: BIC
+  Of structure learner**Settings of ScoreCalculator:
+   Scoring Metric: BIC
+SL: Done constructing Naive Bayes model. Score: -3249.1049579035734
+SL: starting hill climb
+   SL: Score of model 600506 = -3255.355766312679
+   SL: Score of model 602641 = -3255.2903253429185
+   SL: Score of model 604776 = -3254.9930599076665
+   SL: Score of model 606911 = -3255.3683552780717
+   SL: Score of model 609046 = -3255.3256940471015
+   SL: Score of model 611181 = -3255.2424977439614
+   SL: Score of model 613316 = -3255.011409886139
+   SL: Score of model 615451 = -3216.414305699086
+   SL: Score of model 617967 = -3255.250623301843
+   SL: Score of model 620102 = -3255.288277944866
+   SL: Score of model 622237 = -3255.2525313937895
+   SL: Score of model 624372 = -3255.1699535236603
+   SL: Score of model 626507 = -3255.601055499401
+   SL: Score of model 628740 = -3255.3852480972705
+   SL: Score of model 630875 = -3255.288248052119
+SL: Step 1 done.  bestScore: -3216.414305699086 bestModel: 615451
+   SL: Score of model 633027 = -3222.784202974341
+   SL: Score of model 635191 = -3219.600337914591
+   SL: Score of model 637325 = -3218.8977893779975
+   SL: Score of model 639848 = -3219.4171219328077
+   SL: Score of model 641984 = -3255.325548073676
+   SL: Score of model 644475 = -3255.3255480736743
+   SL: Score of model 646964 = -3222.7440197336755
+   SL: Score of model 649453 = -3223.6337750099156
+   SL: Score of model 652040 = -3222.9231370661755
+   SL: Score of model 654529 = -3222.7355993144347
+   SL: Score of model 657433 = -3222.927576897064
+   SL: Score of model 659924 = -3222.489005875916
+   SL: Score of model 662413 = -3224.018668581754
+   SL: Score of model 665327 = -3223.1941703239136
+   SL: Score of model 667816 = -3222.879155094648
+   SL: Score of model 670858 = -3222.9417828108994
+   SL: Score of model 673707 = -3222.6418750176977
+   SL: Score of model 676974 = -3249.1049579035734
+SL: Step 2 done.  bestScore: -3218.8977893779975 bestModel: 637325
+SL: hill climb done. BestScore = -3216.414305699086
+Structure learning completed
+New refine parameters
+Settings of structure Learner:
+   Structure learning method:IncrementalModelLearning
+  Of structure learner** Settings of cardinality Learner:
+  Of cardinality Learner:Settings of parameter Learner:
+   Method for escaping local maxima: ChickeringHeckerman
+   Number of starting points for hilling climbing: 32
+   Stopping threshold: 0.01
+   Max EM Steps: 200
+  Of Cardinality Learner: Settings of ScoreCalculator:
+   Scoring Metric: BIC
+  Of structure learner**Settings of ScoreCalculator:
+   Scoring Metric: BIC
+SL: Done constructing Naive Bayes model. Score: -3254.1111109645185
+SL: starting hill climb
+   SL: Score of model 681102 = -3260.2798261008925
+   SL: Score of model 683237 = -3260.3366967521133
+   SL: Score of model 685372 = -3260.3006944275025
+   SL: Score of model 687507 = -3260.3420844611824
+   SL: Score of model 689642 = -3260.347336742368
+   SL: Score of model 691777 = -3260.0987427912855
+   SL: Score of model 693912 = -3260.039821586602
+   SL: Score of model 696049 = -3217.7747783384584
+   SL: Score of model 698539 = -3260.328071481141
+   SL: Score of model 700674 = -3260.4353276781244
+   SL: Score of model 702809 = -3260.2629591092045
+   SL: Score of model 704944 = -3260.3647937385795
+   SL: Score of model 707079 = -3260.791985422016
+   SL: Score of model 709252 = -3260.334603087519
+   SL: Score of model 711387 = -3260.43020398344
+SL: Step 1 done.  bestScore: -3217.7747783384584 bestModel: 696049
+   SL: Score of model 713539 = -3223.770180814201
+   SL: Score of model 715673 = -3220.711832128026
+   SL: Score of model 717807 = -3221.0585692438576
+   SL: Score of model 720320 = -3220.8639383065324
+   SL: Score of model 722456 = -3260.3336872325954
+   SL: Score of model 724947 = -3260.3336872325895
+   SL: Score of model 727436 = -3224.007948220367
+   SL: Score of model 729925 = -3223.9386972743196
+   SL: Score of model 732432 = -3224.0005103647604
+   SL: Score of model 734921 = -3223.9973404880834
+   SL: Score of model 737765 = -3224.123548837511
+   SL: Score of model 740254 = -3223.9919045245315
+   SL: Score of model 742743 = -3224.010070922522
+   SL: Score of model 745599 = -3224.022373330651
+   SL: Score of model 748088 = -3223.9973603224553
+   SL: Score of model 750932 = -3223.9980353887318
+   SL: Score of model 753777 = -3224.024245349861
+   SL: Score of model 756978 = -3254.1111109645185
+SL: Step 2 done.  bestScore: -3220.711832128026 bestModel: 715673
+SL: hill climb done. BestScore = -3217.7747783384584
+Structure learning completed
+New refine parameters
+Settings of structure Learner:
+   Structure learning method:IncrementalModelLearning
+  Of structure learner** Settings of cardinality Learner:
+  Of cardinality Learner:Settings of parameter Learner:
+   Method for escaping local maxima: ChickeringHeckerman
+   Number of starting points for hilling climbing: 32
+   Stopping threshold: 0.01
+   Max EM Steps: 200
+  Of Cardinality Learner: Settings of ScoreCalculator:
+   Scoring Metric: BIC
+  Of structure learner**Settings of ScoreCalculator:
+   Scoring Metric: BIC
+SL: Done constructing Naive Bayes model. Score: -3152.5292256833736
+SL: starting hill climb
+   SL: Score of model 760968 = -3158.7418871012123
+   SL: Score of model 763103 = -3158.750685556546
+   SL: Score of model 765238 = -3158.7292923692285
+   SL: Score of model 767373 = -3158.7288773934883
+   SL: Score of model 769508 = -3158.7334947694317
+   SL: Score of model 771643 = -3158.662332669519
+   SL: Score of model 773778 = -3158.1035018298217
+   SL: Score of model 775913 = -3120.3556662429132
+   SL: Score of model 778409 = -3158.6795802067604
+   SL: Score of model 780544 = -3158.7154163424275
+   SL: Score of model 782679 = -3158.6712979952745
+   SL: Score of model 784814 = -3158.6954887109287
+   SL: Score of model 786949 = -3159.390971552304
+   SL: Score of model 789162 = -3158.748696996759
+   SL: Score of model 791297 = -3158.686942469047
+SL: Step 1 done.  bestScore: -3120.3556662429132 bestModel: 775913
+   SL: Score of model 793449 = -3126.4035537857917
+   SL: Score of model 795621 = -3123.581113870488
+   SL: Score of model 797755 = -3123.3700530672604
+   SL: Score of model 800250 = -3122.980401353886
+   SL: Score of model 802386 = -3158.719541089225
+   SL: Score of model 804877 = -3158.719541089226
+   SL: Score of model 807366 = -3126.2118799380382
+   SL: Score of model 809855 = -3126.65524576686
+   SL: Score of model 812378 = -3126.380983099551
+   SL: Score of model 814895 = -3127.000568779609
+   SL: Score of model 817739 = -3126.450368036144
+   SL: Score of model 820228 = -3126.247910747184
+   SL: Score of model 822717 = -3126.3078008590123
+   SL: Score of model 825567 = -3126.25130862851
+   SL: Score of model 828056 = -3126.210348235901
+   SL: Score of model 830994 = -3126.5567518379703
+   SL: Score of model 833841 = -3126.254697861153
+   SL: Score of model 837060 = -3152.5292256833736
+SL: Step 2 done.  bestScore: -3122.980401353886 bestModel: 800250
+SL: hill climb done. BestScore = -3120.3556662429132
+Structure learning completed
+New refine parameters
+
+ Performace:0.9638989169675091=-0.015533776441923785

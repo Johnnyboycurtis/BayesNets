@@ -1,0 +1,97 @@
+// HNB model in the BIF format
+// Produced by the HNB package
+
+network "HLCM2265269" {}
+
+variable "class" { 
+      type discrete[2] { "tested_negative" "tested_positive" }
+}
+
+variable "preg" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+variable "plas" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+variable "age" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+variable "v1302" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+variable "pres" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+variable "mass" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+variable "skin" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+variable "insu" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+variable "pedi" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+probability( "class" ) {
+      table  0.6485 0.3515;
+}
+
+probability( "preg" | "class" ) {
+        ("tested_negative") 0.9226 0.0774;
+        ("tested_positive") 0.8122 0.1878;
+}
+
+probability( "plas" | "class" ) {
+        ("tested_negative") 0.3673 0.6327;
+        ("tested_positive") 0.0571 0.9429;
+}
+
+probability( "age" | "class" ) {
+        ("tested_negative") 0.9204 0.0796;
+        ("tested_positive") 0.8694 0.1306;
+}
+
+probability( "v1302" | "class" ) {
+        ("tested_negative") 0.3974 0.6026;
+        ("tested_positive") 0.8174 0.1826;
+}
+
+probability( "pres" | "v1302" ) {
+        ("s0") 0.1112 0.8888;
+        ("s1") 0.3209 0.6791;
+}
+
+probability( "mass" | "v1302" ) {
+        ("s0") 0.3065 0.6935;
+        ("s1") 0.9352 0.0648;
+}
+
+probability( "skin" | "v1302" ) {
+        ("s0") 0.9737 0.0263;
+        ("s1") 1.0000 0.0000;
+}
+
+probability( "insu" | "v1302" ) {
+        ("s0") 0.9579 0.0421;
+        ("s1") 1.0000 0.0000;
+}
+
+probability( "pedi" | "v1302" ) {
+        ("s0") 0.9610 0.0390;
+        ("s1") 0.9711 0.0289;
+}
+
+//Loglikelihood:  -2281.2826029916814
+//Score        :  -2343.4770643939064
+//LoglikelihoodOfPreviousModel:  -693.390130299183

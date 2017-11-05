@@ -1,0 +1,93 @@
+Settings of structure Learner:
+   Structure learning method:IncrementalModelLearning
+  Of structure learner** Settings of cardinality Learner:
+  Of cardinality Learner:Settings of parameter Learner:
+   Method for escaping local maxima: ChickeringHeckerman
+   Number of starting points for hilling climbing: 32
+   Stopping threshold: 0.01
+   Max EM Steps: 200
+  Of Cardinality Learner: Settings of ScoreCalculator:
+   Scoring Metric: BIC
+  Of structure learner**Settings of ScoreCalculator:
+   Scoring Metric: BIC
+SL: Done constructing Naive Bayes model. Score: -24728.71096038007
+SL: starting hill climb
+   SL: Score of model 423 = -24599.328566546774
+   SL: Score of model 3121 = -24616.05368681753
+   SL: Score of model 5637 = -24754.04795904774
+   SL: Score of model 8179 = -24753.318958101638
+   SL: Score of model 10795 = -24752.26407526196
+   SL: Score of model 13387 = -24433.794371770393
+   SL: Score of model 15734 = -24753.37381545417
+   SL: Score of model 18250 = -24754.701525325505
+   SL: Score of model 20990 = -24730.587015255853
+   SL: Score of model 23187 = -24755.203230575782
+   SL: Score of model 25739 = -24754.863970527
+   SL: Score of model 28253 = -24730.413488318896
+   SL: Score of model 30510 = -24752.690374362825
+   SL: Score of model 33006 = -24751.9897526222
+   SL: Score of model 35606 = -24055.2372542538
+SL: Step 1 done.  bestScore: -24055.2372542538 bestModel: 35606
+   SL: Score of model 38129 = -24102.550602711002
+   SL: Score of model 40802 = -24058.118017099965
+   SL: Score of model 42968 = -24057.941638059303
+   SL: Score of model 45102 = -24154.759326782783
+   SL: Score of model 48829 = -24735.457155291107
+   SL: Score of model 51320 = -24754.26253995432
+   SL: Score of model 54164 = -23926.02842202993
+   SL: Score of model 57222 = -23942.364528813352
+   SL: Score of model 60104 = -24080.552717942228
+   SL: Score of model 63130 = -24079.16081894792
+   SL: Score of model 66914 = -23759.795001999315
+   SL: Score of model 69403 = -24079.2940732412
+   SL: Score of model 72381 = -24080.725835952122
+   SL: Score of model 75945 = -24081.74839170571
+   SL: Score of model 78893 = -24081.125170237392
+   SL: Score of model 82599 = -24078.533878265323
+   SL: Score of model 86266 = -24080.830829473332
+   SL: Score of model 90295 = -24728.71096038007
+SL: Step 2 done.  bestScore: -23759.795001999315 bestModel: 66914
+   SL: Score of model 92448 = -23808.07508075275
+   SL: Score of model 95358 = -23612.609449497213
+   SL: Score of model 98425 = -23859.46530301754
+   SL: Score of model 102213 = -23894.158840293803
+   SL: Score of model 106524 = -23894.764501267764
+   SL: Score of model 113876 = -23764.346553915493
+   SL: Score of model 117056 = -24440.062617192547
+   SL: Score of model 119590 = -24459.667203069213
+   SL: Score of model 122471 = -24059.533211592854
+   SL: Score of model 125374 = -24059.98269596364
+   SL: Score of model 128576 = -23785.85321135655
+   SL: Score of model 131236 = -23784.260537086946
+   SL: Score of model 134993 = -23571.149780360956
+   SL: Score of model 138573 = -23783.852274455872
+   SL: Score of model 142368 = -23784.937748059703
+   SL: Score of model 146512 = -23784.97026781264
+   SL: Score of model 153240 = -23786.172667775976
+   SL: Score of model 157189 = -23770.999728635525
+   SL: Score of model 160420 = -24433.771116290867
+   SL: Score of model 162583 = -24055.206422408748
+SL: Step 3 done.  bestScore: -23571.149780360956 bestModel: 134993
+   SL: Score of model 166899 = -23670.629958702386
+   SL: Score of model 170509 = -23657.13636888329
+   SL: Score of model 176430 = -23671.569423820853
+   SL: Score of model 184945 = -23618.406308515136
+   SL: Score of model 192239 = -24251.15697115882
+   SL: Score of model 195958 = -24270.035049784186
+   SL: Score of model 200040 = -23769.333310023292
+   SL: Score of model 202915 = -23621.36849969996
+   SL: Score of model 207412 = -23778.375893963133
+   SL: Score of model 210263 = -23618.315679478976
+   SL: Score of model 214707 = -23613.89431851911
+   SL: Score of model 220262 = -23595.012161621595
+   SL: Score of model 224885 = -23597.17466852588
+   SL: Score of model 231483 = -23594.528866145454
+   SL: Score of model 241502 = -23596.863902962737
+   SL: Score of model 246742 = -23591.639036327066
+   SL: Score of model 251563 = -24244.628373886982
+   SL: Score of model 254991 = -23760.1573191912
+   SL: Score of model 257561 = -23612.80861340948
+SL: Step 4 done.  bestScore: -23591.639036327066 bestModel: 246742
+SL: hill climb done. BestScore = -23571.149780360956
+Structure learning completed
+New refine parameters

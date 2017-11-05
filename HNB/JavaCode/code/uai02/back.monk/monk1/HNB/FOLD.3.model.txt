@@ -1,0 +1,98 @@
+// HNB model in the BIF format
+// Produced by the HNB package
+
+network "HLCM1012133" {}
+
+variable "class" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+variable "a3" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+variable "a4" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "a6" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+variable "v413" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "a5" { 
+      type discrete[4] { "s0" "s1" "s2" "s3" }
+}
+
+variable "v390" { 
+      type discrete[6] { "s0" "s1" "s2" "s3" "s4" "s5" }
+}
+
+variable "a1" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "a2" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+probability( "class" ) {
+      table  0.5010 0.4990;
+}
+
+probability( "a3" | "class" ) {
+        ("s0") 0.4981 0.5019;
+        ("s1") 0.5076 0.4924;
+}
+
+probability( "a4" | "class" ) {
+        ("s0") 0.3156 0.3536 0.3308;
+        ("s1") 0.3511 0.3168 0.3321;
+}
+
+probability( "a6" | "class" ) {
+        ("s0") 0.4905 0.5095;
+        ("s1") 0.5000 0.5000;
+}
+
+probability( "v413" | "class" ) {
+        ("s0") 0.0000 0.0000 1.0000;
+        ("s1") 0.4772 0.5228 0.0000;
+}
+
+probability( "a5" | "v413" ) {
+        ("s0") 1.0000 0.0000 0.0000 0.0000;
+        ("s1") 0.0291 0.3285 0.3285 0.3139;
+        ("s2") 0.0000 0.3232 0.3270 0.3498;
+}
+
+probability( "v390" | "v413" ) {
+        ("s0") 0.0000 0.1150 0.0062 0.2675 0.3715 0.2397;
+        ("s1") 0.0000 0.3459 0.0000 0.0000 0.6541 0.0000;
+        ("s2") 0.3650 0.0000 0.3346 0.0000 0.0000 0.3004;
+}
+
+probability( "a1" | "v390" ) {
+        ("s0") 1.0000 0.0000 0.0000;
+        ("s1") 0.0000 0.0000 1.0000;
+        ("s2") 0.0000 1.0000 0.0000;
+        ("s3") 0.4653 0.5267 0.0080;
+        ("s4") 0.4810 0.5190 0.0000;
+        ("s5") 0.0000 0.0000 1.0000;
+}
+
+probability( "a2" | "v390" ) {
+        ("s0") 0.0000 0.4896 0.5104;
+        ("s1") 0.0000 0.0000 1.0000;
+        ("s2") 0.5455 0.0000 0.4545;
+        ("s3") 0.0416 0.0646 0.8938;
+        ("s4") 0.4939 0.5061 0.0000;
+        ("s5") 0.4954 0.5046 0.0000;
+}
+
+//Loglikelihood:  0.0
+//Score        :  1.0
+//LoglikelihoodOfPreviousModel:  -727.7711505237017

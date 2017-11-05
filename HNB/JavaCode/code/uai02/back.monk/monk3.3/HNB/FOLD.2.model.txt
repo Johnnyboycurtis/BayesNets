@@ -1,0 +1,85 @@
+// HNB model in the BIF format
+// Produced by the HNB package
+
+network "HLCM527343" {}
+
+variable "class" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+variable "a1" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "a3" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+variable "a6" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+variable "v303" { 
+      type discrete[4] { "s0" "s1" "s2" "s3" }
+}
+
+variable "a2" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "a5" { 
+      type discrete[4] { "s0" "s1" "s2" "s3" }
+}
+
+variable "a4" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+probability( "class" ) {
+      table  0.4820 0.5180;
+}
+
+probability( "a1" | "class" ) {
+        ("s0") 0.3402 0.3402 0.3195;
+        ("s1") 0.3629 0.3205 0.3166;
+}
+
+probability( "a3" | "class" ) {
+        ("s0") 0.5021 0.4979;
+        ("s1") 0.5019 0.4981;
+}
+
+probability( "a6" | "class" ) {
+        ("s0") 0.5145 0.4855;
+        ("s1") 0.4903 0.5097;
+}
+
+probability( "v303" | "class" ) {
+        ("s0") 0.0000 0.0000 0.4995 0.5005;
+        ("s1") 0.0428 0.9572 0.0000 0.0000;
+}
+
+probability( "a2" | "v303" ) {
+        ("s0") 0.0000 0.0075 0.9925;
+        ("s1") 0.4840 0.5160 0.0000;
+        ("s2") 0.3738 0.3572 0.2690;
+        ("s3") 0.0000 0.0000 1.0000;
+}
+
+probability( "a5" | "v303" ) {
+        ("s0") 0.0000 0.0000 0.9098 0.0902;
+        ("s1") 0.3469 0.3509 0.3022 0.0000;
+        ("s2") 0.0000 0.0000 0.0440 0.9560;
+        ("s3") 0.3648 0.3234 0.2214 0.0904;
+}
+
+probability( "a4" | "v303" ) {
+        ("s0") 1.0000 0.0000 0.0000;
+        ("s1") 0.3304 0.3348 0.3348;
+        ("s2") 0.3315 0.3454 0.3231;
+        ("s3") 0.2661 0.3766 0.3573;
+}
+
+//Loglikelihood:  0.0
+//Score        :  0.9814814814814815
+//LoglikelihoodOfPreviousModel:  -2684.833850762574

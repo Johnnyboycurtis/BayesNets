@@ -1,0 +1,97 @@
+// HNB model in the BIF format
+// Produced by the HNB package
+
+network "HLCM2446476" {}
+
+variable "class" { 
+      type discrete[2] { "tested_negative" "tested_positive" }
+}
+
+variable "preg" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+variable "plas" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+variable "skin" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+variable "insu" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+variable "pedi" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+variable "age" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+variable "v1594" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+variable "pres" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+variable "mass" { 
+      type discrete[2] { "s1" "s2" }
+}
+
+probability( "class" ) {
+      table  0.6457 0.3543;
+}
+
+probability( "preg" | "class" ) {
+        ("tested_negative") 0.9204 0.0796;
+        ("tested_positive") 0.8145 0.1855;
+}
+
+probability( "plas" | "class" ) {
+        ("tested_negative") 0.3650 0.6350;
+        ("tested_positive") 0.0605 0.9395;
+}
+
+probability( "skin" | "class" ) {
+        ("tested_negative") 0.9845 0.0155;
+        ("tested_positive") 0.9879 0.0121;
+}
+
+probability( "insu" | "class" ) {
+        ("tested_negative") 0.9867 0.0133;
+        ("tested_positive") 0.9516 0.0484;
+}
+
+probability( "pedi" | "class" ) {
+        ("tested_negative") 0.9735 0.0265;
+        ("tested_positive") 0.9516 0.0484;
+}
+
+probability( "age" | "class" ) {
+        ("tested_negative") 0.9181 0.0819;
+        ("tested_positive") 0.8831 0.1169;
+}
+
+probability( "v1594" | "class" ) {
+        ("tested_negative") 0.4096 0.5904;
+        ("tested_positive") 0.8168 0.1832;
+}
+
+probability( "pres" | "v1594" ) {
+        ("s0") 0.1106 0.8894;
+        ("s1") 0.3301 0.6699;
+}
+
+probability( "mass" | "v1594" ) {
+        ("s0") 0.3435 0.6565;
+        ("s1") 0.8832 0.1168;
+}
+
+//Loglikelihood:  -2313.8956942282234
+//Score        :  -2376.1309574111356
+//LoglikelihoodOfPreviousModel:  -699.5969053637359

@@ -1,0 +1,97 @@
+// HNB model in the BIF format
+// Produced by the HNB package
+
+network "HLCM89" {}
+
+variable "Class" { 
+      type discrete[2] { "s2" "s4" }
+}
+
+variable "ClumpThickness" { 
+      type discrete[10] { "s1" "s2" "s3" "s4" "s5" "s6" "s7" "s8" "s9" "s10" }
+}
+
+variable "UniformityofCellSize" { 
+      type discrete[10] { "s1" "s2" "s3" "s4" "s5" "s6" "s7" "s8" "s9" "s10" }
+}
+
+variable "UniformityofCellShape" { 
+      type discrete[10] { "s1" "s2" "s3" "s4" "s5" "s6" "s7" "s8" "s9" "s10" }
+}
+
+variable "MarginalAdhesion" { 
+      type discrete[10] { "s1" "s2" "s3" "s4" "s5" "s6" "s7" "s8" "s9" "s10" }
+}
+
+variable "SingleEpithelialCellSize" { 
+      type discrete[10] { "s1" "s2" "s3" "s4" "s5" "s6" "s7" "s8" "s9" "s10" }
+}
+
+variable "BareNuclei" { 
+      type discrete[10] { "s1" "s2" "s3" "s4" "s5" "s6" "s7" "s8" "s9" "s10" }
+}
+
+variable "BlandChromatin" { 
+      type discrete[10] { "s1" "s2" "s3" "s4" "s5" "s6" "s7" "s8" "s9" "s10" }
+}
+
+variable "NormalNucleoli" { 
+      type discrete[10] { "s1" "s2" "s3" "s4" "s5" "s6" "s7" "s8" "s9" "s10" }
+}
+
+variable "Mitoses" { 
+      type discrete[10] { "s1" "s2" "s3" "s4" "s5" "s6" "s7" "s8" "s9" "s10" }
+}
+
+probability( "Class" ) {
+      table  0.6397 0.3603;
+}
+
+probability( "ClumpThickness" | "Class" ) {
+        ("s2") 0.3232 0.1061 0.1970 0.1414 0.1843 0.0354 0.0025 0.0101 0.0000 0.0000;
+        ("s4") 0.0135 0.0135 0.0538 0.0493 0.1928 0.0762 0.0942 0.1704 0.0493 0.2870;
+}
+
+probability( "UniformityofCellSize" | "Class" ) {
+        ("s2") 0.8283 0.0808 0.0631 0.0202 0.0000 0.0000 0.0025 0.0025 0.0025 0.0000;
+        ("s4") 0.0090 0.0269 0.0987 0.1300 0.1345 0.1076 0.0807 0.1211 0.0179 0.2735;
+}
+
+probability( "UniformityofCellShape" | "Class" ) {
+        ("s2") 0.7677 0.1212 0.0682 0.0253 0.0051 0.0051 0.0051 0.0025 0.0000 0.0000;
+        ("s4") 0.0000 0.0314 0.0987 0.1256 0.1256 0.1166 0.1256 0.1166 0.0314 0.2287;
+}
+
+probability( "MarginalAdhesion" | "Class" ) {
+        ("s2") 0.8106 0.0833 0.0732 0.0126 0.0101 0.0076 0.0000 0.0000 0.0000 0.0025;
+        ("s4") 0.1211 0.0897 0.1121 0.1121 0.0807 0.0807 0.0583 0.1031 0.0179 0.2242;
+}
+
+probability( "SingleEpithelialCellSize" | "Class" ) {
+        ("s2") 0.0934 0.7929 0.0682 0.0177 0.0126 0.0025 0.0051 0.0051 0.0000 0.0025;
+        ("s4") 0.0000 0.0852 0.1839 0.1749 0.1390 0.1570 0.0404 0.0852 0.0090 0.1256;
+}
+
+probability( "BareNuclei" | "Class" ) {
+        ("s2") 0.8636 0.0505 0.0328 0.0126 0.0253 0.0000 0.0025 0.0051 0.0000 0.0076;
+        ("s4") 0.0583 0.0404 0.0538 0.0583 0.0673 0.0179 0.0269 0.0852 0.0404 0.5516;
+}
+
+probability( "BlandChromatin" | "Class" ) {
+        ("s2") 0.3308 0.3258 0.2980 0.0177 0.0101 0.0025 0.0152 0.0000 0.0000 0.0000;
+        ("s4") 0.0090 0.0224 0.1525 0.1345 0.1256 0.0359 0.2780 0.1166 0.0448 0.0807;
+}
+
+probability( "NormalNucleoli" | "Class" ) {
+        ("s2") 0.8737 0.0732 0.0227 0.0025 0.0051 0.0101 0.0051 0.0076 0.0000 0.0000;
+        ("s4") 0.1749 0.0224 0.1390 0.0628 0.0673 0.0807 0.0583 0.0852 0.0628 0.2466;
+}
+
+probability( "Mitoses" | "Class" ) {
+        ("s2") 0.9672 0.0202 0.0051 0.0000 0.0025 0.0000 0.0025 0.0025 0.0000 0.0000;
+        ("s4") 0.5516 0.1211 0.1345 0.0493 0.0224 0.0090 0.0269 0.0314 0.0000 0.0538;
+}
+
+//Loglikelihood:  -7218.478634174705
+//Score        :  0.953125
+//LoglikelihoodOfPreviousModel:  -1512.6244196646494

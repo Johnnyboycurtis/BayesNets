@@ -1,0 +1,101 @@
+// HNB model in the BIF format
+// Produced by the HNB package
+
+network "HLCM177904" {}
+
+variable "v0" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v2" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v229" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+variable "v8" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v9" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v234" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+variable "v4" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v212" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+variable "v6" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v7" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+probability( "v0" ) {
+      table  0.3200 0.4094 0.2706;
+}
+
+probability( "v2" | "v0" ) {
+        ("s0") 0.5744 0.3612 0.0644;
+        ("s1") 0.2990 0.3395 0.3615;
+        ("s2") 0.0813 0.1833 0.7354;
+}
+
+probability( "v229" | "v0" ) {
+        ("s0") 0.4291 0.5709;
+        ("s1") 0.0890 0.9110;
+        ("s2") 0.2784 0.7216;
+}
+
+probability( "v8" | "v229" ) {
+        ("s0") 0.5034 0.4560 0.0406;
+        ("s1") 0.1428 0.2229 0.6343;
+}
+
+probability( "v9" | "v229" ) {
+        ("s0") 0.1240 0.7422 0.1338;
+        ("s1") 0.4974 0.3749 0.1277;
+}
+
+probability( "v234" | "v0" ) {
+        ("s0") 0.1944 0.8056;
+        ("s1") 0.3229 0.6771;
+        ("s2") 0.8854 0.1146;
+}
+
+probability( "v4" | "v234" ) {
+        ("s0") 0.4268 0.0597 0.5135;
+        ("s1") 0.3745 0.4740 0.1515;
+}
+
+probability( "v212" | "v0" ) {
+        ("s0") 0.4201 0.5799;
+        ("s1") 0.4644 0.5356;
+        ("s2") 0.4921 0.5079;
+}
+
+probability( "v6" | "v212" ) {
+        ("s0") 0.0184 0.5569 0.4247;
+        ("s1") 0.4706 0.1691 0.3603;
+}
+
+probability( "v7" | "v212" ) {
+        ("s0") 0.0655 0.4933 0.4412;
+        ("s1") 0.3183 0.0288 0.6529;
+}
+
+//Loglikelihood:  -35353.65461325704
+//Score        :  -35511.222687298236
+//LoglikelihoodOfPreviousModel:  -10045.56300864539

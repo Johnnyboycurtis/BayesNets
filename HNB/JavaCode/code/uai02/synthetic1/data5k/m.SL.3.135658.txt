@@ -1,0 +1,101 @@
+// HNB model in the BIF format
+// Produced by the HNB package
+
+network "HLCM135658" {}
+
+variable "v0" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v4" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v2" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v212" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+variable "v6" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v7" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v229" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+variable "v240" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+variable "v8" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v9" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+probability( "v0" ) {
+      table  0.3200 0.4094 0.2706;
+}
+
+probability( "v4" | "v0" ) {
+        ("s0") 0.3662 0.4038 0.2300;
+        ("s1") 0.4094 0.3317 0.2589;
+        ("s2") 0.4154 0.1079 0.4767;
+}
+
+probability( "v2" | "v0" ) {
+        ("s0") 0.5744 0.3612 0.0644;
+        ("s1") 0.2990 0.3395 0.3615;
+        ("s2") 0.0813 0.1833 0.7354;
+}
+
+probability( "v212" | "v0" ) {
+        ("s0") 0.3456 0.6544;
+        ("s1") 0.3879 0.6121;
+        ("s2") 0.4165 0.5835;
+}
+
+probability( "v6" | "v212" ) {
+        ("s0") 0.0107 0.5631 0.4262;
+        ("s1") 0.4200 0.2127 0.3673;
+}
+
+probability( "v7" | "v212" ) {
+        ("s0") 0.0244 0.5748 0.4008;
+        ("s1") 0.3128 0.0352 0.6520;
+}
+
+probability( "v229" | "v0" ) {
+        ("s0") 0.5113 0.4887;
+        ("s1") 0.0792 0.9208;
+        ("s2") 0.3218 0.6782;
+}
+
+probability( "v240" | "v229" ) {
+        ("s0") 0.2419 0.7581;
+        ("s1") 0.9945 0.0055;
+}
+
+probability( "v8" | "v240" ) {
+        ("s0") 0.1521 0.2288 0.6191;
+        ("s1") 0.5205 0.4675 0.0121;
+}
+
+probability( "v9" | "v240" ) {
+        ("s0") 0.4897 0.3822 0.1281;
+        ("s1") 0.0993 0.7675 0.1332;
+}
+
+//Loglikelihood:  -35350.393697124025
+//Score        :  -35512.220367760936
+//LoglikelihoodOfPreviousModel:  -10645.592771670576

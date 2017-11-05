@@ -1,0 +1,113 @@
+// HNB model in the BIF format
+// Produced by the HNB package
+
+network "HLCM431509" {}
+
+variable "v0" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v2" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v229" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v8" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v9" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v234" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+variable "v245" { 
+      type discrete[2] { "s0" "s1" }
+}
+
+variable "v212" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v6" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v7" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+variable "v4" { 
+      type discrete[3] { "s0" "s1" "s2" }
+}
+
+probability( "v0" ) {
+      table  0.3240 0.4044 0.2716;
+}
+
+probability( "v2" | "v0" ) {
+        ("s0") 0.5812 0.3592 0.0597;
+        ("s1") 0.3126 0.3313 0.3561;
+        ("s2") 0.0863 0.1967 0.7170;
+}
+
+probability( "v229" | "v0" ) {
+        ("s0") 0.2541 0.2577 0.4882;
+        ("s1") 0.7124 0.2098 0.0778;
+        ("s2") 0.4797 0.2416 0.2787;
+}
+
+probability( "v8" | "v229" ) {
+        ("s0") 0.1301 0.2485 0.6214;
+        ("s1") 0.1909 0.2344 0.5747;
+        ("s2") 0.4859 0.3892 0.1249;
+}
+
+probability( "v9" | "v229" ) {
+        ("s0") 0.3899 0.5133 0.0968;
+        ("s1") 0.7926 0.0172 0.1902;
+        ("s2") 0.0844 0.7644 0.1512;
+}
+
+probability( "v234" | "v0" ) {
+        ("s0") 0.3769 0.6231;
+        ("s1") 0.4247 0.5753;
+        ("s2") 0.8685 0.1315;
+}
+
+probability( "v245" | "v234" ) {
+        ("s0") 0.0922 0.9078;
+        ("s1") 0.9660 0.0340;
+}
+
+probability( "v212" | "v245" ) {
+        ("s0") 0.4564 0.3784 0.1652;
+        ("s1") 0.3476 0.0745 0.5779;
+}
+
+probability( "v6" | "v212" ) {
+        ("s0") 0.5623 0.0817 0.3561;
+        ("s1") 0.1104 0.4914 0.3982;
+        ("s2") 0.0005 0.5738 0.4256;
+}
+
+probability( "v7" | "v212" ) {
+        ("s0") 0.3441 0.0314 0.6245;
+        ("s1") 0.0014 0.1707 0.8279;
+        ("s2") 0.1683 0.5142 0.3175;
+}
+
+probability( "v4" | "v234" ) {
+        ("s0") 0.4603 0.0270 0.5128;
+        ("s1") 0.3569 0.5734 0.0697;
+}
+
+//Loglikelihood:  -707180.459229359
+//Score        :  -707474.0388287158
+//LoglikelihoodOfPreviousModel:  -201390.77286651343
