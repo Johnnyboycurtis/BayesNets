@@ -1,3 +1,6 @@
+
+import os
+os.chdir(r"C:\Users\jn107154\BayesNets\TAN\src")
 import pandas as pd
 import itertools as it
 import numpy as np
@@ -65,9 +68,9 @@ def CalcMutualInfo(xprobs, yprobs, jointprobs):
         yprob = yprobs[yval]
         probxy = jointprobs[(xval, yval)]
         I = probxy * np.log(probxy / (xprob * yprob))
-        print(f"{probxy}*log({probxy} / ( {xprob}*{yprob})) +")
+        #print(f"{probxy}*log({probxy} / ( {xprob}*{yprob})) +")
         MI.append(I)
-    #MI = np.sum(MI)
+    MI = np.sum(MI)
     return MI
     
 

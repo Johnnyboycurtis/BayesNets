@@ -40,5 +40,6 @@ def testPairwiseCondProb(x, y):
 
 
 if __name__ == "__main__":
+    print("calculating mutual information")
     mi = testCalcMutualInfo()
     print(mi)
