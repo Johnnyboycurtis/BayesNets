@@ -48,7 +48,7 @@ if __name__ == "__main__":
     print("starting to train")
     ## the following returns a dictionary
     ## a key for each class
-    results = start_train("small-test.csv", "Class")
+    results = start_train2("small-test.csv", "Class")
     for i, frame in results.items():
         print(f"DataFrame: {i}")
         print(frame)
