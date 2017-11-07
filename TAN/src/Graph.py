@@ -60,12 +60,13 @@ class Graph:
         # algorithm
     def KruskalMST(self, Maximum=True):
         """Kruskal's Algorithm to build Minimum/Maximum Spanning Tree"""
-        result =[] #This will store the resultant MST
+        result = [] #This will store the resultant MST
  
         i = 0 # An index variable, used for sorted edges
         e = 0 # An index variable, used for result[]
  
-            # Step 1:  Sort all the edges in non-decreasing 
+            # Step 1:  Sort all the edges in non-decreasing for Minimum Spanning Tree
+            # or decreasing order for Maximum Spanning Tree
                 # order of their
                 # weight.  If we are not allowed to change the 
                 # given graph, we can create a copy of graph
@@ -103,39 +104,6 @@ class Graph:
             #print str(u) + " -- " + str(v) + " == " + str(weight)
             print("%d -- %d == %d" % (u,v,weight))
             
-            
-if __name__ == "__main__":
-    # Driver code
-    g = Graph(4)  ## [0,1,2,3]
-    g.addEdge(0, 1, 10)
-    g.addEdge(0, 2, 6)
-    g.addEdge(0, 3, 5)
-    g.addEdge(1, 3, 15)
-    g.addEdge(2, 3, 4)
-     
-    g.KruskalMST(Maximum=False) ## return Minimum Spanning Tree
-    g.KruskalMST(Maximum=True) ## return Maximum Spanning Tree
-    
-    """
-    Original results:
-        Following are the edges in the constructed MST
-        2 -- 3 == 4
-        0 -- 3 == 5
-        0 -- 1 == 10
-    """
-    
-    ## current results:
-    """
-    Following are the edges in the constructed MST
-    2 -- 3 == 4
-    0 -- 3 == 5
-    0 -- 1 == 10
-    Following are the edges in the constructed MST
-    1 -- 3 == 15
-    0 -- 1 == 10
-    0 -- 2 == 6
-    """
-    
-    
-    #This code is contributed by Neelam Yadav
+        return result
+
     
