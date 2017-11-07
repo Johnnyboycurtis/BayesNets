@@ -42,6 +42,34 @@ def start_train(filename, class_col_name, sep = ","):
         
 
 
+
+def start_train2(filename, class_col_name, sep = ","):
+    df = pd.read_csv(filename, sep = sep) ## first read in the data
+    g = df.groupby(by = class_col_name) ## group df by class
+    colnames = df.columns.tolist()
+    colnames.pop(colnames.index(class_col_name)) ## drop class column; gets in the way
+    ## process the following steps for each class
+    ClassMats = {} ## dictionary to store MutualInfMatrix for each class
+    for i, frame in g:
+        colcombos = it.combinations(colnames, 2) ## will return tuples
+        MutualInfo = []
+        for x, y in colcombos:
+            xlist = frame[x].tolist()
+            ylist = frame[y].tolist()
+            xprobs = MarginalProb(xlist)
+            yprobs = MarginalProb(ylist)
+            jointprobs = PairWiseCondProb(xlist, ylist)
+            MI = CalcMutualInfo(xprobs, yprobs, jointprobs)
+            MutualInfo.append([(x,y), MI])
+        MutualInfMatrix = pd.DataFrame(MutualInfo, columns = ['Pairs', "MI"])
+        MutualInfMatrix.sort_values(by = "MI", ascending=False, inplace=True)
+        ClassMats[i] = MutualInfMatrix ## store results for current class
+    return ClassMats
+        
+
+
+
+
 def PairWiseCondProb(xlist, ylist):
     """
     Calculate the Joint Probability Distribution
@@ -58,6 +86,8 @@ def PairWiseCondProb(xlist, ylist):
         probs[key] = vlen/n
     return probs ## returns dictionary
 
+
+
 def MarginalProb(datlist):
     """
     Calculate the (Conditional) Marginal Probability
@@ -71,6 +101,7 @@ def MarginalProb(datlist):
         vlen = len(list(val))
         probs[key] = vlen / n
     return probs
+
 
 
 def CalcMutualInfo(xprobs, yprobs, jointprobs):
