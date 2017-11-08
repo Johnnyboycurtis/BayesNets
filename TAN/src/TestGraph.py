@@ -2,7 +2,7 @@
 """
 Created on Tue Nov  7 10:20:18 2017
 
-@author: jn107154
+@author: Jonathan Navarrete
 """
 
 from Graph import *
@@ -25,10 +25,10 @@ if __name__ == "__main__":
              (4, '2', '3')]
     #"""
     g = Graph(vert, edges)
-    testmstMIN = g.Kruskal()
+    testmstMIN = g.KruskalMST()
     print(testmstMIN)
 
-    testmstMAX = g.Kruskal(maximum=True)
+    testmstMAX = g.KruskalMST(maximum=True)
     print(testmstMAX)
 
     """
