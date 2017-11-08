@@ -4,9 +4,8 @@ Created on Tue Nov  7 13:14:47 2017
 
 @author: jn107154
 """
-
 from SimpleGraphPlot import draw_graph
-from Graph import *
+from Graph import Graph
 from CalcMutualInfo import *
 
 
@@ -32,4 +31,10 @@ if __name__ == "__main__":
             g.addEdge(u,v,mi) 
         minst = g.KruskalMST(maximum=False) ## return Minimum Spanning Tree
         maxst = g.KruskalMST(maximum=True) ## return Maximum Spanning Tree
+        
+        graph = [(u,v) for u,v,w in maxst]
+        labs = [round(w, 4) for u,v,w in maxst]
+        draw_graph(graph, labels = labs)
         break
+
+
