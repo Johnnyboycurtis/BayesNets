@@ -4,6 +4,8 @@ Created on Tue Nov  7 13:14:47 2017
 
 @author: jn107154
 """
+
+import matplotlib.pyplot as plt
 from SimpleGraphPlot import draw_graph
 from Graph import Graph
 from CalcMutualInfo import *
@@ -16,7 +18,8 @@ if __name__ == "__main__":
     ## the following returns a dictionary
     ## a key for each class
     ## start_train2 return vertices, dictionary of data frames per class
-    vertices, results = start_train2("pima.csv", "IsDiabetic")
+    #vertices, results = start_train2("pima.csv", "IsDiabetic")
+    vertices, results = start_train2("Pima.tr.csv", "type")
     for i, frame in results.items():
         print(f"DataFrame: {i}")
         print(frame)
@@ -35,6 +38,5 @@ if __name__ == "__main__":
         graph = [(u,v) for u,v,w in maxst]
         labs = [round(w, 4) for u,v,w in maxst]
         draw_graph(graph, labels = labs)
-        break
 
 

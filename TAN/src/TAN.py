@@ -123,8 +123,8 @@ class TAN(object):
 if __name__ == "__main__":
     ## quick test ##
     print("starting to train Graph")
-    df = pd.read_csv("pima.csv")
-    class_col_name = "IsDiabetic"
+    df = pd.read_csv("Pima.tr.csv")
+    class_col_name = "type"
     model = TAN(dataframe = df, class_col_name = class_col_name)
 
 
