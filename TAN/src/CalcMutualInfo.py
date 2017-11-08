@@ -7,6 +7,7 @@ import numpy as np
 
 
 def start_train(filename, class_col_name, sep = ","):
+    """DEPRECATED"""
     df = pd.read_csv(filename, sep = sep) ## first read in the data
     g = df.groupby(by = class_col_name) ## group df by class
     
@@ -47,7 +48,7 @@ def start_train2(filename, class_col_name, sep = ","):
     df = pd.read_csv(filename, sep = sep) ## first read in the data
     g = df.groupby(by = class_col_name) ## group df by class
     colnames = df.columns.tolist()
-    colnames.pop(colnames.index(class_col_name)) ## drop class column; gets in the way
+    colnames.remove(class_col_name) ## remove class column; gets in the way
     ## process the following steps for each class
     ClassMats = {} ## dictionary to store MutualInfMatrix for each class
     for i, frame in g:
@@ -64,7 +65,7 @@ def start_train2(filename, class_col_name, sep = ","):
         MutualInfMatrix = pd.DataFrame(MutualInfo, columns = ['Pairs', "MI"])
         MutualInfMatrix.sort_values(by = "MI", ascending=False, inplace=True)
         ClassMats[i] = MutualInfMatrix ## store results for current class
-    return ClassMats
+    return colnames, ClassMats
         
 
 
