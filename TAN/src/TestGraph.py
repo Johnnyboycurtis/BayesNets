@@ -11,12 +11,19 @@ from Graph import *
 if __name__ == "__main__":
     # Driver code
     vert = [str(i) for i in range(4)]
+    #"""
+    edges = [('0', '1', 10),
+             ('0', '2', 6),
+             ('0', '3', 5),
+             ('1', '3', 15),
+             ('2', '3', 4)]
+    """
     edges = [(10, '0', '1'),
              (6, '0', '2'),
              (5, '0', '3'),
              (15, '1', '3'),
              (4, '2', '3')]
-    
+    #"""
     g = Graph(vert, edges)
     testmstMIN = g.Kruskal()
     print(testmstMIN)

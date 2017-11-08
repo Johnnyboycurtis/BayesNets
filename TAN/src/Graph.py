@@ -46,18 +46,30 @@ class Graph():
     
         edges = self.edges
         # sorts edges in ascending order
-        edges.sort(reverse=maximum)
+        edges.sort(key = lambda line: line[2], reverse=maximum)
         for edge in edges:
-            weight, u, v = edge
+            u, v, weight = edge
             # checks if current edge do not close cycle
             if self.find_set(u) != self.find_set(v):
                 mst.add(edge)
                 self.union(u, v)
                 
-        for weight,u,v  in mst:
+        for u,v,weight  in mst:
             print(f"{u} -- {v} == {weight}")
             
         return mst
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
 """
 # input graph
 vert = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
