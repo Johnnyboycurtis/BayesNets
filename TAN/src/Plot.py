@@ -8,6 +8,8 @@ Created on Wed Nov  8 13:14:20 2017
 
 import networkx as nx
 import matplotlib.pyplot as plt
+plt.style.use("ggplot")
+plt.style.use('seaborn-whitegrid')
 
 def PlotNetwork(graph, labels=None, edge_text_pos=0.5):
 
