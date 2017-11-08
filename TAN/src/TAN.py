@@ -12,16 +12,17 @@ import itertools as it
 import numpy as np
 from Graph import Graph
 from SimpleGraphPlot import draw_graph
+from Plot import PlotDiGraph, PlotNetwork
 
 
 class TAN(object):
-    def __init__(self, dataframe, class_col_name):
+    def __init__(self, dataframe, class_col_name, maximum=True):
         self.dataframe = dataframe
         self.class_col_name = class_col_name
-        self.results = self.start_train2() ## a list of size 2
+        self.results = self.Train() ## a list of size 2
         self.MST = self.BuildMST()
         
-    def start_train2(self):
+    def Train(self):
         df = self.dataframe
         class_col_name = self.class_col_name
         g = df.groupby(by = class_col_name) ## group df by class
@@ -108,17 +109,23 @@ class TAN(object):
             print(frame)
             graph2 = frame.Pairs.tolist()
             labs = [round(i, 3) for i in frame.MI.tolist()]
-            draw_graph(graph2, labels = labs)
+            PlotNetwork(graph2, labels = labs)
 
             ## Build MST
             g = Graph(vertices, [])  ## number of unique attributes
             for ind,pair,mi in frame.itertuples():
                 u,v = pair
                 g.addEdge(u,v,mi) 
-            maxst = g.KruskalMST(maximum=maximum) ## return Maximum Spanning Tree
+            maxst = g.KruskalMST(maximum = maximum) ## return Maximum Spanning Tree
+            ## maxst is a list of tuples((u,v), weight)
+            graph = [edges for edges, weights in maxst]
+            labs = [round(weight, 4) for edge, weight in maxst]
+            PlotDiGraph(graph, labels = labs)
             MST[i] = maxst
         return MST
+
     
+
 
 if __name__ == "__main__":
     ## quick test ##
