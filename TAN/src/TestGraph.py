@@ -18,8 +18,11 @@ if __name__ == "__main__":
              (4, '2', '3')]
     
     g = Graph(vert, edges)
-    testmst = g.kruskal()
-    print(testmst)
+    testmstMIN = g.Kruskal()
+    print(testmstMIN)
+
+    testmstMAX = g.Kruskal(maximum=True)
+    print(testmstMAX)
 
     """
     g = Graph(4)  ## [0,1,2,3]

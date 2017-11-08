@@ -7,6 +7,7 @@ Created on Tue Nov  7 15:51:08 2017
 
 
 class Graph():
+    """Build a graph"""
     def __init__(self, vertices, edges):
         self.vertices = vertices
         self.edges = edges
@@ -36,7 +37,8 @@ class Graph():
                 self.parent[ancestor1] = ancestor2
     
     
-    def kruskal(self):
+    def Kruskal(self, maximum=False):
+        """Kruskal's Algorithm to build Minimum/Maximum Spanning Tree"""
         mst = set()
         # puts all the vertices in seperate sets
         for vertice in self.vertices:
@@ -44,14 +46,17 @@ class Graph():
     
         edges = self.edges
         # sorts edges in ascending order
-        edges.sort()
+        edges.sort(reverse=maximum)
         for edge in edges:
             weight, u, v = edge
             # checks if current edge do not close cycle
             if self.find_set(u) != self.find_set(v):
                 mst.add(edge)
                 self.union(u, v)
-    
+                
+        for weight,u,v  in mst:
+            print(f"{u} -- {v} == {weight}")
+            
         return mst
 """
 # input graph
