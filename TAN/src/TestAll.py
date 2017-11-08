@@ -17,7 +17,7 @@ if __name__ == "__main__":
     ## the following returns a dictionary
     ## a key for each class
     ## start_train2 return vertices, dictionary of data frames per class
-    vertices, results = start_train2("small-test.csv", "Class")
+    vertices, results = start_train2("pima.csv", "IsDiabetic")
     for i, frame in results.items():
         print(f"DataFrame: {i}")
         print(frame)
