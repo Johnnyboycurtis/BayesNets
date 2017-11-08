@@ -10,6 +10,18 @@ from Graph import *
 
 if __name__ == "__main__":
     # Driver code
+    vert = [str(i) for i in range(4)]
+    edges = [(10, '0', '1'),
+             (6, '0', '2'),
+             (5, '0', '3'),
+             (15, '1', '3'),
+             (4, '2', '3')]
+    
+    g = Graph(vert, edges)
+    testmst = g.kruskal()
+    print(testmst)
+
+    """
     g = Graph(4)  ## [0,1,2,3]
     g.addEdge(0, 1, 10)
     g.addEdge(0, 2, 6)
@@ -18,7 +30,8 @@ if __name__ == "__main__":
     g.addEdge(2, 3, 4)
      
     minst = g.KruskalMST(Maximum=False) ## return Minimum Spanning Tree
-    maxst = g.KruskalMST(Maximum=True) ## return Maximum Spanning Tree
+    #maxst = g.KruskalMST(Maximum=True) ## return Maximum Spanning Tree
+    """
     
     """
     Original results:
@@ -45,3 +58,16 @@ if __name__ == "__main__":
     0 -- 2 == 6
     """
     
+
+"""
+    g = Graph(4)  ## [0,1,2,3]
+    g.addEdge('0', '1', 10)
+    g.addEdge('0', '2', 6)
+    g.addEdge('0', '3', 5)
+    g.addEdge('1', '3', 15)
+    g.addEdge('2', '3', 4)
+     
+    minst = g.KruskalMST(Maximum=False) ## return Minimum Spanning Tree
+    maxst = g.KruskalMST(Maximum=True) ## return Maximum Spanning Tree
+
+"""
