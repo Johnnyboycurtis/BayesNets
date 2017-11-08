@@ -40,6 +40,8 @@ def draw_graph(graph, labels=None, edge_text_pos=0.5):
     # show graph
     plt.show()
 
+
+"""
 # draw example
 graph = [(20, 21),(21, 22),(22, 23), (23, 24),(24, 25), (25, 20)]
 draw_graph(graph)
@@ -48,4 +50,4 @@ draw_graph(graph)
 graph2 = [('a', 'b'), ('b', 'c'), ('a', 'c'), ('d', 'a')]
 labs = list("7248")
 draw_graph(graph2, labels = labs)
-
+"""
