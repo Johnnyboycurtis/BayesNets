@@ -2,16 +2,26 @@
 """
 Created on Tue Nov  7 15:51:08 2017
 
-@author: jn107154
+@author: Jonathan Navarrete
 """
 
 
 class Graph():
     """Build a graph"""
     def __init__(self, vertices, edges):
-        self.vertices = vertices
-        self.edges = edges
+        self.vertices = vertices ## should be a list of column names
+        self.edges = edges ## should be a list of tuples
         self.parent = dict()
+    
+    
+    def addEdge(self,u,v,w):
+        """
+        Add an edge to the graph
+        u: vertex1
+        v: vertex2
+        w: weight
+        """
+        self.edges.append([u,v,w])
     
     def make_set(self, vertice):
         self.parent[vertice] = vertice
@@ -37,71 +47,29 @@ class Graph():
                 self.parent[ancestor1] = ancestor2
     
     
-    def Kruskal(self, maximum=False):
+    def KruskalMST(self, maximum=False):
         """Kruskal's Algorithm to build Minimum/Maximum Spanning Tree"""
-        mst = set()
+        mst = [] ## min/max Spanning Tree results
+        
         # puts all the vertices in seperate sets
         for vertice in self.vertices:
             self.make_set(vertice)
     
         edges = self.edges
-        # sorts edges in ascending order
+        # sorts edges based on location of weight and min/max
         edges.sort(key = lambda line: line[2], reverse=maximum)
+        
         for edge in edges:
             u, v, weight = edge
             # checks if current edge do not close cycle
             if self.find_set(u) != self.find_set(v):
-                mst.add(edge)
+                mst.append(edge)
                 self.union(u, v)
-                
-        for u,v,weight  in mst:
-            print(f"{u} -- {v} == {weight}")
-            
+        self._printMST(mst)
         return mst
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-"""
-# input graph
-vert = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
-edges = [
-            (2, '1', '2'),
-            (2, '1', '3'),
-            (2, '2', '3'),
-            (1, '2', '6'),
-            (1, '3', '4'),
-            (5, '4', '6'),
-            (4, '6', '7'),
-            (7, '4', '5'),
-            (6, '7', '5'),
-            (1, '4', '10'),
-            (2, '5', '10'),
-            (8, '5', '8'),
-            (2, '5', '9'),
-            (3, '8', '9'),
-]
-
-g = Graph(vert, edges)
-testmst = g.kruskal()
-
-
-solution:
-    {(1, '2', '6'),
- (1, '3', '4'),
- (1, '4', '10'),
- (2, '1', '2'),
- (2, '1', '3'),
- (2, '5', '10'),
- (2, '5', '9'),
- (3, '8', '9'),
- (4, '6', '7')}
-"""
+    def _printMST(self, mst):
+        print("Kruskal MST Results: ")
+        print("---------------------")
+        for u,v,weight  in mst:
+            print(f"{u} -- {v} == {weight}")
