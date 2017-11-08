@@ -105,7 +105,7 @@ class TAN(object):
         
         MST = {}
         for i, frame in ClassFrames.items():
-            print(f"DataFrame: {i}")
+            print(f"Class: {i}")
             print(frame)
             graph2 = frame.Pairs.tolist()
             labs = [round(i, 3) for i in frame.MI.tolist()]
@@ -124,14 +124,47 @@ class TAN(object):
             MST[i] = maxst
         return MST
 
-    
+
+def toDiGraph(MST):
+    """
+    Covert to Networkx DiGraph (which is really a tree)
+    """
+    import networkx as nx
+    graph = [edges for edges, weights in MST]
+    # extract nodes from graph
+    nodes = set([n1 for n1, n2 in graph] + [n2 for n1, n2 in graph])
+    # create networkx graph
+    G=nx.DiGraph()
+
+    # add nodes
+    for node in nodes:
+        G.add_node(node)
+
+    # add edges
+    for edge, weight in MST:
+        G.add_edge(edge[0], edge[1], weight=weight)
+    return G
+
+
+def find_root(G,child):
+    """
+    Function to find and return root of DiGraph (which is really a tree)
+    """
+    #print(child) ## for testing
+    parent = list(G.predecessors(child))
+    if len(parent) == 0:
+        print(f"found root: {child}")
+        return child
+    else:  #True if there is a predecessor, False otherwise
+        return find_root(G, parent[0])
 
 
 if __name__ == "__main__":
     ## quick test ##
     print("starting to train Graph")
     df = pd.read_csv("Pima.tr.csv")
+    df['bmi'] = df.bmi.apply(int) ## convert the float to integer
     class_col_name = "type"
     model = TAN(dataframe = df, class_col_name = class_col_name)
-
-
+    myG  = toDiGraph(model.MST['No'])
+    test = find_root(myG, "age")
