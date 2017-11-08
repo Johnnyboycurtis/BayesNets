@@ -65,11 +65,32 @@ class Graph():
             if self.find_set(u) != self.find_set(v):
                 mst.append(edge)
                 self.union(u, v)
-        self._printMST(mst)
-        return mst
+        
+        validMST = validateDAG(mst)
+        self._printMST(validMST)
+        return validMST ## validMST is a list of tuples((u,v), weight)
+
     
     def _printMST(self, mst):
         print("Kruskal MST Results: ")
         print("---------------------")
-        for u,v,weight  in mst:
+        for edge, weight  in mst:
+            u,v = edge
             print(f"{u} -- {v} == {weight}")
+
+
+
+def validateDAG(edges):
+    X, Y, weights = list(zip(*edges))
+    from1 = []
+    to1 = []
+    
+    for u,v in zip(X, Y):
+        if v not in to1:
+            from1.append(u)
+            to1.append(v)
+        else:
+            from1.append(v)
+            to1.append(u)
+    edges = list(zip(from1, to1))
+    return list(zip(edges, weights))
