@@ -10,66 +10,47 @@ Created on Wed Nov  8 10:28:01 2017
 import pandas as pd
 import itertools as it
 import numpy as np
-from Probs import Probs
-from Graph import Graph
+from Probs import Probs ## code for calculating joint/marginal probabilities
+from Graph import Graph ## Graph module
 from SimpleGraphPlot import draw_graph
-from Plot import PlotDiGraph, PlotNetwork
+from Plot import PlotDiGraph, PlotNetwork ## plotting
 
 
-class TAN(object):
+class TAN():
     def __init__(self, dataframe, class_col_name, maximum=True):
         self.dataframe = dataframe
         self.class_col_name = class_col_name
-        self.results = self.Train() ## a list of size 2
+        colnames = dataframe.columns.tolist()
+        colnames.remove(class_col_name)
+        self.colnames = colnames
+        self.MIresults = self.Train() ## a dictionary {class: dataframe}
         self.MST = self.BuildMST()
-        self.colnames = dataframe.columns.tolist().remove(class_col_name)
         
     def Train(self):
         df = self.dataframe
         class_col_name = self.class_col_name
         g = df.groupby(by = class_col_name) ## group df by class
-        colnames = df.columns.tolist()
-        colnames.remove(class_col_name) ## remove class column; gets in the way
+        colnames = self.colnames
         ## process the following steps for each class
         ClassMats = {} ## dictionary to store MutualInfMatrix for each class
         for i, frame in g:
             colcombos = it.combinations(colnames, 2) ## will return tuples
             MutualInfo = []
-            for x, y in colcombos:
-                xlist = frame[x].tolist()
-                ylist = frame[y].tolist()
-                xprobs = Probs(xlist) ## will calculate marginal probs
-                yprobs = Probs(ylist)
-                jointprobs = Probs(xlist, ylist)
-                MI = self.CalcMutualInfo(xprobs, yprobs, jointprobs)
-                MutualInfo.append([(x,y), MI, xprobs, yprobs, jointprobs])
-            MutualInfMatrix = pd.DataFrame(MutualInfo, columns = ['Pairs', "MI", "P(u)","P(v)", "P(u,v)"])
+            for u, v in colcombos:
+                ulist = frame[u].tolist()
+                vlist = frame[v].tolist()
+                probs = Probs(ulist, vlist) ## calculates all probs
+                MI = probs.CalcMutualInfo()
+                MutualInfo.append([(u,v), MI, probs])
+            MutualInfMatrix = pd.DataFrame(MutualInfo, columns = ['Pairs', "MI", "Probs"])
             MutualInfMatrix.sort_values(by = "MI", ascending=False, inplace=True)
             ClassMats[i] = MutualInfMatrix ## store results for current class
-        return [colnames, ClassMats]
-    
-    
-    def CalcMutualInfo(self, xprobs, yprobs, jointprobs):
-        """
-        Calculate Mutual Information statistic
-        xprobs: dictionary of probabilities
-        yprobs: dictionary of probabilities
-        jointprobs: dictionary of probabilities
-        """
-        MI = [] ## collect Mutual Information
-        jointkeys = list(jointprobs.keys())
-        for xval, yval in jointkeys:
-            xprob = xprobs[xval]
-            yprob = yprobs[yval]
-            probxy = jointprobs[(xval, yval)]
-            I = probxy * np.log(probxy / (xprob * yprob))
-            #print(f"{probxy}*log({probxy} / ( {xprob}*{yprob})) +")
-            MI.append(I)
-        MI = np.sum(MI)
-        return MI
-        
+        return ClassMats
+
+      
     def BuildMST(self, maximum=True):
-        vertices, ClassFrames = self.results
+        vertices = self.colnames
+        ClassFrames = self.MIresults
         
         MST = {}
         for i, frame in ClassFrames.items():
@@ -81,23 +62,35 @@ class TAN(object):
 
             ## Build MST
             g = Graph(vertices, [])  ## number of unique attributes
-            for ind,pair,mi,xprobs,yprobs,jointprobs in frame.itertuples():
+            for ind,pair,mi,probs in frame.itertuples():
                 u,v = pair
                 g.addEdge(u,v,mi) 
-            maxst = g.KruskalMST(maximum = maximum) ## return Maximum Spanning Tree
+            ## return Maximum Spanning Tree and switched flag (list)
+            maxst = g.KruskalMST(maximum = maximum) 
             ## maxst is a list of tuples((u,v), weight)
-            graph = [edges for edges, weights in maxst]
-            labs = [round(weight, 4) for edge, weight in maxst]
+            graph = [edges for edges, weights, switch in maxst]
+            labs = [round(weight, 4) for edge, weight, switch in maxst]
             PlotDiGraph(graph, labels = labs)
-            MST[i] = maxst
+            MST[i] = maxst ## returns list [((u,v), MI, revered-flag), ...]
         return MST
 
-    def Predict(self, dataframe):
+
+    def PruneModel(self, dataframe):
+        """
+        This needs a lot of work....
+        """
+        cols = self.colnames
         models = self.MST ## dictionary(class: list of tuples)
-        jointprobs = self.jointprobs
-        #for key, tree in models.items():
-            ## calculate p(V = v | U = u)
-             
+        modelprobs = self.MIresults ## dictionary {class: dataframe}
+        for key, tree in models.items():
+            edges = [edge for edge, weight, switch in tree]
+            ## extract class data frame
+            df = modelprobs[key]
+            df.index = df.Pairs ## make edges the index
+            ## extract probabilities
+            dfprobs = df.loc[edges, ['Probs']]
+        return None
+            
 
 
 def toDiGraph(MST):
@@ -105,7 +98,7 @@ def toDiGraph(MST):
     Covert to Networkx DiGraph (which is really a tree)
     """
     import networkx as nx
-    graph = [edges for edges, weights in MST]
+    graph = [edges for edges, weights, switch in MST]
     # extract nodes from graph
     nodes = set([n1 for n1, n2 in graph] + [n2 for n1, n2 in graph])
     # create networkx graph
@@ -116,7 +109,7 @@ def toDiGraph(MST):
         G.add_node(node)
 
     # add edges
-    for edge, weight in MST:
+    for edge, weight, switch in MST:
         G.add_edge(edge[0], edge[1], weight=weight)
     return G
 
