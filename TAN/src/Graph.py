@@ -74,9 +74,11 @@ class Graph():
     def _printMST(self, mst):
         print("Kruskal MST Results: ")
         print("---------------------")
+        print(" u  --> v  == weight ")
+        print("---------------------")
         for edge, weight  in mst:
             u,v = edge
-            print(f"{u} --> {v} == {weight}")
+            print(f"{u} --> {v} == {round(weight, 4)}")
 
 
 
