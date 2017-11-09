@@ -40,8 +40,8 @@ class TAN(object):
                 yprobs = self.MarginalProb(ylist)
                 jointprobs = self.PairWiseCondProb(xlist, ylist)
                 MI = self.CalcMutualInfo(xprobs, yprobs, jointprobs)
-                MutualInfo.append([(x,y), MI])
-            MutualInfMatrix = pd.DataFrame(MutualInfo, columns = ['Pairs', "MI"])
+                MutualInfo.append([(x,y), MI, xprobs, yprobs, jointprobs])
+            MutualInfMatrix = pd.DataFrame(MutualInfo, columns = ['Pairs', "MI", "P(u)","P(v)", "P(u,v)"])
             MutualInfMatrix.sort_values(by = "MI", ascending=False, inplace=True)
             ClassMats[i] = MutualInfMatrix ## store results for current class
         return [colnames, ClassMats]
@@ -113,7 +113,7 @@ class TAN(object):
 
             ## Build MST
             g = Graph(vertices, [])  ## number of unique attributes
-            for ind,pair,mi in frame.itertuples():
+            for ind,pair,mi,xprobs,yprobs,jointprobs in frame.itertuples():
                 u,v = pair
                 g.addEdge(u,v,mi) 
             maxst = g.KruskalMST(maximum = maximum) ## return Maximum Spanning Tree
@@ -123,6 +123,13 @@ class TAN(object):
             PlotDiGraph(graph, labels = labs)
             MST[i] = maxst
         return MST
+
+    def Predict(self, dataframe):
+        models = self.MST ## dictionary(class: list of tuples)
+        jointprobs = self.jointprobs
+        #for key, tree in models.items():
+            ## calculate p(V = v | U = u)
+             
 
 
 def toDiGraph(MST):
