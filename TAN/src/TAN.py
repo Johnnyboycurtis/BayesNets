@@ -54,11 +54,12 @@ class TAN():
         
         MST = {}
         for i, frame in ClassFrames.items():
-            print(f"Class: {i}")
+            print(f"\nClass: {i} || Unidirected Graph: ")
+            print("--------------------------------")
             print(frame)
             graph2 = frame.Pairs.tolist()
             labs = [round(i, 3) for i in frame.MI.tolist()]
-            PlotNetwork(graph2, labels = labs)
+            #PlotNetwork(graph2, labels = labs)
 
             ## Build MST
             g = Graph(vertices, [])  ## number of unique attributes
@@ -70,7 +71,7 @@ class TAN():
             ## maxst is a list of tuples((u,v), weight)
             graph = [edges for edges, weights, switch in maxst]
             labs = [round(weight, 4) for edge, weight, switch in maxst]
-            PlotDiGraph(graph, labels = labs)
+            #PlotDiGraph(graph, labels = labs)
             MST[i] = maxst ## returns list [((u,v), MI, revered-flag), ...]
         return MST
 
@@ -129,7 +130,7 @@ def find_root(G,child):
 
 if __name__ == "__main__":
     ## quick test ##
-    print("starting to train Graph")
+    #print("starting to train Graph")
     df = pd.read_csv("../data/Pima.tr.csv")
     df['bmi'] = df.bmi.apply(int) ## convert the float to integer
     class_col_name = "type"

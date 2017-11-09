@@ -47,7 +47,7 @@ class Graph():
                 self.parent[ancestor1] = ancestor2
     
     
-    def KruskalMST(self, maximum=False):
+    def KruskalMST(self, maximum=True):
         """Kruskal's Algorithm to build Minimum/Maximum Spanning Tree"""
         mst = [] ## min/max Spanning Tree results
         
@@ -72,7 +72,7 @@ class Graph():
 
     
     def _printMST(self, mst):
-        print("Kruskal MST Results: ")
+        print("\nKruskal MST Results: ")
         print("---------------------")
         print(" u  --> v  == weight ")
         print("---------------------")
