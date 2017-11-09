@@ -76,7 +76,7 @@ class Graph():
         print("---------------------")
         for edge, weight  in mst:
             u,v = edge
-            print(f"{u} -- {v} == {weight}")
+            print(f"{u} --> {v} == {weight}")
 
 
 
