@@ -125,10 +125,10 @@ class Probs():
     
 
 
-sample1 = list("aaabbbccccccddddeeeeffhhhhhgggwww")
-sample2 = list("aaabzzzccwwwccddddeeeeffwwwhhgggwww")
+#sample1 = list("aaabbbccccccddddeeeeffhhhhhgggwww")
+#sample2 = list("aaabzzzccwwwccddddeeeeffwwwhhgggwww")
 
-test = Probs(sample1, sample2)
-test.ConditionalProb('w', 'z')
+#test = Probs(sample1, sample2)
+#test.ConditionalProb('w', 'z')
 
-print(test)
+#print(test)

@@ -130,7 +130,7 @@ def find_root(G,child):
 if __name__ == "__main__":
     ## quick test ##
     print("starting to train Graph")
-    df = pd.read_csv("Pima.tr.csv")
+    df = pd.read_csv("../data/Pima.tr.csv")
     df['bmi'] = df.bmi.apply(int) ## convert the float to integer
     class_col_name = "type"
     model = TAN(dataframe = df, class_col_name = class_col_name)
