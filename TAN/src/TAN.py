@@ -10,6 +10,7 @@ Created on Wed Nov  8 10:28:01 2017
 import pandas as pd
 import itertools as it
 import numpy as np
+from Probs import Probs
 from Graph import Graph
 from SimpleGraphPlot import draw_graph
 from Plot import PlotDiGraph, PlotNetwork
@@ -37,49 +38,15 @@ class TAN(object):
             for x, y in colcombos:
                 xlist = frame[x].tolist()
                 ylist = frame[y].tolist()
-                xprobs = self.MarginalProb(xlist)
-                yprobs = self.MarginalProb(ylist)
-                jointprobs = self.PairWiseCondProb(xlist, ylist)
+                xprobs = Probs(xlist) ## will calculate marginal probs
+                yprobs = Probs(ylist)
+                jointprobs = Probs(xlist, ylist)
                 MI = self.CalcMutualInfo(xprobs, yprobs, jointprobs)
                 MutualInfo.append([(x,y), MI, xprobs, yprobs, jointprobs])
             MutualInfMatrix = pd.DataFrame(MutualInfo, columns = ['Pairs', "MI", "P(u)","P(v)", "P(u,v)"])
             MutualInfMatrix.sort_values(by = "MI", ascending=False, inplace=True)
             ClassMats[i] = MutualInfMatrix ## store results for current class
         return [colnames, ClassMats]
-    
-        
-    def PairWiseCondProb(self, xlist, ylist):
-        """
-        Calculate the Joint Probability Distribution
-        Sorts values before doing any calculations
-        """
-        dat = list(zip(xlist,ylist)) ## need to sort list; don't forget!!
-        dat.sort()
-        #keyfunc = lambda line: line ## return itself; group by itself
-        g = it.groupby(dat)
-        probs = {}
-        n = len(xlist) ## assumes len(xlist) == len(ylist)
-        for key, val in g:
-            vlen = len(list(val))
-            probs[key] = vlen/n
-        return probs ## returns dictionary
-    
-    
-    
-    def MarginalProb(self, datlist):
-        """
-        Calculate the (Conditional) Marginal Probability
-        Sorts values before doing any calculations
-        """
-        datlist.sort() ## sort values before grouping!
-        g = it.groupby(datlist)
-        probs = {}
-        n = len(datlist)
-        for key, val in g:
-            vlen = len(list(val))
-            probs[key] = vlen / n
-        return probs
-    
     
     
     def CalcMutualInfo(self, xprobs, yprobs, jointprobs):
