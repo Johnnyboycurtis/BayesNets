@@ -21,6 +21,7 @@ class TAN(object):
         self.class_col_name = class_col_name
         self.results = self.Train() ## a list of size 2
         self.MST = self.BuildMST()
+        self.colnames = dataframe.columns.tolist().remove(class_col_name)
         
     def Train(self):
         df = self.dataframe
