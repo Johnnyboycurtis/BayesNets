@@ -68,7 +68,7 @@ class Graph():
         
         validMST = validateDAG(mst)
         self._printMST(validMST)
-        return validMST ## validMST is a list of tuples((u,v), weight)
+        return validMST ## validMST is a list of tuples((u,v), weight, switched)
 
     
     def _printMST(self, mst):
@@ -76,23 +76,39 @@ class Graph():
         print("---------------------")
         print(" u  --> v  == weight ")
         print("---------------------")
-        for edge, weight  in mst:
+        for edge, weight, switched in mst:
             u,v = edge
             print(f"{u} --> {v} == {round(weight, 4)}")
 
 
 
 def validateDAG(edges):
+    """
+    A quick check to ensure that all vertices have no more than 1
+    vertex pointing to it. 
+        Everyone has a single parent.
+        Parents can have multiple children.
+    
+    Because some edges may be switched, 
+    I include a flag to show this: True/False.
+    
+    This is important because Probabilties will need to be switched as well.
+    P(V = u | U = v) =/= P(V = v | U = u)
+    """
     X, Y, weights = list(zip(*edges))
     from1 = []
     to1 = []
+    switched = [] ## a flag for checking if u,v were switched
     
     for u,v in zip(X, Y):
         if v not in to1:
+            switched.append(False)
             from1.append(u)
             to1.append(v)
         else:
+            ## switch u, v
+            switched.append(True)
             from1.append(v)
             to1.append(u)
     edges = list(zip(from1, to1))
-    return list(zip(edges, weights))
+    return list(zip(edges, weights, switched))
