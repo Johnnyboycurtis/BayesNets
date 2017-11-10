@@ -1,4 +1,5 @@
 
+import sys
 import numpy as np
 import itertools as it
 
@@ -7,9 +8,9 @@ class Probs():
 
     def __init__(self, ulist, vlist):
         """Both ulist and vlist have to be lists"""
+        self.jointprobs = self.JointProb(ulist, vlist) ## order matters! has to come first!
         self.uprobs = self.MarginalProb(ulist)
         self.vprobs = self.MarginalProb(vlist)
-        self.jointprobs = self.PairWiseCondProb(ulist, vlist)
         self.reversed = False ## a flag checking if probs have been reversed
 
     def __repr__(self):
@@ -47,23 +48,22 @@ class Probs():
     def keys(self):
         return self.probs.keys()
 
-    def PairWiseCondProb(self, xlist, ylist):
+
+    def JointProb(self, xlist, ylist):
         """
         Calculate the Joint Probability Distribution
         Sorts values before doing any calculations
         """
         dat = list(zip(xlist,ylist)) ## need to sort list; don't forget!!
-        dat.sort()
+        dat.sort(key=lambda line: line)
         #keyfunc = lambda line: line ## return itself; group by itself
-        g = it.groupby(dat)
+        g = it.groupby(dat, lambda line: line)
         probs = {}
         n = len(xlist) ## assumes len(xlist) == len(ylist)
         for key, val in g:
             vlen = len(list(val))
             probs[key] = vlen/n
         return probs ## returns dictionary
-    
-    
     
     def MarginalProb(self, datlist):
         """
@@ -115,20 +115,25 @@ class Probs():
             PUV = jointprobs[(u,v)]
             condprob = PUV/PV ## P(U,V) / P(V)
         except KeyError:
-            condprob = 0
+            print(f"{u},{v} were not found in joint probs. Returning 0.0001.")
+            condprob = 0.0001
         return condprob
             
             
         
-        
+
+    
         
     
 
 
 #sample1 = list("aaabbbccccccddddeeeeffhhhhhgggwww")
-#sample2 = list("aaabzzzccwwwccddddeeeeffwwwhhgggwww")
+#sample2 = list("zzzzzzzccwwwccddddeeeeffwwwhhgggwww")
+#print(sample1)
+#print(sample2)
 
 #test = Probs(sample1, sample2)
 #test.ConditionalProb('w', 'z')
 
 #print(test)
+#print(test.jointprobs)
