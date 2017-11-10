@@ -18,17 +18,16 @@ from Plot import PlotDiGraph, PlotNetwork ## plotting
 
 class TAN():
     def __init__(self, dataframe, class_col_name, maximum=True):
-        self.dataframe = dataframe
         self.class_col_name = class_col_name
         colnames = dataframe.columns.tolist()
         colnames.remove(class_col_name)
         self.colnames = colnames
-        self.MIresults = self.Train() ## a dictionary {class: dataframe}
+        self.MIresults = self.Train(dataframe) ## a dictionary {class: dataframe}
         self.MST = self.BuildMST()
         self.TreeProbs = self.PruneModel()
         
-    def Train(self):
-        df = self.dataframe
+    def Train(self, dataframe):
+        df = dataframe
         class_col_name = self.class_col_name
         g = df.groupby(by = class_col_name) ## group df by class
         colnames = self.colnames
@@ -57,7 +56,7 @@ class TAN():
         for i, frame in ClassFrames.items():
             print(f"\nClass: {i} || Unidirected Graph: ")
             print("--------------------------------")
-            print(frame)
+            #print(frame)
             graph2 = frame.Pairs.tolist()
             labs = [round(i, 3) for i in frame.MI.tolist()]
             #PlotNetwork(graph2, labels = labs)
@@ -81,21 +80,39 @@ class TAN():
         """
         This needs a lot of work....
         """
-        cols = self.colnames
         models = self.MST ## dictionary(class: list of tuples)
         modelprobs = self.MIresults ## dictionary {class: dataframe}
         TreeProbs = {}
         for key, tree in models.items():
-            edges = [edge for edge, weight, switch in tree]
+            edges = []
+            switches = []
+            for edge, weight, switch in tree:
+                if switch:
+                    u,v = edge
+                    edge = (v,u)
+                edges.append(edge)                
+                switches.append(switch)
             ## extract class data frame
             df = modelprobs[key]
             df.index = df.Pairs ## make edges the index
             ## extract probabilities
-            dfprobs = df.loc[edges].Probs
-            classprobs = dfprobs.to_dict()
+            Seriesprobs = df.loc[edges].Probs
+            """
+            So when the edge (u,v) gets switched to (v,u),
+            I've not yet accounted for this so when I search for it in the
+            dataframe, the dataframe just return np.nan instead of breaking!
+            """
+            classprobs = {}
+            stuff = zip(Seriesprobs.iteritems(), switches)
+            for Series, truth in stuff:
+                i, prob = Series
+                if truth:
+                    prob.__reverse__()
+                classprobs[i] = prob
             TreeProbs[key] = classprobs
         return TreeProbs
-    
+
+
     def Predict(self, newdf, log=False):
         TreeProbs = self.TreeProbs
         newcols = newdf.columns.tolist()
@@ -109,8 +126,6 @@ class TAN():
                 LogCondProb = 0
                 for edge, probs in tree.items():
                     u, v = edge ## edge = (u,v)
-                    #print(f"edge: {edge}")
-                    #print(f"{sample[u], sample[v]}")
                     pval = probs.ConditionalProb(sample[u], sample[v])
                     LogCondProb += np.log(pval)
                 if log:
@@ -160,15 +175,3 @@ def find_root(G,child):
         return find_root(G, parent[0])
 
 
-if __name__ == "__main__":
-    ## quick test ##
-    #print("starting to train Graph")
-    df = pd.read_csv("../data/Pima.tr.csv")
-    df['bmi'] = df.bmi.apply(int) ## convert the float to integer
-    class_col_name = "type"
-    model = TAN(dataframe = df, class_col_name = class_col_name)
-    myG  = toDiGraph(model.MST['No'])
-    test = find_root(myG, "age")
-
-    results = model.Predict(df.head())
-    print(results)
