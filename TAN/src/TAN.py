@@ -25,6 +25,7 @@ class TAN():
         self.colnames = colnames
         self.MIresults = self.Train() ## a dictionary {class: dataframe}
         self.MST = self.BuildMST()
+        self.TreeProbs = self.PruneModel()
         
     def Train(self):
         df = self.dataframe
@@ -76,22 +77,53 @@ class TAN():
         return MST
 
 
-    def PruneModel(self, dataframe):
+    def PruneModel(self):
         """
         This needs a lot of work....
         """
         cols = self.colnames
         models = self.MST ## dictionary(class: list of tuples)
         modelprobs = self.MIresults ## dictionary {class: dataframe}
+        TreeProbs = {}
         for key, tree in models.items():
             edges = [edge for edge, weight, switch in tree]
             ## extract class data frame
             df = modelprobs[key]
             df.index = df.Pairs ## make edges the index
             ## extract probabilities
-            dfprobs = df.loc[edges, ['Probs']]
-        return None
-            
+            dfprobs = df.loc[edges].Probs
+            classprobs = dfprobs.to_dict()
+            TreeProbs[key] = classprobs
+        return TreeProbs
+    
+    def Predict(self, newdf, log=False):
+        TreeProbs = self.TreeProbs
+        newcols = newdf.columns.tolist()
+        if self.class_col_name in newcols:
+            newdf = newdf.drop(self.class_col_name, axis = 1)
+        results = []
+        for i, row in newdf.iterrows():
+            sample = row.to_dict()
+            class_probs = {}
+            for class_name, tree in TreeProbs.items():
+                LogCondProb = 0
+                for edge, probs in tree.items():
+                    u, v = edge ## edge = (u,v)
+                    #print(f"edge: {edge}")
+                    #print(f"{sample[u], sample[v]}")
+                    pval = probs.ConditionalProb(sample[u], sample[v])
+                    LogCondProb += np.log(pval)
+                if log:
+                    class_probs[class_name] = LogCondProb
+                else:
+                    class_probs[class_name] = np.exp(LogCondProb)
+            results.append(class_probs)
+        dfresult = pd.DataFrame(results)
+        dfresult[self.class_col_name] = dfresult.idxmax(axis=1)
+        #SProbs = dfresult.sum(axis=1) ## sum of probs
+        #dfresult = dfresult.divide(SProbs)
+        return dfresult
+
 
 
 def toDiGraph(MST):
@@ -137,3 +169,6 @@ if __name__ == "__main__":
     model = TAN(dataframe = df, class_col_name = class_col_name)
     myG  = toDiGraph(model.MST['No'])
     test = find_root(myG, "age")
+
+    results = model.Predict(df.head())
+    print(results)
