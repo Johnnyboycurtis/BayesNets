@@ -1,5 +1,5 @@
 
-import sys
+#import sys
 import numpy as np
 import itertools as it
 
@@ -115,7 +115,7 @@ class Probs():
             PUV = jointprobs[(u,v)]
             condprob = PUV/PV ## P(U,V) / P(V)
         except KeyError:
-            print(f"{u},{v} were not found in joint probs. Returning 0.0001.")
+            #print(f"{u},{v} were not found in joint probs. Returning 0.0001.")
             condprob = 0.0001
         return condprob
             
