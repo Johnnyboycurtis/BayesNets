@@ -29,6 +29,18 @@ class NaiveBayes():
             self.priors = CalcMarginalProbs(DF[class_col_name]) ## returns dictionary of priors
         self.classes = DF[class_col_name].unique().tolist()
         self.CondProbs = self.MarginalProbs(DF, class_col_name)
+        
+    
+    def __repr__(self):
+        priors = [f"{i}: {round(j, 4)}" for i,j in self.priors.items()]
+        plines = "\t".join(priors)
+        col = self.class_col_name
+        out = f"""
+        Naive Bayes Model for {col}
+        Priors:
+            {plines}
+        """
+        return out
     
     def MarginalProbs(self, DF, class_col_name):
         """
