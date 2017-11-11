@@ -6,13 +6,14 @@ Created on Sat Jan 21 14:50:32 2017
 @author: Jonathan Navarrete
 """
 
+from tqdm import tqdm
 import numpy as np
 from scipy import stats    
 import pandas as pd
 
 class NaiveBayes():
   
-    def __init__(self, DF, class_col_name, priors = None):
+    def __init__(self, DF, class_col_name, priors = None, progress_bar=False):
         """
         Naive Bayes Classifier
         DF: Pandas DataFrame
@@ -28,7 +29,7 @@ class NaiveBayes():
         else:
             self.priors = CalcMarginalProbs(DF[class_col_name]) ## returns dictionary of priors
         self.classes = DF[class_col_name].unique().tolist()
-        self.CondProbs = self.MarginalProbs(DF, class_col_name)
+        self.CondProbs = self.MarginalProbs(DF, class_col_name, progress_bar)
         
     
     def __repr__(self):
@@ -42,7 +43,7 @@ class NaiveBayes():
         """
         return out
     
-    def MarginalProbs(self, DF, class_col_name):
+    def MarginalProbs(self, DF, class_col_name, progress_bar=False):
         """
         For each class:
             for each column:
@@ -50,9 +51,12 @@ class NaiveBayes():
         Return everything as a dictionary
         """
         g = DF.groupby(by = class_col_name) ## group df by class
+        if progress_bar:
+            g = tqdm(g)
         ## process the following steps for each class
         ClassMats = {} ## dictionary to store MutualInfMatrix for each class
         for klass, frame in g:
+            frame.drop(labels = class_col_name, inplace=True, axis = 1)
             Probs = {} 
             for col, yseries in frame.items():
                 p = CalcMarginalProbs(yseries) ## returns dictionary
@@ -61,7 +65,7 @@ class NaiveBayes():
         return ClassMats
         
         
-    def Predict(self, newdf, logProbs = False):
+    def Predict(self, newdf, logProbs = False, progress_bar=False):
         """
         Takes a new dataframe of values to predict on
         Then for each covariate used to train Naive Bayes, it will iterate
@@ -70,7 +74,10 @@ class NaiveBayes():
         models = self.CondProbs ## dictionary {class: Probs}
         predictions = []
         class_col_name = self.class_col_name
-        for index, row in newdf.iterrows():
+        rows = newdf.iterrows()
+        if progress_bar:
+            rows = tqdm(rows)
+        for index, row in rows:
             results = {}
             newdata = row.to_dict() ## {col: value, col: value, ...}
             for klass, ProbsDict in models.items():
