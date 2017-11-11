@@ -19,12 +19,19 @@ from Plot import PlotDiGraph, PlotNetwork ## plotting
 class TAN():
     def __init__(self, dataframe, class_col_name, maximum=True):
         self.class_col_name = class_col_name
+        self.priors = self.Priors(dataframe, class_col_name)
         colnames = dataframe.columns.tolist()
         colnames.remove(class_col_name)
         self.colnames = colnames
         self.MIresults = self.Train(dataframe) ## a dictionary {class: dataframe}
         self.MST = self.BuildMST()
         self.TreeProbs = self.PruneModel()
+    
+    def Priors(self, dataframe, class_col_name):
+        n = dataframe.shape[0]
+        counts = dataframe[class_col_name].value_counts()
+        priors = (counts / n).to_dict()
+        return priors
         
     def Train(self, dataframe):
         df = dataframe
@@ -123,7 +130,8 @@ class TAN():
             sample = row.to_dict()
             class_probs = {}
             for class_name, tree in TreeProbs.items():
-                LogCondProb = 0
+                prior = self.priors[class_name]
+                LogCondProb = 0 + np.log(prior)
                 for edge, probs in tree.items():
                     u, v = edge ## edge = (u,v)
                     pval = probs.ConditionalProb(sample[u], sample[v])
