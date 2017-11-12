@@ -8,7 +8,8 @@ Created on Sat Jan 21 14:50:32 2017
 
 from tqdm import tqdm
 import numpy as np
-from scipy import stats    
+from Probs import Probs
+#from scipy import stats    
 import pandas as pd
 
 class NaiveBayes():
@@ -27,21 +28,10 @@ class NaiveBayes():
         if priors:
             self.priors = priors
         else:
-            self.priors = CalcMarginalProbs(DF[class_col_name]) ## returns dictionary of priors
+            self.priors = Probs(DF[class_col_name]) ## returns dictionary of priors
         self.classes = DF[class_col_name].unique().tolist()
         self.CondProbs = self.MarginalProbs(DF, class_col_name, progress_bar)
-        
-    
-    def __repr__(self):
-        priors = [f"{i}: {round(j, 4)}" for i,j in self.priors.items()]
-        plines = "\t".join(priors)
-        col = self.class_col_name
-        out = f"""
-        Naive Bayes Model for {col}
-        Priors:
-            {plines}
-        """
-        return out
+
     
     def MarginalProbs(self, DF, class_col_name, progress_bar=False):
         """
@@ -57,11 +47,11 @@ class NaiveBayes():
         ClassMats = {} ## dictionary to store MutualInfMatrix for each class
         for klass, frame in g:
             frame.drop(labels = class_col_name, inplace=True, axis = 1)
-            Probs = {} 
+            Densities = {} 
             for col, yseries in frame.items():
-                p = CalcMarginalProbs(yseries) ## returns dictionary
-                Probs[col] = p ## dictionary in dictionary
-            ClassMats[klass] = Probs ## dict in dict
+                p = Probs(yseries) ## returns dictionary or kde
+                Densities[col] = p ## dictionary in dictionary
+            ClassMats[klass] = Densities ## dict in dict
         return ClassMats
         
         
@@ -81,14 +71,11 @@ class NaiveBayes():
             results = {}
             newdata = row.to_dict() ## {col: value, col: value, ...}
             for klass, ProbsDict in models.items():
-                prior = self.priors[klass]
+                prior = self.priors.Evaluate(klass)
                 logPVals = [np.log(prior)]
                 for col, MargProbs in ProbsDict.items():
                     val = newdata[col] ## extract testing data
-                    try:
-                        p = MargProbs[val]
-                    except KeyError:
-                        p = 0.0001
+                    p = MargProbs.Evaluate(val)
                     logp = np.log(p)
                     logPVals.append(logp)
                 if logProbs:
@@ -103,12 +90,6 @@ class NaiveBayes():
         return predDF
 
 
-
-def CalcMarginalProbs(yseries):
-    vals = yseries.value_counts()
-    n = yseries.shape[0]
-    apriori = (vals / n).to_dict() ## series to dictionary
-    return apriori
 
 
     
