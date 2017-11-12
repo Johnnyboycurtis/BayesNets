@@ -95,6 +95,8 @@ def validateDAG(edges):
     This is important because Probabilties will need to be switched as well.
     P(V = u | U = v) =/= P(V = v | U = u)
     """
+    if len(edges) < 1:
+        print(f"No edges returned to Graph.py {edges}")
     X, Y, weights = list(zip(*edges))
     from1 = []
     to1 = []
