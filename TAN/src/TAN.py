@@ -25,6 +25,8 @@ class TAN():
         self.colnames = colnames
         self.MIresults = self.Train(dataframe, progress_bar = progress_bar) ## a dictionary {class: dataframe}
         self.MST = self.BuildMST()
+        self.Roots = self.FindRoot() ## {class: root name}
+        self.RootProbs = {class_name: Probs(dataframe[root_name].tolist()) for class_name, root_name in self.Roots.items()}
         self.TreeProbs = self.PruneModel()
     
     def Priors(self, dataframe, class_col_name):
@@ -49,8 +51,7 @@ class TAN():
                 vlist = frame[v].tolist()
                 probs = Probs(ulist, vlist) ## calculates all probs
                 MI = probs.CalcMutualInfo()
-                if MI > 0.1: ## causing some errors if MI > 0.5 or something
-                    MutualInfo.append([(u,v), MI, probs])
+                MutualInfo.append([(u,v), MI, probs])
             MutualInfMatrix = pd.DataFrame(MutualInfo, columns = ['Pairs', "MI", "Probs"])
             MutualInfMatrix.sort_values(by = "MI", ascending=False, inplace=True)
             ClassMats[i] = MutualInfMatrix ## store results for current class
@@ -84,6 +85,19 @@ class TAN():
             MST[i] = maxst ## returns list [((u,v), MI, revered-flag), ...]
         return MST
 
+    
+    def FindRoot(self):
+        Roots = {}
+        for klass, vals in self.MST.items():
+            edges = [edge for edge, weight, switch in vals]
+            parents, children = list(zip(*edges))
+            root = [parent for parent in parents if parent not in children]
+            if len(root) > 1:
+                print(f"WARNING: THERE ARE MULTIPLE ROOTS!! {klass}: {root}")
+                print(edges)
+            Roots[klass] = root[0] 
+        return Roots
+            
 
     def PruneModel(self):
         """
@@ -125,6 +139,7 @@ class TAN():
     def Predict(self, newdf, log=False, progress_bar=False):
         TreeProbs = self.TreeProbs
         newcols = newdf.columns.tolist()
+        RootProbs = self.RootProbs
         if self.class_col_name in newcols:
             newdf = newdf.drop(self.class_col_name, axis = 1)
         results = []
@@ -136,7 +151,10 @@ class TAN():
             class_probs = {}
             for class_name, tree in TreeProbs.items():
                 prior = self.priors[class_name]
-                LogCondProb = 0 + np.log(prior)
+                root = self.Roots[class_name]
+                Prob = RootProbs[class_name]
+                pval = Prob.PredMarginalProb(sample[root]) ## get root's new sample
+                LogCondProb = 0 + np.log(prior) + np.log(pval)
                 for edge, probs in tree.items():
                     u, v = edge ## edge = (u,v)
                     pval = probs.ConditionalProb(sample[u], sample[v])

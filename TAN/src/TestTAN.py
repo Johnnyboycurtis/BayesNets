@@ -40,3 +40,7 @@ model = TAN(dataframe = traindf, class_col_name = class_col_name)
 results = model.Predict(testdf)
 accuracy = (testdf.IsDiabetic.values == results.IsDiabetic).mean()
 print(f"TAN accuracy: {round(accuracy, 4)}")
+
+
+
+

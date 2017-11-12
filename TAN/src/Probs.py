@@ -6,12 +6,14 @@ import itertools as it
 class Probs():
     """Class representing probabilities"""
 
-    def __init__(self, ulist, vlist):
+    def __init__(self, ulist, vlist=None):
         """Both ulist and vlist have to be lists"""
-        self.jointprobs = self.JointProb(ulist, vlist) ## order matters! has to come first!
+        if vlist:
+            self.jointprobs = self.JointProb(ulist, vlist) ## order matters! has to come first!
+            self.vprobs = self.MarginalProb(vlist)
+            self.reversed = False ## a flag checking if probs have been reversed
         self.uprobs = self.MarginalProb(ulist)
-        self.vprobs = self.MarginalProb(vlist)
-        self.reversed = False ## a flag checking if probs have been reversed
+        
 
     def __repr__(self):
         return "<Class Probs: P(u), P(v), P(u,v)>"
@@ -70,7 +72,10 @@ class Probs():
         Calculate the (Conditional) Marginal Probability
         Sorts values before doing any calculations
         """
-        datlist.sort() ## sort values before grouping!
+        try:
+            datlist.sort() ## sort values before grouping!
+        except TypeError:
+            print(datlist)
         g = it.groupby(datlist)
         probs = {}
         n = len(datlist)
@@ -118,7 +123,13 @@ class Probs():
             #print(f"{u},{v} were not found in joint probs. Returning 0.0001.")
             condprob = 0.0001
         return condprob
-            
+    
+    def PredMarginalProb(self, value):
+        try:
+            pval = self.uprobs[value]
+        except KeyError:
+            pval = 0.0001
+        return pval
             
         
 
