@@ -14,16 +14,16 @@ from Probs import Probs ## code for calculating joint/marginal probabilities
 from Graph import Graph ## Graph module
 from SimpleGraphPlot import draw_graph
 from Plot import PlotDiGraph, PlotNetwork ## plotting
-
+from tqdm import tqdm
 
 class TAN():
-    def __init__(self, dataframe, class_col_name, maximum=True):
+    def __init__(self, dataframe, class_col_name, maximum=True, progress_bar=False):
         self.class_col_name = class_col_name
         self.priors = self.Priors(dataframe, class_col_name)
         colnames = dataframe.columns.tolist()
         colnames.remove(class_col_name)
         self.colnames = colnames
-        self.MIresults = self.Train(dataframe) ## a dictionary {class: dataframe}
+        self.MIresults = self.Train(dataframe, progress_bar = progress_bar) ## a dictionary {class: dataframe}
         self.MST = self.BuildMST()
         self.TreeProbs = self.PruneModel()
     
@@ -33,22 +33,24 @@ class TAN():
         priors = (counts / n).to_dict()
         return priors
         
-    def Train(self, dataframe):
-        df = dataframe
+    def Train(self, df, progress_bar):
         class_col_name = self.class_col_name
         g = df.groupby(by = class_col_name) ## group df by class
+        if progress_bar:
+            g = tqdm(g)
         colnames = self.colnames
         ## process the following steps for each class
         ClassMats = {} ## dictionary to store MutualInfMatrix for each class
         for i, frame in g:
             colcombos = it.combinations(colnames, 2) ## will return tuples
             MutualInfo = []
-            for u, v in colcombos:
+            for u, v in tqdm(colcombos):
                 ulist = frame[u].tolist()
                 vlist = frame[v].tolist()
                 probs = Probs(ulist, vlist) ## calculates all probs
                 MI = probs.CalcMutualInfo()
-                MutualInfo.append([(u,v), MI, probs])
+                if MI > 0.1: ## causing some errors if MI > 0.5 or something
+                    MutualInfo.append([(u,v), MI, probs])
             MutualInfMatrix = pd.DataFrame(MutualInfo, columns = ['Pairs', "MI", "Probs"])
             MutualInfMatrix.sort_values(by = "MI", ascending=False, inplace=True)
             ClassMats[i] = MutualInfMatrix ## store results for current class
@@ -120,12 +122,15 @@ class TAN():
         return TreeProbs
 
 
-    def Predict(self, newdf, log=False):
+    def Predict(self, newdf, log=False, progress_bar=False):
         TreeProbs = self.TreeProbs
         newcols = newdf.columns.tolist()
         if self.class_col_name in newcols:
             newdf = newdf.drop(self.class_col_name, axis = 1)
         results = []
+        rows = newdf.iterrows()
+        if progress_bar:
+            rows = tqdm(rows)
         for i, row in newdf.iterrows():
             sample = row.to_dict()
             class_probs = {}
