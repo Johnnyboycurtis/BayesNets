@@ -4,7 +4,7 @@ Created on Fri Nov 10 09:16:10 2017
 
 @author: jn107154
 """
-
+import matplotlib.pyplot as plt
 from tqdm import tqdm
 import pandas as pd
 from TAN import TAN
@@ -19,7 +19,7 @@ df = pd.read_csv("../data/chess.csv")
 n = df.shape[0]
 
 power = []
-for x in tqdm(range(2000)):
+for x in tqdm(range(1000)):
     ind = np.random.rand(n) < 0.75
     traindf = df.loc[ind]
     testdf = df.loc[~ind]
@@ -32,6 +32,10 @@ for x in tqdm(range(2000)):
 
 answer = sum(power)/len(power)
 print(f"final answer: {round(answer,4)}")
+
+res = pd.DataFrame(power, columns = ["accuracy"])
+res.hist(bins = 20)
+plt.show()
 
 with open("results.txt", "w+") as myfile:
     for line in power:
