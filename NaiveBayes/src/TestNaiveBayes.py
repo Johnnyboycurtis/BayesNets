@@ -17,7 +17,7 @@ n = df.shape[0]
 
 
 results = []
-for i in tqdm(range(2000)):
+for i in tqdm(range(100)):
     ind = np.random.rand(n) < 0.70
     traindf = df.loc[ind]
     testdf = df.loc[~ind]
