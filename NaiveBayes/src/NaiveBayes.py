@@ -21,6 +21,10 @@ class NaiveBayes():
         class_col_name: column name with outcome variable
         priors: dictionary of prior probabilities for each class
         Will not store dataframe as part of results
+        Calculates:
+            P(Class | data) \propto P(Class)*P(data | Class)
+        This model ignores the denominator; 
+        Denominator is a scaling factor to be ignored.
         """
         self.class_col_name = class_col_name
         self.n = DF.shape[0]
