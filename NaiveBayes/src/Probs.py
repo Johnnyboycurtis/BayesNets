@@ -9,17 +9,19 @@ class Probs():
         dtype = str(yseries.dtype)
         self.dtype = dtype
         if dtype == "float64":
+            self.nonparemetric = nonparemetric
             if nonparemetric:
                 self.kernel = stats.gaussian_kde(yseries)
             else:
-                self.kernel = self.NormalDensity(yseries)
+                self.kernel = NormalPDF(yseries)
         else:
             self.probs = self.CalcMarginalProbs(yseries)
         
 
     def __repr__(self):
+        dtype = self.dtype
         if dtype == "float64":
-            out =  "<Probs: Kernel Density Estimator>"
+            out =  "<Probs: kde>"
         else:
             out = "<Probs: P(u)>"
         return out
@@ -27,16 +29,15 @@ class Probs():
     def __str__(self):
         return "<Class Probs: P(u)>"
 
-    def NormalDensity(self, yseries):
-        m = yseries.mean()
-        sd = yseries.std()
-        kernel = lambda x: dnorm(x, m, sd)
-        return kernel
+    
 
     def Evaluate(self, value):
         dtype = self.dtype
         if dtype == "float64":
-            density = self.kernel(value) 
+            if self.nonparemetric:
+                density = self.kernel(value) 
+            else:
+                self.kernel.dnorm(value)
         else:
             try:
                 density = self.probs[value]
@@ -51,10 +52,17 @@ class Probs():
         probs = (vals / n).to_dict() ## series to dictionary
         return probs
 
-
-def dnorm(x, mean, sd):
+class NormalPDF():
     """
     R-like dnorm function
     """
-    density = stats.norm.pdf(x, loc = mean, scale = sd)
-    return density
+    def __init__(self, yseries):
+        """
+        yseries: Pandas Series or DataFrame
+        """
+        self.mean = yseries.mean()
+        self.sd = yseries.std()
+    
+    def dnorm(self, value):
+        density = stats.norm.pdf(value, loc = self.mean, scale = self.sd)
+        return density

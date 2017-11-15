@@ -10,6 +10,7 @@ from tqdm import tqdm
 import pandas as pd
 import numpy as np
 from NaiveBayes import NaiveBayes
+import pickle
 
 
 #df = pd.read_csv("../../TAN/data/pima.csv", index_col = 0)
@@ -20,7 +21,7 @@ n = df.shape[0]
 
 
 results = []
-for i in tqdm(range(1000)):
+for i in tqdm(range(500)):
     ind = np.random.rand(n) < 0.70
     traindf = df.loc[ind]
     testdf = df.loc[~ind]
@@ -37,5 +38,9 @@ for i in tqdm(range(1000)):
 res = pd.DataFrame(results, columns = ['accuracy'])
 res.hist(bins = 20)
 
+#with open("tmp.pickle", "wb+") as myfile:
+#    pickle.dump(nbmodel, myfile)
+
+#print('delete tmp.pickle')
 plt.show()
 
