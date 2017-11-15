@@ -188,8 +188,10 @@ if __name__ == "__main__":
     #class_col_name = "IsDiabetic"
     #pima = pd.read_csv("../data/Pima.tr.csv")
     #class_col_name = "type"
-    pima = pd.read_csv("../data/chess.csv")
-    class_col_name = "ak"
+    #pima = pd.read_csv("../data/chess.csv")
+    #class_col_name = "ak"
+    pima = pd.read_csv("../data/train.csv") ## digit recognizer data
+    class_col_name = "label"
     n = pima.shape[0]
     ind = np.random.rand(n) < 0.75
     traindf = pima.loc[ind]
