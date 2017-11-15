@@ -51,7 +51,7 @@ class TAN():
         for i, frame in g:
             colcombos = it.combinations(colnames, 2) ## will return tuples
             MutualInfo = []
-            for u, v in tqdm(colcombos):
+            for u, v in colcombos:
                 ulist = frame[u].tolist()
                 vlist = frame[v].tolist()
                 probs = Probs(ulist, vlist) ## calculates all probs
