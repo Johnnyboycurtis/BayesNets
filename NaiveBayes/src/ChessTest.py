@@ -21,7 +21,7 @@ df = pd.read_csv("../../TAN/data/chess.csv")
 n = df.shape[0]
 
 power = []
-for x in tqdm(range(500)):
+for x in tqdm(range(1000)):
     ind = np.random.rand(n) < 0.75
     traindf = df.loc[ind]
     testdf = df.loc[~ind]

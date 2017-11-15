@@ -12,21 +12,24 @@ import numpy as np
 from NaiveBayes import NaiveBayes
 
 
-df = pd.read_csv("../../TAN/data/pima.csv", index_col = 0)
+#df = pd.read_csv("../../TAN/data/pima.csv", index_col = 0)
+#col = 'IsDiabetic'
+df = pd.read_csv("../../TAN/data/Pima.tr.csv")
+col = 'type'
 n = df.shape[0]
 
 
 results = []
-for i in tqdm(range(100)):
+for i in tqdm(range(1000)):
     ind = np.random.rand(n) < 0.70
     traindf = df.loc[ind]
     testdf = df.loc[~ind]
     
-    nbmodel = NaiveBayes(traindf, 'IsDiabetic')
+    nbmodel = NaiveBayes(traindf, col)
     
     testresults = nbmodel.Predict(testdf)
     
-    accuracy = np.mean(testdf['IsDiabetic'].values == testresults['IsDiabetic'])
+    accuracy = np.mean(testdf[col].values == testresults[col])
     #print(accuracy)
     results.append(accuracy)
 

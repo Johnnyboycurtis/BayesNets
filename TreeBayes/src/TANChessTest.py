@@ -19,13 +19,13 @@ df = pd.read_csv("../data/chess.csv")
 n = df.shape[0]
 
 power = []
-for x in tqdm(range(3000)):
+for x in tqdm(range(1000)):
     ind = np.random.rand(n) < 0.75
     traindf = df.loc[ind]
     testdf = df.loc[~ind]
-    model = TAN(dataframe = traindf, class_col_name = class_col_name)
+    model = TAN(dataframe = traindf, class_col_name = class_col_name, progress_bar=False)
     
-    results = model.Predict(testdf)
+    results = model.Predict(testdf, progress_bar=False)
     accuracy = (testdf.ak.values == results.ak).mean()
     power.append(accuracy)
     print(f"TAN accuracy: {round(accuracy, 4)}")
