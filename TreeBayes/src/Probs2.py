@@ -28,24 +28,6 @@ class Probs():
         if self.type == 'Univariate':
             return "<Probs: P(u)>"
     
-    
-    def MarginalProb(self, datlist):
-        """
-        Calculate the (Conditional) Marginal Probability
-        Sorts values before doing any calculations
-        """
-        try:
-            datlist.sort() ## sort values before grouping!
-        except TypeError:
-            print(datlist)
-        g = it.groupby(datlist)
-        probs = {}
-        n = len(datlist)
-        for key, val in g:
-            vlen = len(list(val))
-            probs[key] = vlen / n
-        return probs
-
 
 
     def CalcMutualInfo(self):
