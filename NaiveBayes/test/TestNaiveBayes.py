@@ -5,6 +5,10 @@ Created on Sat Nov 11 12:06:30 2017
 
 @author: jonathan
 """
+
+
+import sys
+sys.path.append("../src/")
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 import pandas as pd
@@ -16,6 +20,7 @@ import pickle
 #df = pd.read_csv("../../TAN/data/pima.csv", index_col = 0)
 #col = 'IsDiabetic'
 df = pd.read_csv("../../TAN/data/Pima.tr.csv")
+print(df.dtypes)
 col = 'type'
 n = df.shape[0]
 

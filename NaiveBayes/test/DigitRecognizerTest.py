@@ -5,6 +5,8 @@ Created on Sat Nov 11 12:06:30 2017
 
 @author: jonathan
 """
+import sys
+sys.path.append("../src/")
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 import pandas as pd

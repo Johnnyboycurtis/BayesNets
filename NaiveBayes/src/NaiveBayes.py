@@ -8,7 +8,8 @@ Created on Sat Jan 21 14:50:32 2017
 
 from tqdm import tqdm
 import numpy as np
-from Probs import Probs
+#from Probs import Probs
+from Probs2 import *
 #from scipy import stats    
 import pandas as pd
 
@@ -34,10 +35,10 @@ class NaiveBayes():
         else:
             self.priors = Probs(DF[class_col_name]) ## returns dictionary of priors
         self.classes = DF[class_col_name].unique().tolist()
-        self.CondProbs = self.MarginalProbs(DF, class_col_name, progress_bar)
+        self.CondProbs = self.TrainNB(DF, class_col_name, progress_bar)
 
     
-    def MarginalProbs(self, DF, class_col_name, progress_bar=False):
+    def TrainNB(self, DF, class_col_name, progress_bar=False):
         """
         For each class:
             for each column:
@@ -50,7 +51,7 @@ class NaiveBayes():
         ## process the following steps for each class
         ClassMats = {} ## dictionary to store MutualInfMatrix for each class
         for klass, frame in g:
-            frame.drop(labels = class_col_name, inplace=True, axis = 1)
+            frame = frame.drop(labels = class_col_name, axis = 1)
             Densities = {} 
             for col, yseries in frame.items():
                 p = Probs(yseries) ## returns dictionary or kde

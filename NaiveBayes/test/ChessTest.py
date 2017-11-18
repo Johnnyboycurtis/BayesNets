@@ -4,7 +4,8 @@ Created on Fri Nov 10 09:16:10 2017
 
 @author: jn107154
 """
-
+import sys
+sys.path.append("../src/")
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 import pandas as pd
@@ -21,7 +22,7 @@ df = pd.read_csv("../../TAN/data/chess.csv")
 n = df.shape[0]
 
 power = []
-for x in tqdm(range(1000)):
+for x in tqdm(range(100)):
     ind = np.random.rand(n) < 0.75
     traindf = df.loc[ind]
     testdf = df.loc[~ind]
