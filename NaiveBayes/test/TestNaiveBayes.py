@@ -17,17 +17,17 @@ from NaiveBayes import NaiveBayes
 import pickle
 
 
-#df = pd.read_csv("../../TAN/data/pima.csv", index_col = 0)
-#col = 'IsDiabetic'
-df = pd.read_csv("../../TAN/data/Pima.tr.csv")
+df = pd.read_csv("../../TAN/data/pima.csv")
+col = 'IsDiabetic'
+#df = pd.read_csv("../../TAN/data/Pima.tr.csv")
 print(df.dtypes)
-col = 'type'
+#col = 'type'
 n = df.shape[0]
 
 
 results = []
-for i in tqdm(range(500)):
-    ind = np.random.rand(n) < 0.70
+for i in tqdm(range(1000)):
+    ind = np.random.rand(n) < 0.75
     traindf = df.loc[ind]
     testdf = df.loc[~ind]
     
