@@ -60,11 +60,21 @@ class NaiveBayes():
         return ClassMats
         
         
-    def Predict(self, newdf, logProbs = False, progress_bar=False):
+    def Predict(self, newdf, logProbs = False, progress_bar=False, response=False):
         """
         Takes a new dataframe of values to predict on
         Then for each covariate used to train Naive Bayes, it will iterate
-        through each row and calculate probabilities for each class
+        through each row and calculate (un-normalized) probabilities for each class
+
+        If `response = True` then appends a column with predicted class.
+        
+        Returns posterior probabilities which can then be normalized into
+        probabilities that sum to 1. Example:
+            P(X = x | Y = y1) = 0.0025
+            P(X = x | Y = y2) = 0.001
+        can be normalized by denominator (0.0025+0.001) 0.0035 to give
+            P*(X = x | Y = y1) = 0.7142857
+            P*(X = x | Y = y2) = 0.2857143
         """
         models = self.CondProbs ## dictionary {class: Probs}
         predictions = []
@@ -91,16 +101,9 @@ class NaiveBayes():
                     results[klass] = pval
             predictions.append(results)
         predDF = pd.DataFrame(predictions)
-        predDF[class_col_name] = predDF.idxmax(axis = 1).values
+        if response:
+            predDF[class_col_name] = predDF.idxmax(axis = 1).values
         return predDF
-
-
-
-
-    
-
-
-
 
 
 
