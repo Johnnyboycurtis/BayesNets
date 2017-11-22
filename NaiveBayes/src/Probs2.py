@@ -1,6 +1,5 @@
 import numpy as np
 from scipy import stats
-import pandas as pd
 
 class Probs():
 
@@ -44,21 +43,18 @@ class PMF():
         """
         Probability Mass Function for Discrete data
         """
-        self.probs = self.CalcMarginalProbs(yseries)
+        self.probs = self.CalcMarginalProbs(yseries.values)
 
     def __getitem__(self, value):
         notfound = 0.0001
         pval = self.probs.get(value, notfound)
         return pval
-
-    def CalcMarginalProbs(self, yseries):
-        #dtype = str(yseries.dtype)
-        #vals = yseries.value_counts()
-        n = yseries.shape[0]
-        vals, counts = np.unique(yseries.values, return_counts=True)
-        prop = counts/n
+    
+    def CalcMarginalProbs(self, array):
+        n = array.shape[0]
+        vals, counts = np.unique(array, return_counts=True)
+        prop = counts/n ## proportions
         probs = dict(zip(vals,prop))
-        #probs = (vals / n).to_dict() ## series to dictionary
         return probs
     
 
