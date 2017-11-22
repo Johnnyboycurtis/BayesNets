@@ -10,14 +10,14 @@ Created on Wed Nov  8 10:28:01 2017
 import pandas as pd
 import itertools as it
 import numpy as np
-#from Probs import Probs ## code for calculating joint/marginal probabilities
-from Probs2 import *
+#from Probs import Probs 
+from Probs2 import Probs ## code for calculating joint/marginal probabilities
 #from Plot import PlotDiGraph, PlotNetwork ## plotting
 from tqdm import tqdm
 import networkx as nx
 
 
-class TAN():
+class DiscreteTAN():
 
     def __init__(self, dataframe, class_col_name, maximum=True, progress_bar=False):
         """
@@ -155,8 +155,13 @@ class TAN():
             
 
 
+
+
 class TreeBayes():
     def __init__(self, priors, TreeModels, class_col_name):
+        """
+        Tree Bayes Classifier for Discrete Data
+        """
         self.class_col_name = class_col_name
         self.priors = priors
         self.TreeModels = TreeModels

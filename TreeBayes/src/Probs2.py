@@ -125,9 +125,6 @@ class Univariate():
 
     def CalcPMF(self, series):
         n = series.shape[0]
-        #counts = dataframe[class_col_name].value_counts()
-        #counts = series.value_counts()
-        #priors = (counts / n).to_dict()
         vals, counts = np.unique(series, return_counts=True)
         prop = counts/n
         probs = dict(zip(vals, prop))
