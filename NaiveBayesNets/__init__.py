@@ -1,3 +1,3 @@
 
 from .NaiveBayes import NaiveBayes
-from .TAN import *
+from .TAN import kdebayes
