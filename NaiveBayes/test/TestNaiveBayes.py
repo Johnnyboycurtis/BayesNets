@@ -26,7 +26,7 @@ n = df.shape[0]
 
 
 results = []
-for i in tqdm(range(1000)):
+for i in tqdm(range(100)):
     ind = np.random.rand(n) < 0.75
     traindf = df.loc[ind]
     testdf = df.loc[~ind]
@@ -34,7 +34,7 @@ for i in tqdm(range(1000)):
     nbmodel = NaiveBayes(traindf, col)
     
     testresults = nbmodel.Predict(testdf)
-    
+    testresults[col] = testresults.idxmax(axis = 1)
     accuracy = np.mean(testdf[col].values == testresults[col])
     #print(accuracy)
     results.append(accuracy)

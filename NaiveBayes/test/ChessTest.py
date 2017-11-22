@@ -22,13 +22,14 @@ df = pd.read_csv("../../TAN/data/chess.csv")
 n = df.shape[0]
 
 power = []
-for x in tqdm(range(100)):
+for x in tqdm(range(1000)):
     ind = np.random.rand(n) < 0.75
     traindf = df.loc[ind]
     testdf = df.loc[~ind]
     model = NaiveBayes(traindf, class_col_name = class_col_name)
     
     results = model.Predict(testdf)
+    results['ak'] = results.idxmax(axis = 1).values
     accuracy = (testdf.ak.values == results.ak).mean()
     power.append(accuracy)
     #print(f"TAN accuracy: {round(accuracy, 4)}")
@@ -40,7 +41,7 @@ res = pd.DataFrame(power, columns = ["accuracy"])
 res.hist(bins = 20)
 plt.show()
 
-with open("results.txt", "w+") as myfile:
-    for line in power:
-        myfile.write(f"{line}\n")
+#with open("results.txt", "w+") as myfile:
+#    for line in power:
+#        myfile.write(f"{line}\n")
 
