@@ -14,13 +14,15 @@ from tqdm import tqdm
 import pandas as pd
 import numpy as np
 from NaiveBayes import NaiveBayes
-import pickle
+#import pickle
 
 
+#df = pd.read_csv("../../TAN/data/chess.csv")
+#col = 'ak'
 df = pd.read_csv("../../TAN/data/pima.csv")
 col = 'IsDiabetic'
 #df = pd.read_csv("../../TAN/data/Pima.tr.csv")
-print(df.dtypes)
+#print(df.dtypes)
 #col = 'type'
 n = df.shape[0]
 
@@ -42,10 +44,11 @@ for i in tqdm(range(100)):
 
 res = pd.DataFrame(results, columns = ['accuracy'])
 res.hist(bins = 20)
+plt.show()
 
 #with open("tmp.pickle", "wb+") as myfile:
 #    pickle.dump(nbmodel, myfile)
 
 #print('delete tmp.pickle')
-plt.show()
+
 
