@@ -1,16 +1,10 @@
-# -*- coding: utf-8 -*-
 """
-Created on Wed Nov  8 10:28:01 2017
-
-@author: jn107154
+@author: Jonathan Navarrete
 """
 
-#import os
-#os.chdir(r"C:\Users\jn107154\BayesNets\TAN\src")
 import pandas as pd
 import itertools as it
 import numpy as np
-#from Probs import Probs 
 from Probs2 import Probs ## code for calculating joint/marginal probabilities
 #from Plot import PlotDiGraph, PlotNetwork ## plotting
 from tqdm import tqdm
@@ -165,6 +159,11 @@ class TreeBayes():
         self.class_col_name = class_col_name
         self.priors = priors
         self.TreeModels = TreeModels
+        
+    def __repr__(self):
+        treemodels = self.TreeModels
+        out = str(treemodels)        
+        return out
 
     def Predict(self, newdf, log=False, progress_bar=False):
         TreeProbs = self.TreeModels

@@ -1,8 +1,5 @@
-# -*- coding: utf-8 -*-
 """
-Created on Tue Nov  7 13:14:47 2017
-
-@author: jn107154
+@author: Jonathan Navarrete
 """
 
 import matplotlib.pyplot as plt

@@ -1,9 +1,7 @@
-# -*- coding: utf-8 -*-
 """
-Created on Fri Nov 10 08:26:20 2017
+@author: Jonathan Navarrete
+"""
 
-@author: jn107154
-"""
 
 import sys
 sys.path.append("../kde/")

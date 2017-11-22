@@ -1,9 +1,5 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
-Created on Sat Nov 18 18:33:07 2017
-
-@author: jonathan
+@author: Jonathan Navarrete
 """
 
 import sys

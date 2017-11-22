@@ -1,9 +1,5 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
-Created on Sat Nov 11 12:06:30 2017
-
-@author: jonathan
+@author: Jonathan Navarrete
 """
 import matplotlib.pyplot as plt
 from tqdm import tqdm

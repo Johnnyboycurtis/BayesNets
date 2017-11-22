@@ -1,8 +1,5 @@
-# -*- coding: utf-8 -*-
 """
-Created on Fri Nov 10 09:16:10 2017
-
-@author: jn107154
+@author: Jonathan Navarrete
 """
 import sys
 sys.path.append("../src/")

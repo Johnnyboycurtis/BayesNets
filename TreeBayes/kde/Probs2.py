@@ -1,6 +1,8 @@
+"""
+@author: Jonathan Navarrete
+"""
 
-#import sys
-#import pandas as pd
+
 import numpy as np
 from scipy import stats
 import itertools as it
