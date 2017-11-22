@@ -33,4 +33,7 @@
 
 See [TAN](http://ai.stanford.edu/~moises/tutorial/sld164.htm) for an example of a Tree Augmented Naive Bayes.
 
+<div align="center">
+  <img src="http://ai.stanford.edu/~moises/tutorial/img164.GIF"><br>
+</div>
 
