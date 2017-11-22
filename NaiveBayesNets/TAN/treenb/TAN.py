@@ -2,18 +2,16 @@
 @author: Jonathan Navarrete
 """
 
-
 import pandas as pd
 import itertools as it
 import numpy as np
-#from Probs import Probs ## code for calculating joint/marginal probabilities
-from Probs2 import Probs
+from .Probs2 import Probs ## code for calculating joint/marginal probabilities
 #from Plot import PlotDiGraph, PlotNetwork ## plotting
 from tqdm import tqdm
 import networkx as nx
 
 
-class KDETAN():
+class DiscreteTAN():
 
     def __init__(self, dataframe, class_col_name, maximum=True, progress_bar=False):
         """
@@ -28,13 +26,13 @@ class KDETAN():
         self.Roots = self.SetRoots()
         self.MST = self.BuildMST()
         self.DAG = self.BuildDAG()
+        #self.Models = self.BuildModel(dataframe) ## now a method
+        
 
     def Priors(self, dataframe, class_col_name):
         n = dataframe.shape[0]
-        array = dataframe[class_col_name].values
-        vals, counts = np.unique(array, return_counts=True)
-        prop = counts/n
-        priors = dict(zip(vals, prop))
+        counts = dataframe[class_col_name].value_counts()
+        priors = (counts / n).to_dict()
         return priors
 
     
@@ -114,7 +112,7 @@ class KDETAN():
         for key, mst in MST.items():
             root = self.Roots[key]
             pred = nx.predecessor(mst, root)
-            #print(pred)
+            print(pred)
             edges = []
             for u, v in pred.items():
                 if len(v) > 0:
@@ -151,8 +149,13 @@ class KDETAN():
             
 
 
+
+
 class TreeBayes():
     def __init__(self, priors, TreeModels, class_col_name):
+        """
+        Tree Bayes Classifier for Discrete Data
+        """
         self.class_col_name = class_col_name
         self.priors = priors
         self.TreeModels = TreeModels
