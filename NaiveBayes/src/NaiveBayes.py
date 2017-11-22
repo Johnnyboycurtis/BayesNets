@@ -8,9 +8,7 @@ Created on Sat Jan 21 14:50:32 2017
 
 from tqdm import tqdm
 import numpy as np
-#from Probs import Probs
-from Probs2 import *
-#from scipy import stats    
+from Probs2 import Probs
 import pandas as pd
 
 class NaiveBayes():
@@ -59,7 +57,7 @@ class NaiveBayes():
             ClassMats[klass] = Densities ## dict in dict
         return ClassMats
         
-        
+
     def Predict(self, newdf, logProbs = False, progress_bar=False, response=False):
         """
         Takes a new dataframe of values to predict on
