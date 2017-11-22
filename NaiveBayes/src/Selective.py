@@ -31,8 +31,7 @@ class SelectiveNB():
         cand.remove(class_col_name)
         
         if init_cols is not None:
-            [cand.remove(col) for col in init_cols]
-            #pred = [init_col]
+            [col for col in init_cols if col not in init_cols]
             pred = init_cols
         else:
             pred = []
@@ -46,15 +45,9 @@ class SelectiveNB():
                 traincols = [col] + pred  + [class_col_name]
                 nbmodel = NaiveBayes(traindf[traincols], class_col_name = class_col_name, progress_bar=False)
                 results = nbmodel.Predict(newdf = testdf, response=False)
-                #print("\n RESULTS:")
-                #restest = results.head()
-                #print(restest, restest.idxmax(axis = 1))
                 testdf['Prediction'] = results.idxmax(axis = 1).values
                 yesdf = testdf.loc[testdf[class_col_name] == xclass]
                 curr_accuracy = (yesdf['Prediction'] == yesdf[class_col_name].values).mean()
-                #print(yesdf[['Prediction', class_col_name]].head())
-                #print((yesdf['Prediction'] == yesdf[class_col_name].values).head())
-                #print(f"{traincols} has accuracy: {curr_accuracy}")
                 if curr_accuracy > prev_accuracy:
                     tests.append((curr_accuracy, list(traincols), col))
             if len(tests) > 0:
@@ -64,14 +57,14 @@ class SelectiveNB():
                 curr_pred.remove(class_col_name)
                 prev_accuracy = curr_accuracy
                 pred = curr_pred
+                predS = " + \n\t".join(pred)
+                print(f"\nCurrent Model: {self.class_col_name} ~ {predS}")
+                print(f"Accuracy: {round(prev_accuracy, 4)}")
+                print("--------------------------------")
             else:
-                print("Algorithm should STOP!!")
-                print(f"Predictors {pred} has accuracy: {prev_accuracy}")
+                print("No Additional Improvements Made\nAlgorithm should STOP!!")
+                print(f"Predictors {pred} has accuracy: {round(prev_accuracy, 4)}")
                 break
-            predS = " + \n\t".join(pred)
-            print(f"\nCurrent Model: {self.class_col_name} ~ {predS}")
-            print(f"Accuracy: {round(prev_accuracy, 4)}")
-            print("--------------------------------")
             #ind = np.random.rand(n) < 0.75
             #traindf = df.loc[ind]
             #testdf = df.loc[~ind]
@@ -87,7 +80,7 @@ ind = np.random.rand(n) < 0.75
 trainpima = pima.loc[ind]
 testpima = pima.loc[~ind]
 
-mytest = SelectiveNB(trainpima, class_col_name, xclass = 1, init_col='Age')
+mytest = SelectiveNB(trainpima, class_col_name, xclass = 1, init_col=['Age'])
 
 nbmodel = mytest.Build(trainpima)
 
