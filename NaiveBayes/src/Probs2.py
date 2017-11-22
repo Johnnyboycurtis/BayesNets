@@ -1,5 +1,6 @@
 import numpy as np
 from scipy import stats
+import pandas as pd
 
 class Probs():
 
@@ -51,10 +52,13 @@ class PMF():
         return pval
 
     def CalcMarginalProbs(self, yseries):
-        dtype = str(yseries.dtype)
-        vals = yseries.value_counts()
+        #dtype = str(yseries.dtype)
+        #vals = yseries.value_counts()
         n = yseries.shape[0]
-        probs = (vals / n).to_dict() ## series to dictionary
+        vals, counts = np.unique(yseries.values, return_counts=True)
+        prop = counts/n
+        probs = dict(zip(vals,prop))
+        #probs = (vals / n).to_dict() ## series to dictionary
         return probs
     
 
