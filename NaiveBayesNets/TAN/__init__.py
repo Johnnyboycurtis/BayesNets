@@ -1,6 +1,3 @@
-#import .kdebayes as kdebayes
-#from .kdebayes import * 
-#import .kdebayes
-
-from . import kdebayes
+from .treenb import TreeNB
+from .kdebayes import KDEBayes
 

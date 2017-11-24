@@ -11,7 +11,7 @@ from tqdm import tqdm
 import networkx as nx
 
 
-class DiscreteTAN():
+class TreeNB():
 
     def __init__(self, dataframe, class_col_name, maximum=True, progress_bar=False):
         """
