@@ -5,9 +5,9 @@
 
 ## Algorithms
 
-1. Classic Naive Bayes
+1. Classic Naive Bayes with Nonparametric Density Estimation
 
-2. Selective Naive Bayes algorithm
+2. Selecive Naive Bayes algorithm (k-fold CV)
 
 3. Tree Augmented Naive Bayes (treenb: discrete data and kdetree: continuous data)
 
