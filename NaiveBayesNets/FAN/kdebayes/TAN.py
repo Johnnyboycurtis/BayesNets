@@ -6,7 +6,7 @@
 import pandas as pd
 import itertools as it
 import numpy as np
-from .Probs2 import Probs ## code for calculating joint/marginal probabilities
+from Probs2 import Probs ## code for calculating joint/marginal probabilities
 #from Plot import PlotDiGraph, PlotNetwork ## plotting
 from tqdm import tqdm
 import networkx as nx
@@ -24,7 +24,7 @@ class KDEBayes():
         colnames.remove(class_col_name)
         self.colnames = colnames
         self.MIresults = self.MutualInfo(dataframe, progress_bar = progress_bar) ## a dictionary {class: dataframe}
-        self.Roots = self.SetRoots()
+        self.Roots = self.SetRoots(dataframe) ## returns name of root
         self.MST = self.BuildMST()
         self.DAG = self.BuildDAG()
 
@@ -70,7 +70,7 @@ class KDEBayes():
         colnames = self.colnames
         colcombos = it.product(class_col_name, colnames)
         MutualInfo = []
-        ulist = dataframe[u]
+        ulist = dataframe[class_col_name]
         for u, v in colcombos:
             vlist = dataframe[v]
             probs = Probs(ulist, vlist)
@@ -79,7 +79,7 @@ class KDEBayes():
         MutualInfo.sort(key = lambda x: x[2], reverse=True) ## descending
         ## top branch
         xclass, root, weight = MutualInfo[0]
-        return 
+        return root
         
         
             
@@ -118,19 +118,33 @@ class KDEBayes():
         #modelprobs = self.MIresults ## dictionary {class: dataframe}
         DAG = {}
         for key, mst in MST.items():
-            root = self.Roots[key]
+            root = self.Root            
             pred = nx.predecessor(mst, root)
             #print(pred)
             edges = []
+            weights = []
             for u, v in pred.items():
                 if len(v) > 0:
                     v = v[0]
+                    edge_data = mst.get_edge_data(u,v)
+                    w = edge_data['weight']
+                    weights.append(w)
                 else:
                     v = None
                 ## U: Child
                 ## V: Parent, thus Parent can be None for Roots
-                edges.append((u,v))
-            DAG[key] = edges
+                edges.append((u,v,w))
+            
+            avgweight = sum(weights)/len(weights)
+            
+            ## new rule:
+            ## If weight is less than avg, break conditional probs
+            final_edges = []
+            for u, v, w in edges:
+                if w <= avgweight:
+                    v = None
+            final_edges.append((u,v))
+            DAG[key] = final_edges
         return DAG
 
 
@@ -150,7 +164,7 @@ class KDEBayes():
                     ## head node will have None
                     vlist = None
                 probs = Probs(ulist, vlist) ## calculates all probs
-                MutualInfo.append((u, v, probs)) ## no longer storing probs to save memory
+                MutualInfo.append((u, v, probs)) 
             MutualInfMatrix = pd.DataFrame(MutualInfo, columns = ['U', 'V', "Probs"])
             ClassMats[klass] = MutualInfMatrix
         return TreeBayes(self.priors, ClassMats, self.class_col_name)
