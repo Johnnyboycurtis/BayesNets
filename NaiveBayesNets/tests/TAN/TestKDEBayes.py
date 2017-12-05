@@ -4,9 +4,10 @@
 
 
 import sys
-sys.path.append("/home/jonathan/BayesNets/")
+sys.path.append("/home/jonathan/BayesNets/NaiveBayesNets/FAN/kdebayes")
 import pandas as pd
-from NaiveBayesNets import TAN
+#from NaiveBayesNets import TAN
+from TAN import KDEBayes
 import numpy as np
 
 ## quick test ##
@@ -24,7 +25,7 @@ n = pima.shape[0]
 ind = np.random.rand(n) < 0.75
 traindf = pima.loc[ind]
 testdf = pima.loc[~ind]
-kdetan = TAN.KDEBayes(traindf, class_col_name) ## learns the tree structure
+kdetan = KDEBayes(traindf, class_col_name) ## learns the tree structure
 treebayes = kdetan.BuildModel(traindf) ## build the tree structure
 results = treebayes.Predict(newdf = testdf)
 accuracy = np.mean(results[class_col_name] == testdf[class_col_name].values)

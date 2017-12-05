@@ -4,13 +4,13 @@
 
 
 import sys
-sys.path.append("/home/jonathan/BayesNets/")
+sys.path.append("/home/jonathan/BayesNets/NaiveBayesNets/FAN/treenb")
 import pandas as pd
-from NaiveBayesNets import TAN
+import TAN
 import numpy as np
 
 ## quick test ##
-np.random.seed(678)
+#np.random.seed(678)
 pima = pd.read_csv("/home/jonathan/BayesNets/NaiveBayesNets/data/chess.csv")
 class_col_name = "ak"
 n = pima.shape[0]
