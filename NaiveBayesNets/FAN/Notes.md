@@ -1,33 +1,9 @@
-I'm working on implementing the Tree Augmented Naive Bayes (TAN) algorithm as described by [Bayesian Network Classifiers](http://www.cs.technion.ac.il/~dang/journal_papers/friedman1997Bayesian.pdf) which directly builds on the [Chow-Liu algorithm](http://www.cs.cmu.edu/~guestrin/Class/15781/recitations/r10/11152007chowliu.pdf) . I have the following question: 
+# Forest Augmented Naive Bayes
 
-- Why does the algorithm use a *maximum* spanning tree vs a *minimum* spanning tree?
-
-The algorithm as described by Friedman et al goes:
-
-1. Compute the (conditional) [mutual information](https://en.wikipedia.org/wiki/Mutual_information#Definition), $I(A_i, A_j | C)$,  between each pair of attributes (predictors)
-
-2. Build a complete undirected graph in which the verticies are the attributes $A_1, A_2, ..., A_n$. Annotate the weight of an edge connecting $A_i \to A_j$ by $I(A_i, A_j | C)$.
-
-3. Build a *maximum* weighted spanning tree
-
-4. Transform the resulting undirected tree to a directed one by choosing a root variable and setting the direction of all edges to be outward from it.
-
-5. Contstruct a TAN model by adding a vertex labeled by $C$ and adding an arc from $C$ to each $A_i$.
-
-The reason for using a TAN model vs. ordinary Naive Bayes model is that the the ordinary Naive Bayes model assumes each attribute is independent of each other, $A_i \perp A_j$. This is of course not realistic. The TAN model tries to overcome this problem by 
-> [augmenting] the naive Bayes structure with edges among the attributes, when needed, thus dispensing its strong assumptions about independence.
-
-> In an augmented struct, an edge from $A_i \to A_j$ implies that the influence of $A_i$ on the assessment of the class variable also depends on the value of $A_j$
+## ABSTRACT
+Naive Bayes has been widely used in data mining as a simple and effective classification algorithm. Since its conditional independence assumption is rarely true, numerous algorithms have been proposed to improve naive Bayes, among which tree augmented naive Bayes (TAN) [3] achieves a significant improvement in term of classification accuracy, while maintaining efficiency and model simplicity. In many real-world data mining applications, however, an accurate ranking is more desirable than a classification. Thus it is interesting whether TAN also achieves significant improvement in term of ranking, measured by AUC(the area under the Receiver Operating Characteristics curve) [8,1]. Unfortunately, our experiments show that TAN performs even worse than naive Bayes in ranking. Responding to this fact, we present a novel learning algorithm, called forest augmented naive Bayes (FAN), by modifying the traditional TAN learning algorithm. We experimentally test our algorithm on all the 36 data sets recommended by Weka [12], and compare it to naive Bayes, SBC [6], TAN [3], and C4.4 [10], in terms of AUC. The experimental results show that our algorithm outperforms all the other algorithms significantly in yielding accurate rankings. Our work provides an effective and efficient data mining algorithm for applications in which an accurate ranking is required.
 
 
-The mutual information measure, $I(A_i, A_j | C) \geq 0$, basically measures how similar two distributions may be. The closer to zero the greater similarity. Given that $I(A_i, A_j | C)$ will act as weights, I'd imagine you would want to use a *minimum* spanning tree, so why does the algorithm specify building a *maximum* spanning tree
-
-
-
-AN UPDATE:
-I think the reason you want to use a maximum spanning tree is because you want to compute the product of *almost* independent attributes...
-If you used the minimum spanning tree, you'd sure be multiplying the most dependent variables, choosing the worst path?
-Let's ask this later
 
 
 
