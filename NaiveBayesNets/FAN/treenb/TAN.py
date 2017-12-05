@@ -21,12 +21,11 @@ class TreeNB():
         self.priors = self.Priors(dataframe, class_col_name)
         colnames = dataframe.columns.tolist()
         colnames.remove(class_col_name)
-        self.colnames = colnames
+        self.colnames = colnames  ## predictors
         self.MIresults = self.MutualInfo(dataframe, progress_bar = progress_bar) ## a dictionary {class: dataframe}
         self.Root = self.SetRoots(dataframe)
         self.MST = self.BuildMST()
-        self.DAG = self.BuildDAG()
-        #self.Models = self.BuildModel(dataframe) ## now a method
+        self.DAG = self.BuildForest()
         
 
     def Priors(self, dataframe, class_col_name):
@@ -62,12 +61,18 @@ class TreeNB():
       
     def SetRoots(self, dataframe):
         """
-        For FAN algorithm, for each attribute, calculate the Mutual Information
-        with the Class variable; this is not the conditional-Mutual Info.
+        FAN algorithm: 
+        
+        1. for each attribute:
+            calculate the Mutual Information with the Class variable;
+                    this is not the conditional-Mutual Info.
+        2. Root = attribute with max(MI)
+        
+        Root is the same for all trees in this version of TAN
         """
         class_col_name = self.class_col_name
         colnames = self.colnames
-        colcombos = it.product(class_col_name, colnames)
+        colcombos = it.product([class_col_name], colnames)
         MutualInfo = []
         ulist = dataframe[class_col_name]
         for u, v in colcombos:
@@ -75,7 +80,8 @@ class TreeNB():
             probs = Probs(ulist, vlist)
             MI = probs.CalcMutualInfo()
             MutualInfo.append((u, v, MI))
-        MutualInfo.sort(key = lambda x: x[2], reverse=True) ## descending
+        MutualInfo.sort(key = lambda x: x[2], reverse=False) ## descending
+        [print(line) for line in MutualInfo] ## test
         ## top branch
         xclass, root, weight = MutualInfo[0]
         return root
@@ -106,19 +112,25 @@ class TreeNB():
 
 
 
-    def BuildDAG(self):
+    def BuildForest(self):
         """
-        From MST build a dag by choosing a column to be a root
+        Using the Maximum Spanning Tree, we will now 'prune' the tree by
+        removed edges where weight (Mutual Info) is less than mean(all_weights)
+        
+        For each class variable we're trying to predict:
+            1. Build DAG with from Maximum Spanning Tree using the root node
+            from self.SetRoots; all edges point away from root.
         """
         MST = self.MST ## dictionary(class: list of tuples)
-        #modelprobs = self.MIresults ## dictionary {class: dataframe}
+        ## Step 1: Build DAG
         DAG = {}
         for key, mst in MST.items():
             root = self.Root            
             pred = nx.predecessor(mst, root)
-            #print(pred)
             edges = []
             weights = []
+            ## U: Child
+            ## V: Parent, thus Parent can be None for Roots
             for u, v in pred.items():
                 if len(v) > 0:
                     v = v[0]
@@ -128,8 +140,6 @@ class TreeNB():
                 else:
                     v = None
                     w = 0
-                ## U: Child
-                ## V: Parent, thus Parent can be None for Roots
                 edges.append((u,v,w))
             
             avgweight = np.mean(weights)
@@ -138,7 +148,7 @@ class TreeNB():
             ## If weight is less than avg, break conditional probs
             final_edges = []
             for u, v, w in edges:
-                if w <= avgweight:
+                if w < avgweight:
                     v = None
             final_edges.append((u,v))
             DAG[key] = final_edges
@@ -214,3 +224,9 @@ class TreeBayes():
         dfresult = pd.DataFrame(results)
         dfresult[self.class_col_name] = dfresult.idxmax(axis=1)
         return dfresult
+
+
+
+
+
+
