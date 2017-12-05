@@ -63,12 +63,18 @@ class KDEBayes():
       
     def SetRoots(self, dataframe):
         """
-        For FAN algorithm, for each attribute, calculate the Mutual Information
-        with the Class variable; this is not the conditional-Mutual Info.
+        FAN algorithm: 
+        
+        1. for each attribute:
+            calculate the Mutual Information with the Class variable;
+                    this is not the conditional-Mutual Info.
+        2. Root = attribute with max(MI)
+        
+        Root is the same for all trees in this version of TAN
         """
         class_col_name = self.class_col_name
         colnames = self.colnames
-        colcombos = it.product(class_col_name, colnames)
+        colcombos = it.product([class_col_name], colnames)
         MutualInfo = []
         ulist = dataframe[class_col_name]
         for u, v in colcombos:
@@ -76,11 +82,11 @@ class KDEBayes():
             probs = Probs(ulist, vlist)
             MI = probs.CalcMutualInfo()
             MutualInfo.append((u, v, MI))
-        MutualInfo.sort(key = lambda x: x[2], reverse=True) ## descending
+        MutualInfo.sort(key = lambda x: x[2], reverse=False) ## descending
+        [print(line) for line in MutualInfo] ## test
         ## top branch
         xclass, root, weight = MutualInfo[0]
         return root
-        
         
             
             
