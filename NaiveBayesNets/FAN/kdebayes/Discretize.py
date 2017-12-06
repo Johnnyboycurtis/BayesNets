@@ -6,10 +6,10 @@ Bin = namedtuple('Bin', ['a', 'b', 'pval'])
 
 def discretize(data, density = True):
     n = len(data)
-    hist = np.histogram(data)
-    edges = list(zip(*hist))
-    edges.sort(key = lambda line: line[1], reverse=False) ## ascending order
-    count, prev = edges.pop(0)
+    Counts, Breaks = np.histogram(data) ## len(Counts) < len(Breaks)
+    Breaks = list(Breaks)
+    prev = Breaks.pop(0)
+    edges = list(zip(Counts, Breaks))
     results = []
     for count, nexxt in edges:
         if density:
@@ -18,7 +18,6 @@ def discretize(data, density = True):
             pval = count
         b = Bin(prev, nexxt, pval)
         results.append(b)
-        print(b)
         prev = nexxt
     return results
 
@@ -60,9 +59,13 @@ class Discretize():
     
     def __getitem__(self, key):
         hist = self.histogram
+        match = None
         for a, b, pval in hist:
             if a <= key and key < b:
-                return (a,b)
+                match = (a,b)
+        if match == None:
+            print(f"ERROR with matches!! {key}")
+        return match
     
 
 
