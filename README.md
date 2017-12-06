@@ -11,7 +11,9 @@
 
 3. Tree Augmented Naive Bayes (treenb: discrete data and kdetree: continuous data)
 
-4. Hierarchical Naive Bayes (in development)
+4. Forest Augmented Naive Bayes (treenb: discrete data and kdetree: continuous data). An "optimized" version of TAN for ranking.
+
+5. Hierarchical Naive Bayes (in development)
 
 
 ## Naive Bayes Usage
