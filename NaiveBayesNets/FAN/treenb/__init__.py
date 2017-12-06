@@ -1,2 +1,2 @@
-from .TAN import TreeNB
+from .FAN import TreeNB
 
