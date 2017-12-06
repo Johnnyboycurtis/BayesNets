@@ -26,7 +26,7 @@ class KDEBayes():
         colnames.remove(class_col_name)
         self.colnames = colnames
         self.MIresults = self.MutualInfo(dataframe, progress_bar = progress_bar) ## a dictionary {class: dataframe}
-        self.Roots = self.SetRoots(dataframe) ## returns name of root
+        self.Root = self.SetRoots(dataframe) ## returns name of root
         self.MST = self.BuildMST()
         self.DAG = self.BuildForest()
 
@@ -81,12 +81,14 @@ class KDEBayes():
         ulist = dataframe[class_col_name]
         for u, v in colcombos:
             vals = dataframe[v]
-            vlist = Discretize(vals) ## convert continuous values to discrete
+            if isinstance(vals, np.float64):
+                vlist = Discretize(vals) ## convert continuous values to discrete
+            else:
+                vlist = vals
             probs = dp.Probs(ulist, vlist)
             MI = probs.CalcMutualInfo()
             MutualInfo.append((u, v, MI))
         MutualInfo.sort(key = lambda x: x[2], reverse=False) ## descending
-        [print(line) for line in MutualInfo] ## test
         ## top branch
         xclass, root, weight = MutualInfo[0]
         return root
@@ -102,10 +104,7 @@ class KDEBayes():
         MST = {}
         
         for i, frame in ClassFrames.items():
-            print(f"\nClass: {i} || Unidirected Graph: ")
-            print("--------------------------------")
-            print(frame.head())
-            print("...")
+
 
             G = nx.Graph()  ## number of unique attributes
             for ind, u, v, mi in frame.itertuples():
@@ -150,14 +149,17 @@ class KDEBayes():
                 edges.append((u,v,w))
             
             avgweight = np.mean(weights)
-            print(avgweight)
             ## new rule:
             ## If weight is less than avg, break conditional probs
             final_edges = []
+            print(f"\nClass: {key} || Directed Graph \n(child <-- parent): ")
+            print("--------------------------------")
             for u, v, w in edges:
                 if w < avgweight:
                     v = None
-            final_edges.append((u,v))
+                final_edges.append((u,v))
+                print(f"{u} <-- {v}")
+
             DAG[key] = final_edges
         return DAG
 
