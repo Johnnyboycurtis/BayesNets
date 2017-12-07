@@ -5,9 +5,9 @@
 
 import sys
 #sys.path.append("C:/Users/jn107154/BayesNets/NaiveBayesNets/FAN/treenb")
-sys.path.append("C:/Users/jn107154/BayesNets/NaiveBayesNets/FAN/kdebayes")
+sys.path.append("C:/Users/jn107154/BayesNets/NaiveBayesNets/HiddenNB")
 import pandas as pd
-#import TAN
+import HiddenNB as h
 import numpy as np
 
 ## quick test ##
@@ -22,12 +22,11 @@ n = df.shape[0]
 ind = np.random.rand(n) < 0.75
 traindf = df.loc[ind]
 testdf = df.loc[~ind]
-#discretetan = TAN.TreeNB(traindf, class_col_name) ## learns the tree structure
-discretetan = TAN.KDEBayes(traindf, class_col_name)
-treebayes = discretetan.BuildModel(traindf) ## build the tree structure
-results = treebayes.Predict(newdf = testdf)
-accuracy = np.mean(results[class_col_name] == testdf[class_col_name].values)
-print(accuracy)
+discretetan = h.KDEBayes(traindf, class_col_name)
+#treebayes = discretetan.BuildModel(traindf) ## build the tree structure
+#results = treebayes.Predict(newdf = testdf)
+#accuracy = np.mean(results[class_col_name] == testdf[class_col_name].values)
+#print(accuracy)
 
 
 

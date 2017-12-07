@@ -6,10 +6,10 @@
 import pandas as pd
 import itertools as it
 import numpy as np
-from Probs2 import Probs ## code for calculating joint/marginal probabilities
+from KDE import Probs ## code for calculating joint/marginal probabilities
 #from Plot import PlotDiGraph, PlotNetwork ## plotting
 from Discretize import Discretize
-import DiscreteProbs as dp
+import Frequency as dp
 from tqdm import tqdm
 import networkx as nx
 
@@ -27,8 +27,8 @@ class KDEBayes():
         self.colnames = colnames
         self.MIresults = self.MutualInfo(dataframe, progress_bar = progress_bar) ## a dictionary {class: dataframe}
         self.Root = self.SetRoots(dataframe) ## returns name of root
-        self.MST = self.BuildMST()
-        self.DAG = self.BuildModel()
+        #self.MST = self.BuildMST()
+        #self.DAG = self.BuildModel()
 
     def Priors(self, dataframe, class_col_name):
         n = dataframe.shape[0]
