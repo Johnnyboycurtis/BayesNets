@@ -6,8 +6,10 @@
 import pandas as pd
 import itertools as it
 import numpy as np
-from .Probs2 import Probs ## code for calculating joint/marginal probabilities
+from Probs2 import Probs ## code for calculating joint/marginal probabilities
 #from Plot import PlotDiGraph, PlotNetwork ## plotting
+from Discretize import Discretize
+import DiscreteProbs as dp
 from tqdm import tqdm
 import networkx as nx
 
@@ -24,9 +26,9 @@ class KDEBayes():
         colnames.remove(class_col_name)
         self.colnames = colnames
         self.MIresults = self.MutualInfo(dataframe, progress_bar = progress_bar) ## a dictionary {class: dataframe}
-        self.Roots = self.SetRoots()
+        self.Root = self.SetRoots(dataframe) ## returns name of root
         self.MST = self.BuildMST()
-        self.DAG = self.BuildDAG()
+        self.DAG = self.BuildModel()
 
     def Priors(self, dataframe, class_col_name):
         n = dataframe.shape[0]
@@ -61,93 +63,84 @@ class KDEBayes():
         return ClassMats
 
       
-    def SetRoots(self):
+    def SetRoots(self, dataframe):
         """
-        After calculating Mutual Info, use the top row to set the root for
-        each MST
-        Use the farthest edge as candidate for root
-        I need to test to see how this affects performance
-        """
-        Roots = {}
-        ClassFrames = self.MIresults
-        for klass, frame in ClassFrames.items():
-            for ind, u, v, mi in frame.itertuples():
-                Roots[klass] = u
-                break
-        return Roots
-            
-            
-    
-    def BuildMST(self):
-        """
-        Uses Networkx to build Maximum Spanning Tree
-        """
-        ClassFrames = self.MIresults        
-        MST = {}
+        FAN algorithm: 
         
-        for i, frame in ClassFrames.items():
-            print(f"\nClass: {i} || Unidirected Graph: ")
-            print("--------------------------------")
-            print(frame.head())
-            print("...")
-
-            G = nx.Graph()  ## number of unique attributes
-            for ind, u, v, mi in frame.itertuples():
-                mi = -1*mi ## -1*mi to build minimum spanning tree
-                G.add_edge(u, v, weight = mi) 
-            ## return Maximum Spanning Tree and switched flag (list)
-            maxst = nx.minimum_spanning_tree(G)
-            MST[i] = maxst
-            ## return dictionary of maximum spanning trees
-        return MST
-
-
-
-    def BuildDAG(self):
+        1. for each attribute:
+            calculate the Mutual Information with the Class variable;
+                    this is not the conditional-Mutual Info.
+        2. Root = attribute with max(MI)
+        
+        Root is the same for all trees in this version of TAN
         """
-        From MST build a dag by choosing a column to be a root
+        class_col_name = self.class_col_name
+        colnames = self.colnames
+        colcombos = it.product([class_col_name], colnames)
+        MutualInfo = []
+        ulist = dataframe[class_col_name]
+        for u, v in colcombos:
+            vals = dataframe[v]
+            if isinstance(vals, np.float64):
+                vlist = Discretize(vals) ## convert continuous values to discrete
+            else:
+                vlist = vals
+            probs = dp.Probs(ulist, vlist)
+            MI = probs.CalcMutualInfo()
+            MutualInfo.append((u, v, MI))
+        MutualInfo.sort(key = lambda x: x[2], reverse=False) ## descending
+        ## top branch
+        xclass, root, weight = MutualInfo[0]
+        return root
+        
+            
+            
+    def BuildModel(self):
+        """
+        Using the Maximum Spanning Tree, we will now 'prune' the tree by
+        removed edges where weight (Mutual Info) is less than mean(all_weights)
+        
+        For each class variable we're trying to predict:
+            1. Build DAG with from Maximum Spanning Tree using the root node
+            from self.SetRoots; all edges point away from root.
         """
         MST = self.MST ## dictionary(class: list of tuples)
-        #modelprobs = self.MIresults ## dictionary {class: dataframe}
+        ## Step 1: Build DAG
         DAG = {}
         for key, mst in MST.items():
-            root = self.Roots[key]
+            root = self.Root            
             pred = nx.predecessor(mst, root)
-            #print(pred)
             edges = []
+            weights = []
+            ## U: Child
+            ## V: Parent, thus Parent can be None for Roots
             for u, v in pred.items():
                 if len(v) > 0:
                     v = v[0]
+                    edge_data = mst.get_edge_data(u,v)
+                    w = -1*edge_data['weight']
+                    weights.append(w)
                 else:
                     v = None
-                ## U: Child
-                ## V: Parent, thus Parent can be None for Roots
-                edges.append((u,v))
-            DAG[key] = edges
+                    w = 0
+                edges.append((u,v,w))
+            
+            avgweight = np.mean(weights)
+            ## new rule:
+            ## If weight is less than avg, break conditional probs
+            final_edges = []
+            print(f"\nClass: {key} || Directed Graph \n(child <-- parent): ")
+            print("--------------------------------")
+            for u, v, w in edges:
+                if w < avgweight:
+                    v = None
+                final_edges.append((u,v))
+                print(f"{u} <-- {v}")
+
+            DAG[key] = final_edges
         return DAG
 
 
-    def BuildModel(self, dataframe):
-        class_col_name = self.class_col_name
-        g = dataframe.groupby(by = class_col_name) ## group df by class
-        DAG = self.DAG
-        ClassMats = {} ## dictionary to store MutualInfMatrix for each class
-        for klass, frame in g:
-            edges = DAG[klass]
-            MutualInfo = []
-            for u, v in edges:
-                ulist = frame[u] #.tolist()
-                if v is not None:
-                    vlist = frame[v] #.tolist()
-                else:
-                    ## head node will have None
-                    vlist = None
-                probs = Probs(ulist, vlist) ## calculates all probs
-                MutualInfo.append((u, v, probs)) ## no longer storing probs to save memory
-            MutualInfMatrix = pd.DataFrame(MutualInfo, columns = ['U', 'V', "Probs"])
-            ClassMats[klass] = MutualInfMatrix
-        return TreeBayes(self.priors, ClassMats, self.class_col_name)
-            
 
 
 class TreeBayes():
