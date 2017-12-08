@@ -27,7 +27,7 @@ class TreeNB():
         self.MST = self.BuildMST()
         self.DAG = self.BuildDAG()
         #self.Models = self.BuildModel(dataframe) ## now a method
-        
+
 
     def Priors(self, dataframe, class_col_name):
         n = dataframe.shape[0]
@@ -35,7 +35,7 @@ class TreeNB():
         priors = (counts / n).to_dict()
         return priors
 
-    
+
     def MutualInfo(self, df, progress_bar):
         class_col_name = self.class_col_name
         g = df.groupby(by = class_col_name) ## group df by class
@@ -51,7 +51,7 @@ class TreeNB():
                 ulist = frame[u] #.tolist() ## Probs2 takes a series
                 vlist = frame[v] #.tolist()
                 probs = Probs(ulist, vlist) ## calculates all probs
-                MI = probs.CalcMutualInfo() 
+                MI = probs.CalcMutualInfo()
                 MutualInfo.append((u, v, MI)) ## no longer storing probs to save memory
             MutualInfMatrix = pd.DataFrame(MutualInfo, columns = ['U', 'V', "MI"])
             MutualInfMatrix.sort_values(by = "MI", ascending=False, inplace=True)
@@ -59,7 +59,7 @@ class TreeNB():
             ClassMats[i] = MutualInfMatrix ## store results for current class
         return ClassMats
 
-      
+
     def SetRoots(self):
         """
         After calculating Mutual Info, use the top row to set the root for
@@ -74,26 +74,26 @@ class TreeNB():
                 Roots[klass] = u
                 break
         return Roots
-            
-            
-    
+
+
+
     def BuildMST(self):
         """
         Uses Networkx to build Maximum Spanning Tree
         """
-        ClassFrames = self.MIresults        
+        ClassFrames = self.MIresults
         MST = {}
-        
+
         for i, frame in ClassFrames.items():
             print(f"\nClass: {i} || Unidirected Graph: ")
             print("--------------------------------")
-            print(frame.head())
+            print(frame)
             print("...")
 
             G = nx.Graph()  ## number of unique attributes
             for ind, u, v, mi in frame.itertuples():
                 mi = -1*mi ## -1*mi to build minimum spanning tree
-                G.add_edge(u, v, weight = mi) 
+                G.add_edge(u, v, weight = mi)
             ## return Maximum Spanning Tree and switched flag (list)
             maxst = nx.minimum_spanning_tree(G)
             MST[i] = maxst
@@ -146,7 +146,7 @@ class TreeNB():
             MutualInfMatrix = pd.DataFrame(MutualInfo, columns = ['U', 'V', "Probs"])
             ClassMats[klass] = MutualInfMatrix
         return TreeBayes(self.priors, ClassMats, self.class_col_name)
-            
+
 
 
 
@@ -159,10 +159,10 @@ class TreeBayes():
         self.class_col_name = class_col_name
         self.priors = priors
         self.TreeModels = TreeModels
-        
+
     def __repr__(self):
         treemodels = self.TreeModels
-        out = str(treemodels)        
+        out = str(treemodels)
         return out
 
     def Predict(self, newdf, log=False, progress_bar=False):
