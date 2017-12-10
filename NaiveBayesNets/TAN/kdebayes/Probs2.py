@@ -5,7 +5,7 @@
 
 import numpy as np
 from scipy import stats
-import itertools as it
+#import itertools as it
 
 class Probs():
 
@@ -90,7 +90,7 @@ class Bivariate():
         Expects two Pandas Series
         """
         values = np.vstack([xseries, yseries])
-        self.probs = stats.gaussian_kde(values)
+        self.probs = stats.gaussian_kde(values, bw_method='silverman')
     
     def __getitem__(self, UV):
         return self.probs(UV)
@@ -108,7 +108,7 @@ class Univariate():
         """
         Expects a Pandas Series
         """
-        self.probs = stats.gaussian_kde(series)
+        self.probs = stats.gaussian_kde(series, bw_method='silverman')
     
     def __getitem__(self, u):
         return self.probs(u)

@@ -89,7 +89,7 @@ class KDEBayes():
         for i, frame in ClassFrames.items():
             print(f"\nClass: {i} || Unidirected Graph: ")
             print("--------------------------------")
-            print(frame.head())
+            print(frame)
             print("...")
 
             G = nx.Graph()  ## number of unique attributes
