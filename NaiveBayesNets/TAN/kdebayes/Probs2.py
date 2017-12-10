@@ -121,6 +121,19 @@ class Univariate():
    
         
 
+
+
+def CalcMutualInfo(x, y, bins=17):
+    counts_xy, xbins, ybins = np.histogram2d(x, y, bins)
+    #print(counts_xy)
+    #counts_xy == len(x) == len(y)
+    g, p, dof, expected = stats.chi2_contingency(counts_xy, lambda_="log-likelihood")
+    mi = 0.5 * g / counts_xy.sum()
+    return mi
+
+
+
+
 """
 import pandas as pd
 n = 100

@@ -6,7 +6,7 @@
 import pandas as pd
 import itertools as it
 import numpy as np
-from .Probs2 import Probs ## code for calculating joint/marginal probabilities
+from .Probs2 import Probs, CalcMutualInfo ## code for calculating joint/marginal probabilities
 #from Plot import PlotDiGraph, PlotNetwork ## plotting
 from tqdm import tqdm
 import networkx as nx
@@ -53,6 +53,7 @@ class KDEBayes():
                 vlist = frame[v] #.tolist()
                 probs = Probs(ulist, vlist) ## calculates all probs
                 MI = probs.CalcMutualInfo() 
+                #MI = CalcMutualInfo(ulist, vlist, bins = 10) ## test line (TEMPORARY)
                 MutualInfo.append((u, v, MI)) ## no longer storing probs to save memory
             MutualInfMatrix = pd.DataFrame(MutualInfo, columns = ['U', 'V', "MI"])
             MutualInfMatrix.sort_values(by = "MI", ascending=False, inplace=True)
